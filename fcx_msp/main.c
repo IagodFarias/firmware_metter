@@ -6,9 +6,9 @@
  * @section license
  *          FAE Tecnologia. All rights reserved
  ******************************************************************************/
-#include <brush.h>
 #include <stdint.h>
 
+#include "brush.h"
 #include "hal.h"
 #include "probe.h"
 #include "cmdmng.h"
@@ -122,52 +122,33 @@ void main(void)
         // Update system tick
         systick_updateSysTickMs();
 
-#if CONFIG_PULSE_ENABLED
-        // For the wake ups caused by pulsemng
-        bool b_pulseIsActive = pulsemng_isActive();
+        // Update processing
+        proc_update();
 
-        if (!b_pulseIsActive)
-        {
+        // Start optint
+        optint_start();
 
-#endif /* CONFIG_PULSE_ENABLED */
+        // Trigger analog conversion
+        anasens_startConversion();
 
-            // Update processing
-            proc_update();
+        // Dispatch any previously command received
+        cmdmng_fetch();
+        cmdmng_dispatch();
+        // Update analog sensors
+        anasens_update();
+        optint_update();
+        batt_update();
+        userint_update();
 
-            // Start optint
-            optint_start();
-
-            // Trigger analog conversion
-            anasens_startConversion();
-
-            // Dispatch any previously command received
-            cmdmng_fetch();
-            cmdmng_dispatch();
-            // Update analog sensors
-            anasens_update();
-            optint_update();
-            batt_update();
-            userint_update();
-
-            // Update operating mode manager
-            opmodemng_update();
-
-            // Update pulse manager
-            pulsemng_update();
-
-#if CONFIG_PULSE_ENABLED
-
-        }
-        else
-        {
-            // Update pulse manager
-            pulsemng_update();
-        }
-#endif /* CONFIG_PULSE_ENABLED */
+        // Update operating mode manager
+        opmodemng_update();
 
         // Update Screen
         screenmng_update();
-        while(screenmng_isBusy());
+        //while(screenmng_isBusy());
+
+        // Update pulse manager
+        pulsemng_update();
 
         power_enterSleep();
     }

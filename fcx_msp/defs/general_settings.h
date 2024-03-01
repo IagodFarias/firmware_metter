@@ -119,7 +119,7 @@
 /**
  * Enable mock flow rate to processing module
  */
-#define DEBUG_PROC_FLOWRATE                                 0
+#define DEBUG_PROC_FLOWRATE                                 1
 #define DEBUG_FLOWRATE                                      0
 
 #define DEBUG_NORMAL                                        1

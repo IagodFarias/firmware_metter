@@ -69,7 +69,7 @@
 //*****************************************************************************
 // NOTE: Rather than enabling here, the enable is controlled in
 // CAPT_CommConfig.
-//#define FUNCTIONTIMER__ENABLE				(true)
+#define FUNCTIONTIMER__ENABLE				                            (true)
 
 
 //*****************************************************************************
@@ -78,7 +78,7 @@
 //! Timer_A instance used by the serial driver.
 //
 //*****************************************************************************
-#define FUNCTIONTIMER__PERIPHERAL	(TIMER_A2_BASE)
+#define FUNCTIONTIMER__PERIPHERAL	                            (TIMER_A3_BASE)
 
 //*****************************************************************************
 //
@@ -102,7 +102,7 @@
 //! for the function timer Timer_A instance.
 //
 //*****************************************************************************
-#define FUNCTIONTIMER__EXDIVIDER	                                 (TAIDEX_0)
+#define FUNCTIONTIMER__EXDIVIDER	                                (TAIDEX__1)
 
 //*****************************************************************************
 //

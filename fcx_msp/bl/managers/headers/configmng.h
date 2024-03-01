@@ -127,7 +127,7 @@
     .s_ultrasonic                   = US_CONFIG_ALL_DEFAULT,                    \
     .s_pulse =                                                                  \
     {                                                                           \
-        .d_pulsesPerCubicMeter      = 10.0                                      \
+        .d_pulsesPerCubicMeter      = 100.0                                      \
     },                                                                          \
     .s_screen =                                                                 \
     {                                                                           \
