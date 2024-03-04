@@ -64,6 +64,8 @@ void power_init(void)
 
 #ifndef __SVSH_ENABLE__
     PMM_disableSVSH();
+#else
+    PMM_enableSVSH();
 #endif
 
     ge_wakeupConfig = (e_power_wakeup_t) 0;
