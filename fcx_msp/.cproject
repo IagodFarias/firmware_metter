@@ -46,7 +46,7 @@
 									<listOptionValue builtIn="false" value="__USS_RUN_ALG_FROM_RAM__"/>
 									<listOptionValue builtIn="false" value="__TI_TIME_USES_64=1"/>
 									<listOptionValue builtIn="false" value="__WATCHDOG_ENABLE__"/>
-									<listOptionValue builtIn="false" value="__SVSH_ENABLE__"/>
+									<listOptionValue builtIn="false" value="__SVSH_ENABLE__=1"/>
 									<listOptionValue builtIn="false" value="xDEBUG_CLOCK_CORRECTION"/>
 									<listOptionValue builtIn="false" value="__ENABLE_LPM__=0x01"/>
 									<listOptionValue builtIn="false" value="__EXTRA_VERSION__=0x00,0x01"/>
@@ -102,7 +102,7 @@
 									<listOptionValue builtIn="false" value="${DRIVERLIB_ROOT}"/>
 									<listOptionValue builtIn="false" value="${CG_TOOL_ROOT}/include"/>
 								</option>
-								<option id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.ADVICE__POWER.318652735" name="Enable checking of ULP power rules (--advice:power)" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.ADVICE__POWER" value="&quot;3,6&quot;" valueType="string"/>
+								<option id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.ADVICE__POWER.318652735" name="Enable checking of ULP power rules (--advice:power)" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.ADVICE__POWER" value="&quot;all&quot;" valueType="string"/>
 								<option id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.DEBUGGING_MODEL.1112160680" name="Debugging model" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.DEBUGGING_MODEL" value="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.DEBUGGING_MODEL.SYMDEBUG__DWARF" valueType="enumerated"/>
 								<option id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.SYMDEBUG__DWARF_VERSION.1634173559" name="Specify DWARF version (--symdebug:dwarf_version)" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.SYMDEBUG__DWARF_VERSION" value="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.SYMDEBUG__DWARF_VERSION.4" valueType="enumerated"/>
 								<option id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.C_DIALECT.1755485657" name="C Dialect" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.C_DIALECT" value="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.C_DIALECT.C11" valueType="enumerated"/>
