@@ -66,7 +66,6 @@
 
 void main(void)
    {
-
     // Initializes the basic functionality of the system
     hal_init();
 
@@ -145,7 +144,6 @@ void main(void)
 
         // Update Screen
         screenmng_update();
-        //while(screenmng_isBusy());
 
         // Update pulse manager
         pulsemng_update();

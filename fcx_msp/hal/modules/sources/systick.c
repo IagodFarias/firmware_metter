@@ -50,7 +50,6 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-static bool setAsyncWakeUp(void);
 static bool isValidDateTime(struct tm *ps_date);
 
 /*******************************************************************************
@@ -136,32 +135,6 @@ bool systick_setActualDateTime(struct tm *ps_calendar)
 /*******************************************************************************
  * Private Functions
  ******************************************************************************/
-static bool setAsyncWakeUp(void)
-{
-    bool b_asyncWakeUp = true;
-
-    // check asynchronous wake already done
-    if(gui_asyncWakeUp == gui_wakeUpIntMs)
-    {
-        gui_wakeUpIntMs = gui_syncWakeUp - gui_asyncWakeUp;
-
-        // Clear asynchronous wake up request
-        gui_asyncWakeUp = 0;
-    }
-    // Check new asynchronous wake
-    else if(gui_asyncWakeUp)
-    {
-        // Update the next wakeUp
-        gui_wakeUpIntMs = gui_asyncWakeUp;
-    }
-    else
-    {
-        b_asyncWakeUp = false;
-    }
-
-    return b_asyncWakeUp;
-}
-
 static bool isValidDateTime(struct tm *ps_date)
 {
     bool b_ret = true;

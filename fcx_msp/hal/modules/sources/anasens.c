@@ -17,6 +17,10 @@
 #include "adc12_b.h"
 #include "ref_a.h"
 
+#define BATT_V_SENSE_PORT                       GPIO_PORT_P2
+#define BATT_V_SENSE_PIN                        GPIO_PIN3
+#define BATT_V_ENABLE_PIN                       GPIO_PIN2
+
 #if DEBUG_ANASENS
 #include "serial.h"
 #include "systick.h"
@@ -152,7 +156,7 @@ void anasens_startConversion(void)
          * For memory buffers 8-15 sample/hold for 64 clock cycles (5.9us - 8us using MODOSC)
          * Disable Multiple Sampling
          */
-        ADC12_B_setupSamplingTimer(ADC12_B_BASE, ADC12_B_CYCLEHOLD_16_CYCLES,
+        ADC12_B_setupSamplingTimer(ADC12_B_BASE, ADC12_B_CYCLEHOLD_4_CYCLES,
                 ADC12_B_CYCLEHOLD_16_CYCLES, ADC12_B_MULTIPLESAMPLESENABLE);
 
         /*
@@ -180,7 +184,7 @@ void anasens_startConversion(void)
          * Use the single-channel, single-conversion mode
          */
         ADC12_B_startConversion(ADC12_B_BASE, ADC12_B_START_AT_ADC12MEM0,
-            ADC12_B_SINGLECHANNEL);
+               ADC12_B_SINGLECHANNEL);
     }
 }
 
@@ -202,23 +206,29 @@ void anasens_update(void)
         giq19_batteryInputValue = getVccSenseVoltage();
     }
 
-    // Disable ADC
-    disableAdc();
-
 #if DEBUG_ANASENS
 
     uint16_t adc_mv = ADC12_B_getResults(ADC12_B_BASE,
             ANASENSE_LIGHT_SENSE_MEM_MAP);
     printf("(ANASENS): Optical Input: %uV\n", adc_mv);
 
+
     //printf("(ANASENS): Optical Input: %.3fV\n", _IQ19toF(giq19_opticalInputVoltage));
 
 
     if(gb_isBatteryInputEnabled)
     {
-        printf("(ANASENS): Battery Input: %.3fV\n", _IQ19toF(giq19_batteryInputValue));
+
+        uint16_t adc_mv = ADC12_B_getResults(ADC12_B_BASE,
+                ANASENSE_VCC_SENSE_MEM_MAP);
+        printf("(ANASENS): Battery Input: %uV\n", adc_mv);
+
     }
 #endif
+
+    // Disable ADC
+    disableAdc();
+
 }
 
 /**
@@ -285,7 +295,7 @@ static uint32_t getVccSenseVoltage(void)
 
     // Maximum count (4096) is equal to 2.5V,
     // but since the Vin is divided by 2.5, then the maximum is 5V (5000mV)
-    adc_mv = (uint32_t) 5000 * (uint32_t) adc_mv / (uint32_t) 4096;
+    //adc_mv = (uint32_t) 5000 * (uint32_t) adc_mv / (uint32_t) 4096;
 
     return convertAdcToIQ19V(adc_mv);
 }

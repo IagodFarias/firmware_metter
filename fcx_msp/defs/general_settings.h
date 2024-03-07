@@ -119,7 +119,7 @@
 /**
  * Enable mock flow rate to processing module
  */
-#define DEBUG_PROC_FLOWRATE                                 1
+#define DEBUG_PROC_FLOWRATE                                 0
 #define DEBUG_FLOWRATE                                      0
 
 #define DEBUG_NORMAL                                        1
@@ -166,9 +166,9 @@
 #define DEBUG_COMM                                          0
 
 /*
- * Enable DEBUG anasense
+ * Enable DEBUG analog sense
  */
-#define DEBUG_ANASENS                                       0
+#define DEBUG_ANASENS                                       1
 
 /*
  * Enable DEBUG_OPTINT
@@ -203,7 +203,7 @@
 /*
  * DEBUG_BATT
  */
-#define DEBUG_BATT                                          0
+#define DEBUG_BATT                                          1
 
 /*
  * DEBUG_REV_INSTALL
@@ -232,11 +232,11 @@
 
 #if (DEBUG_PROBE_VERIF  || DEBUG_PROBE_NORMAL   || DEBUG_PRINT_CONST    ||   \
     DEBUG_PRINT_CONFIG  || DEBUG_PRINT_ULOOP    || DEBUG_PRINT_OPTCOMM  ||   \
-    DEBUG_OPTINT        || DEBUG_ANASENS        || DEBUG_USERINT        ||   \
+    DEBUG_OPTINT        /*|| DEBUG_ANASENS  */      || DEBUG_USERINT        ||   \
     DEBUG_LOGGER        || DEBUG_SCREENMNG      || DEBUG_PROC_FLOWRATE  ||   \
     DEBUG_ALARMMNG      || DEBUG_BRUSH          || DEBUG_BATT           ||   \
     DEBUG_REV_INSTALL   || DEBUG_NO_USAGE       || DEBUG_TEMP           ||   \
-    DEBUG_FRAUD || DEBUG_NORMAL || DEBUG_FW_INTEGRITY)
+    DEBUG_FRAUD )//|| DEBUG_NORMAL || DEBUG_FW_INTEGRITY)
 #define DEBUG_SERIAL                                        0
 #define DEBUG                                               1
 #else

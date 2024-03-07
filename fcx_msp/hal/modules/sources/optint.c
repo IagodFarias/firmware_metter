@@ -62,7 +62,7 @@
 #define OPTINT_UART_BAUDRATE                    (9600)
 
 /** Optint receive timeout in milliseconds. */
-#define OPTINT_RECEIVE_TIMEOUT_MS               10
+#define OPTINT_RECEIVE_TIMEOUT_MS               20
 #define OPTINT_TIMEOUT_RX                       HAL_SYS_MSDELAY_ACLK(OPTINT_RECEIVE_TIMEOUT_MS)
 #define OPTINT_TIMER_MAX_DELAY                  65535
 
@@ -82,7 +82,7 @@ STATIC INLINE void enableOpticalCircuit(bool b_enable);
 STATIC INLINE void enableTxCircuit(bool b_enable);
 //void enableRxCircuit(bool b_enable);
 STATIC INLINE bool isTransmitting();
-STATIC void configUsart(void);
+//STATIC void configUsart(void);
 STATIC void enableUsart(void);
 STATIC void disableUsart(void);
 static void setTimeoutOptInt(uint64_t ull_timeout);
@@ -99,8 +99,8 @@ static const s_lut_coordinate_iq_t gas_percThreshold[OPTINT_PERC_THRES_LUT_SIZE]
     {_IQ19(2300.0), _IQ19(0.995)},
     {_IQ19(2500.0), _IQ19(0.95)},
     {_IQ19(2800.0), _IQ19(0.9)},
-    {_IQ19(3000.0), _IQ19(0.8)},
-    {_IQ19(3200.0), _IQ19(0.7)},
+    {_IQ19(3000.0), _IQ19(0.9)},
+    {_IQ19(3200.0), _IQ19(0.9)},
     {_IQ19(3400.0), _IQ19(0.9)},
     {_IQ19(3750.0), _IQ19(0.95)},
     {_IQ19(4000.0), _IQ19(0.995)}
@@ -184,7 +184,7 @@ void optint_init(void)
 
 #if CONFIG_OPTCOMM_ENABLED
     // Config UART
-    configUsart();
+    //configUsart();
 #endif
 
     // Initialize state variable
@@ -611,6 +611,8 @@ void enableRxCircuit(bool b_enable)
     }
     else
     {
+       Timer_A_stop(TIMER_A4_BASE);
+
        GPIO_disableInterrupt(OPTINT_UART_PORT, OPTINT_UART_RX_PIN);
 
        // Set IR_EN1 to LOW Level
@@ -908,10 +910,10 @@ STATIC void disableUsart(void)
     //GPIO_setOutputHighOnPin(OPTINT_UART_PORT, OPTINT_UART_RX_PIN);
     GPIO_setOutputLowOnPin(OPTINT_UART_PORT, OPTINT_UART_TX_PIN);
 
-    EUSCI_A_UART_clearInterrupt(OPTINT_UART_ADDR,
-                                EUSCI_A_UART_RECEIVE_INTERRUPT_FLAG);
+    //EUSCI_A_UART_clearInterrupt(OPTINT_UART_ADDR,
+                                //EUSCI_A_UART_RECEIVE_INTERRUPT_FLAG);
 
-    EUSCI_A_UART_disable (OPTINT_UART_ADDR);
+    //EUSCI_A_UART_disable (OPTINT_UART_ADDR);
 }
 
 static void setTimeoutOptInt(uint64_t ull_timeout)

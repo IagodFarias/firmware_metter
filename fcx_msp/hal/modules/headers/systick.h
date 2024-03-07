@@ -24,7 +24,7 @@
 #define SYSTICK_WAKE_UP_INT_MS_MAX_INT          65535U
 
 /** Default wake up interval. */
-#define SYSTICK_WAKE_UP_INT_MS_DEFAULT_INT      500U
+#define SYSTICK_WAKE_UP_INT_MS_DEFAULT_INT      1000U
 
 /** Code for invalid tick code.*/
 #define SYSTICK_INVALID_TICK                    0xFFFFFFFFFFFFFFFFUL

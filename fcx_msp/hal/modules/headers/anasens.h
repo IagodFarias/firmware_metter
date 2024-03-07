@@ -24,6 +24,7 @@ void anasens_startConversion(void);
 void anasens_update(void);
 void anasens_enableBatteryInput(void);
 void anasens_disableBatteryInput(void);
+
 uint32_t anasens_getOpticalInputVoltage(void);
 uint16_t anasens_getBatteryInputVoltage(void);
 
