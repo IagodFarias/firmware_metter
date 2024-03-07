@@ -91,6 +91,10 @@ void opmodemng_init(void)
 
 
 #if DEBUG_NORMAL
+            opmodemng_setCalibrationFlag(true);
+            opmodemng_setActivationFlag(true);
+            opmodemng_setPreviousOpMode(E_OPMODE_NORMAL);
+            opmodemng_setCurrentOpMode(E_OPMODE_NORMAL);
             ge_currentOpMode = E_OPMODE_NORMAL;
             ge_previousOpMode = E_OPMODE_NORMAL;
             normal_init();
@@ -172,11 +176,7 @@ void opmodemng_update(void)
         case E_OPMODE_PRE_CALIBRATION:
 
             // Run pre-calibration operating mode
-#if DEBUG_NORMAL
-            normal_run();
-#else
             precalib_run();
-#endif
         break;
 
         case E_OPMODE_CALIBRATION:
@@ -201,7 +201,7 @@ void opmodemng_update(void)
                     opmodemng_setCurrentOpMode(E_OPMODE_STANDBY);
                 }
             }
-            break;
+        break;
 
         case E_OPMODE_STANDBY:
 
@@ -229,9 +229,8 @@ void opmodemng_update(void)
                 opmodemng_setCurrentOpMode(E_OPMODE_COMMUNICATION);
             }
 #endif /* CONFIG_OPTCOMM_ENABLED */
-            break;
+        break;
 
-        default:
         case E_OPMODE_NORMAL:
             // Run normal operating mode
             normal_run();
@@ -264,7 +263,7 @@ void opmodemng_update(void)
             if(verif_testChangeToNormalOpmode())
             {
                 // Initialize normal operating mode
-                normal_init();
+            normal_init();
 
                 // Update FSM state
                 opmodemng_setCurrentOpMode(E_OPMODE_NORMAL);
@@ -272,7 +271,7 @@ void opmodemng_update(void)
 #if CONFIG_OPTCOMM_ENABLED
             else if(verif_testChangeToCommOpmode())
             {
-                // Initialize communication operating mode
+            // Initialize communication operating mode
                 comm_init();
 
                 // Update FSM state
@@ -316,6 +315,9 @@ void opmodemng_update(void)
                 // Update FSM state
                 opmodemng_setCurrentOpMode(ge_previousOpMode);
             }
+            break;
+
+        default:
             break;
 #endif /* CONFIG_OPTCOMM_ENABLED */
     }

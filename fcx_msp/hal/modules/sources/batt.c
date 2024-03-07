@@ -30,13 +30,13 @@
 
 #if DEBUG
 /** Battery detection interval. */
-#define BATT_DETECTION_INT_MS                   1000ULL
+#define BATT_DETECTION_INT_MS                   10000ULL
 #else
 /** Battery detection interval. */
 #define BATT_DETECTION_INT_MS                   3600000ULL
 #endif
 /** Battery detection threshold. */
-#define BATT_DETECTION_THRESHOLD                3200
+#define BATT_DETECTION_THRESHOLD                3450
 
 /** Battery alarm maximum interval from INMETRO(180 days). */
 #define BATT_MAX_INTERVAL_IN_DAYS               180
@@ -75,6 +75,7 @@ static void calculateLowBattDate(void);
  ******************************************************************************/
 static bool gb_isBatteryLow;
 static time_t gs_dateAlarm;
+static uint32_t gul_batteryDetectionCounter;
 
 /*******************************************************************************
  * Public functions
@@ -89,24 +90,30 @@ void batt_init(void)
 
 void batt_update(void)
 {
-    struct tm *ps_actualDateTime = systick_getActualDateTime();
+    if(gul_batteryDetectionCounter > BATT_DETECTION_INT_MS){
+        gul_batteryDetectionCounter = 0;
+        struct tm *ps_actualDateTime = systick_getActualDateTime();
 
-#if DEBUG_BATT
-    mktime(ps_actualDateTime);
+    #if DEBUG_BATT
+        mktime(ps_actualDateTime);
 
-    printf("(BATT): Now is %02d/%02d/%02d.\n",
-            ps_actualDateTime->tm_mday, ps_actualDateTime->tm_mon + 1,
-            ps_actualDateTime->tm_year - 100);
-#endif /* DEBUG_BATT */
+        printf("(BATT): Now is %02d/%02d/%02d.\n",
+                ps_actualDateTime->tm_mday, ps_actualDateTime->tm_mon + 1,
+                ps_actualDateTime->tm_year - 100);
+    #endif /* DEBUG_BATT */
 
-    gb_isBatteryLow =
-            difftime(mktime(ps_actualDateTime), gs_dateAlarm) > 0 ? true : false;
+        gb_isBatteryLow =
+                difftime(mktime(ps_actualDateTime), gs_dateAlarm) > 0 ? true : false;
 
-#if 0
-    mktime(ps_actualDateTime);
+    #if DEBUG_BATT
+        mktime(ps_actualDateTime);
 
-    printf("(BATT): gb_isBatteryLow is %d.\n",(int) gb_isBatteryLow);
-#endif /* DEBUG_BATT */
+        printf("(BATT): gb_isBatteryLow is %d.\n",(int) gb_isBatteryLow);
+    #endif /* DEBUG_BATT */
+    }
+    else{
+        gul_batteryDetectionCounter += systick_getWakeUpIntMs();
+    }
 }
 
 bool batt_isLow(void)

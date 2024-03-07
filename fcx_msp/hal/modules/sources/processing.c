@@ -296,7 +296,7 @@ double_t proc_configReadSamplingRate(void)
     return gd_samplingRate;
 }
 
-void proc_update()
+void proc_update(void)
 {
     if (gb_enableProcessing)
     {
