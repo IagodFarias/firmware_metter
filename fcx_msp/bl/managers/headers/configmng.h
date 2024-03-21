@@ -127,7 +127,7 @@
     .s_ultrasonic                   = US_CONFIG_ALL_DEFAULT,                    \
     .s_pulse =                                                                  \
     {                                                                           \
-        .d_pulsesPerCubicMeter      = 100.0                                      \
+        .d_pulsesPerCubicMeter      = 10.0                                      \
     },                                                                          \
     .s_screen =                                                                 \
     {                                                                           \
@@ -135,7 +135,7 @@
     },                                                                          \
     .s_logger =                                                                 \
     {                                                                           \
-        .uc_interval                = E_LOGGER_CONFIG_INTERVAL_15MIN,           \
+        .uc_interval                = E_LOGGER_CONFIG_INTERVAL_DISABLED,        \
         .uc_param                   = 0                                         \
     },                                                                          \
     .s_wmbus =                                                                  \
@@ -296,8 +296,8 @@ typedef struct S_SYS_CONFIG
     /** wM-Bus configuration */
     s_wmbus_config_t s_wmbus; // 26 bytes
     /** Alarms configuration */
-    s_alarms_config_t s_alarms; // 3 bytes
-} s_sys_config_t; //total  = 654
+    s_alarms_config_t s_alarms; // 11 bytes
+} s_sys_config_t; //total  = 665
 
 /** Application configuration structure. */
 typedef struct S_APP_CONFIG

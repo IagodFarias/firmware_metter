@@ -80,7 +80,7 @@
 /** Build: WM-Bus=N ; Pulse=Y ; Logger=Y ; Optcomm=Y ; Fraud=Y */
 #define CONFIG_VERSION_BUILD                        7
 
-#elif 1 || CONFIG_WMBUS_ENABLED && !CONFIG_PULSE_ENABLED &&                         \
+#elif CONFIG_WMBUS_ENABLED && !CONFIG_PULSE_ENABLED &&                         \
     CONFIG_LOGGER_ENABLED && CONFIG_OPTCOMM_ENABLED &&                         \
     CONFIG_FRAUD_ENABLED
 

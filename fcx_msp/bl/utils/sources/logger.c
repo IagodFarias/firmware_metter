@@ -74,7 +74,7 @@
 //#define LOGGER_REG_PER_PAGE             (FLASH_PAGE_SIZE / LOGGER_REG_SIZE)
 //
 ///** Number of valid registers stored in log memory. (20 logs) */
-#define LOGGER_NUM_VALID_REGS                       1500 // max ~= 2700. Totalling 8100 logs
+#define LOGGER_NUM_VALID_REGS                       2000 // max ~= 2700. Totalling 8100 logs
 //
 ///** Default value of the memory. */
 #define LOGGER_DEFAULT_VALUE                        0x00

@@ -29,14 +29,11 @@
 #endif /* DEBUG_OPTCOMM */
 
 #if CONFIG_OPTCOMM_ENABLED
-/** Interval in milliseconds to open the synchronization request. */
-#define OPTCOMM_SYNC_REQ_INTERVAL                       50UL
-
 /** Number of tries to receive the first ACK before it's connected. */
 #define OPTCOMM_CONN_TRIES                              6
 
 /** SYNC_REQ skip count. */
-#define OPTCOMM_SYNC_REQ_SKIP_CNT                       5
+#define OPTCOMM_SYNC_REQ_SKIP_CNT                       2
 
 /** Max weekday valid. */
 #define OPTCOMM_MAX_VALID_WEEKDAY                       7
@@ -73,9 +70,12 @@ typedef enum E_OPTCOMM_STATE
     /** Reading logs state */
     E_OPTCOMM_STATE_READING_LOGS,
 
-#if OPTCOMM_CHANGE_CONFIG
+#if CONFIG_OPTCOMM_ENABLED
     /** Reading sys config page */
     E_OPTCOMM_STATE_READING_CONFIG_PAGE,
+#endif
+
+#if OPTCOMM_CHANGE_CONFIG
     /** Updateing sys config page */
     E_OPTCOMM_STATE_UPDATING_CONFIG_PAGE,
 #endif
@@ -117,8 +117,8 @@ static void processRxMessage(s_optcomm_msg_t *ps_msg);
 //static uint16_t finishMessage(void);
 static inline bool receiveSyncRequest(void);
 static bool receiveMessage(s_optcomm_msg_t *ps_msg);
-#if OPTCOMM_CHANGE_CONFIG
 static inline bool readConfigPage(void);
+#if OPTCOMM_CHANGE_CONFIG
 static bool receivedSysConfig(s_sys_config_t *ps_sysConfig, s_optcomm_msg_t *gs_msg);
 #endif
 
@@ -181,6 +181,9 @@ static E_OPMODE_t ge_opmode;
 /** Device key. */
 static uint32_t gul_key;
 #endif /* OPTCOMM_CHANGE_MODE */
+
+/** Current config page being sent. */
+static uint8_t guc_configPage;
 
 
 
@@ -347,7 +350,7 @@ void optcomm_update()
             }
             break;
 #endif /* CONFIG_LOGGER_ENABLED */
-#if OPTCOMM_CHANGE_CONFIG
+#if CONFIG_OPTCOMM_ENABLED
         case E_OPTCOMM_STATE_READING_CONFIG_PAGE:
             if(!readConfigPage())
             {
@@ -782,7 +785,7 @@ static void processRxMessage(s_optcomm_msg_t *ps_msg)
             break;
 #endif /* OPTCOMM_ERASE_LOGS */
 
-#if OPTCOMM_CHANGE_CONFIG
+#if CONFIG_OPTCOMM_ENABLED
         case E_OPTCOMM_CMD_READ_CONFIG_PAGE:
 
             if(OPTCOMM_MSG_LEN_READ_CONFIG_PAGE == ps_msg->ui_len)
@@ -796,7 +799,10 @@ static void processRxMessage(s_optcomm_msg_t *ps_msg)
                 ge_state = E_OPTCOMM_STATE_RESPONDING_NACK;
             }
             break;
+#endif
 
+
+#if OPTCOMM_CHANGE_CONFIG
         case E_OPTCOMM_CMD_WRITE_CONFIG_PAGE:
 
             if(OPTCOMM_MSG_LEN_UPDATE_METER_CONFIG == ps_msg->ui_len)
@@ -1130,8 +1136,8 @@ static bool receiveMessage(s_optcomm_msg_t *ps_msg)
             case E_OPTCOMM_CMD_CHANGE_OPMODE:
             case E_OPTCOMM_CMD_READ_SERIAL_NUMBER:
             case E_OPTCOMM_CMD_READ_FIRMWARE_VERSION:
-#if OPTCOMM_CHANGE_CONFIG
             case E_OPTCOMM_CMD_READ_CONFIG_PAGE:
+#if OPTCOMM_CHANGE_CONFIG
             case E_OPTCOMM_CMD_WRITE_CONFIG_PAGE:
 #endif
             case E_OPTCOMM_CMD_SYNC_REQ:
@@ -1235,26 +1241,25 @@ static bool receiveMessage(s_optcomm_msg_t *ps_msg)
  *      returns 'false'.
  */
 
-#if OPTCOMM_CHANGE_CONFIG
+#if CONFIG_OPTCOMM_ENABLED
 static inline bool readConfigPage(void)
 {
-    static uint8_t page = 0;
     bool b_pendingBytesToSend = true;
     uint16_t ui_remainingBytes;
     static uint16_t crc16 = 0;
 
-    if(page == 0)
+    if(guc_configPage == 0)
     {
         // Start a message to send the serial number
         crc16 = startMessage(E_OPTCOMM_CMD_READ_CONFIG_PAGE,
-                             sizeof(gps_sysConfig->s_calibration.as_calibLut));
+                             sizeof(s_sys_config_t));
     }
 
-    if(page < OPTCOMM_MSG_CONFIG_NUM_PAGES)
+    if(guc_configPage < OPTCOMM_MSG_CONFIG_NUM_PAGES)
     {
-        ui_remainingBytes = (480-(page*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD));
+        ui_remainingBytes = (sizeof(s_sys_config_t)-(guc_configPage*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD));
 
-        if(ui_remainingBytes > OPTCOMM_MSG_CONFIG_MAX_PAYLOAD)
+        if(ui_remainingBytes < OPTCOMM_MSG_CONFIG_MAX_PAYLOAD)
         {
             // This changes the number of bytes to send in case that the remaining
             // bytes are less then the max payload
@@ -1269,7 +1274,7 @@ static inline bool readConfigPage(void)
 #endif /* DEBUG_OPTCOMM */
 
         memcpy(&gauc_buffer,
-               (uint8_t *) gps_sysConfig->s_calibration.as_calibLut+(page*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD),
+               (uint8_t *) gps_sysConfig + (guc_configPage*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD),
                 ui_remainingBytes);
 
         // Add config page to CRC calculation
@@ -1279,17 +1284,10 @@ static inline bool readConfigPage(void)
         // stores crc16 to increment next round
         crc16 = crc_result();
 
-
-        if(page != 0)
-        {
-            // if page 0 TX is enabled by the startMessage()
-            //optint_enableTx(true);
-        }
-
         // Send page
         optint_send(gauc_buffer, ui_remainingBytes);
-        page++;
-        if(page < OPTCOMM_MSG_CONFIG_NUM_PAGES)
+        guc_configPage++;
+        if(guc_configPage < OPTCOMM_MSG_CONFIG_NUM_PAGES)
         {
             // disable transmition to save power between cycles
             // Keep 'on' for the last cicle
@@ -1297,10 +1295,10 @@ static inline bool readConfigPage(void)
         }
         b_pendingBytesToSend = true;
     }
-    if(page == OPTCOMM_MSG_CONFIG_NUM_PAGES)
+    if(guc_configPage == OPTCOMM_MSG_CONFIG_NUM_PAGES)
     {
         finishMessage();
-        page = 0;
+        guc_configPage = 0;
         b_pendingBytesToSend = false;
     }
 

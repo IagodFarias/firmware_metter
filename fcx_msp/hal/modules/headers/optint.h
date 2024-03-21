@@ -37,12 +37,11 @@ bool optcomm_RxPeekByte(uint8_t *byte);
 E_OPTINT_STATE_t optint_getState(void);
 void optint_enableRx(bool b_enable);
 bool optint_receive(uint8_t *puc_msg, uint8_t uc_len);
-void optint_enableTx(bool b_enable);
 void optint_send(uint8_t *puc_msg, uint8_t len);
 bool optint_isTransmitting();
 void optint_reset();
 volatile bool gb_optint_isReceiving;
-volatile uint16_t guc_optint_bit_count;       // Bit count, used when transmitting byte
+volatile uint16_t guc_optint_bit_count;       // Bit count, used when transmitting data
 
 
 #endif /* OPTINT_H_ */

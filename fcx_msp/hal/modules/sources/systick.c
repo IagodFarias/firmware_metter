@@ -65,8 +65,6 @@ STATIC NO_INIT uint64_t gull_sysTickMs = 0;
 
 /** System wake up interval in milliseconds. */
 STATIC uint16_t gui_wakeUpIntMs = 0;
-STATIC uint16_t gui_asyncWakeUp = 0;
-STATIC uint16_t gui_syncWakeUp = 0;
 
 /*******************************************************************************
  * Public functions
@@ -77,15 +75,15 @@ void systick_init(void)
     systick_setWakeUpIntMs(SYSTICK_WAKE_UP_INT_MS_DEFAULT_INT);
 }
 
-void systick_setWakeUpIntMs(uint16_t ui_wakeUpIntMs)
+void systick_setWakeUpIntMs(uint16_t ui_syncWakeUp)
 {
-    if (ui_wakeUpIntMs > 0)
+    if (ui_syncWakeUp > 0)
     {
         // Update module's internal wake up time interval
-        gui_syncWakeUp = ui_wakeUpIntMs;
+        gui_wakeUpIntMs = ui_syncWakeUp;
 
         // Check if the required wake up interval has been correctly set
-        ASSERT(ui_wakeUpIntMs == gui_syncWakeUp);
+        ASSERT(gui_wakeUpIntMs == ui_syncWakeUp);
     }
 }
 
@@ -158,12 +156,6 @@ static bool isValidDateTime(struct tm *ps_date)
 /*******************************************************************************
  * Events
  ******************************************************************************/
-#if CONFIG_PULSE_ENABLED
-void pulsemng_evt_pulseReq(uint16_t ui_wakeUpIntMs)
-{
-    gui_asyncWakeUp = ui_wakeUpIntMs;
-}
-#endif
 
 __time64_t (__time64)(__time64_t *t)
 {

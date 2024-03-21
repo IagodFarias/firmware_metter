@@ -62,8 +62,8 @@
 #define OPTINT_UART_BAUDRATE                    (9600)
 
 /** Optint receive timeout in milliseconds. */
-#define OPTINT_RECEIVE_TIMEOUT_MS               20
-#define OPTINT_TIMEOUT_RX                       HAL_SYS_MSDELAY_ACLK(OPTINT_RECEIVE_TIMEOUT_MS)
+#define OPTINT_RECEIVE_TIMEOUT_MS               200
+#define OPTINT_TIMEOUT_RX                       OPTINT_RECEIVE_TIMEOUT_MS << 5
 #define OPTINT_TIMER_MAX_DELAY                  65535
 
 #define OPTINT_QUEUE_SIZE                       5
@@ -79,12 +79,6 @@ STATIC void optint_detect(uint32_t iq19_currentVoltage);
 #endif
 STATIC INLINE void enableOpticalCircuit(bool b_enable);
 #if CONFIG_OPTCOMM_ENABLED
-STATIC INLINE void enableTxCircuit(bool b_enable);
-//void enableRxCircuit(bool b_enable);
-STATIC INLINE bool isTransmitting();
-//STATIC void configUsart(void);
-STATIC void enableUsart(void);
-STATIC void disableUsart(void);
 static void setTimeoutOptInt(uint64_t ull_timeout);
 static bool timeoutOptIntCallback(void);
 
@@ -97,13 +91,13 @@ static const s_lut_coordinate_iq_t gas_percThreshold[OPTINT_PERC_THRES_LUT_SIZE]
 {
      //TABELA com valores na abcissa referente à tensão que o fototransistor mandar de acordo com a intensidade da luz
     {_IQ19(2300.0), _IQ19(0.995)},
-    {_IQ19(2500.0), _IQ19(0.95)},
-    {_IQ19(2800.0), _IQ19(0.9)},
-    {_IQ19(3000.0), _IQ19(0.9)},
-    {_IQ19(3200.0), _IQ19(0.9)},
-    {_IQ19(3400.0), _IQ19(0.9)},
-    {_IQ19(3750.0), _IQ19(0.95)},
-    {_IQ19(4000.0), _IQ19(0.995)}
+    {_IQ19(2500.0), _IQ19(0.99)},
+    {_IQ19(2800.0), _IQ19(0.99)},
+    {_IQ19(3000.0), _IQ19(0.99)},
+    {_IQ19(3200.0), _IQ19(0.99)},
+    {_IQ19(3400.0), _IQ19(0.99)},
+    {_IQ19(3750.0), _IQ19(0.90)},
+    {_IQ19(4000.0), _IQ19(0.80)}
 };
 
 /** Current optical interface's state. */
@@ -123,7 +117,7 @@ Timer_A_initContinuousModeParam initContParam = {
     TIMER_A_CLOCKSOURCE_SMCLK,    //! Selects Clock source.
     TIMER_A_CLOCKSOURCE_DIVIDER_1,   //! Is the desired divider for the clock source
     TIMER_A_TAIE_INTERRUPT_DISABLE,  //! Is to enable or disable Timer_A interrupt
-    TIMER_A_DO_CLEAR, //! Decides if Timer_A clock divider, count direction, count need to be reset.
+    TIMER_A_DO_CLEAR, //! Decides if Timer_A clock divider, count direction, count needs to be reset.
     false //! Whether to start the timer immediately
 };
 
@@ -181,11 +175,6 @@ void optint_init(void)
     
     // Queue initialize to interface
     queue_init((uint32_t *)&gaul_queue, OPTINT_QUEUE_SIZE, gps_queue);
-
-#if CONFIG_OPTCOMM_ENABLED
-    // Config UART
-    //configUsart();
-#endif
 
     // Initialize state variable
     ge_optIntState = E_OPTINT_STATE_RELEASED;
@@ -275,7 +264,6 @@ bool optint_receive(uint8_t *puc_data, uint8_t uc_len)
 
     setTimeoutOptInt((uint64_t) OPTINT_TIMEOUT_RX);
 
-
     GPIO_clearInterrupt(OPTINT_UART_PORT, OPTINT_UART_RX_PIN);  // Clear RXD IFG (interrupt flag)
     GPIO_enableInterrupt(OPTINT_UART_PORT, OPTINT_UART_RX_PIN);
 
@@ -305,27 +293,7 @@ bool optint_receive(uint8_t *puc_data, uint8_t uc_len)
 
 /**
  * @brief
- *      Enable/Disable optical interface for transmission.
- *
- * @param[in]   b_enable
- *      Pass "true" to enable the transmission or "false" to disable the
- *      transmission.
- */
-void optint_enableTx(bool b_enable)
-{
-    if(!b_enable)
-    {
-        // Wait for the transmission to finish
-        while(isTransmitting());
-    }
-
-    // Enable/Disable the transmission circuit
-    enableTxCircuit(b_enable);
-}
-
-/**
- * @brief
- *      Send message through the optical interface.
+ *      Send a message through the optical interface.
  *
  * @param[in]   puc_msg
  *      Message to be sent.
@@ -377,18 +345,13 @@ void optint_send(uint8_t *puc_msg, uint8_t uc_len)
  *      Returns 'true' if the optical interface is transmitting or 'false'
  *      otherwise.
  */
-bool optint_isTransmitting()
-{
-    return isTransmitting();
-}
-#endif
-
 void optint_reset()
 {
     gb_timeoutReq = true;
     guc_timeoutReq = OPTINT_RESET_TIMEOUT_TRIES;
     ge_optIntState = E_OPTINT_STATE_RELEASED;
 }
+#endif
 
 /*******************************************************************************
  * Private functions
@@ -555,33 +518,6 @@ STATIC inline void enableOpticalCircuit(bool b_enable)
 }
 
 #if CONFIG_OPTCOMM_ENABLED
-/**
- * @brief
- *      Enable/Disable optical circuit for transmission.
- *
- * @param[in]   b_enable
- *      Pass "true" to enable the circuit for transmission or "false" to
- *      disable the circuit for transmission.
- */
-STATIC INLINE void enableTxCircuit(bool b_enable)
-{
-    if(b_enable)
-    {
-        // Enable TX LED
-        // GPIO_setOutputHighOnPin(OPTINT_UART_PORT, OPTINT_UART_TX_PIN);
-
-        // Enable USART
-        enableUsart();
-    }
-    else
-    {
-        // Disable TX LED
-        //GPIO_setOutputLowOnPin(OPTINT_UART_PORT, OPTINT_UART_TX_PIN);
-
-        // Disable USART
-        disableUsart();
-    }
-}
 
 /**
  * @brief
@@ -623,6 +559,11 @@ void enableRxCircuit(bool b_enable)
     }
 }
 
+/**
+ * @brief
+ *      Port 2 interruption. Activates only when data reader starts communications
+ *
+ */
 // Port 2 interrupt service routine
 #pragma vector=PORT2_VECTOR
 __interrupt void Port_2(void)
@@ -645,6 +586,13 @@ __interrupt void Port_2(void)
                          );
 
 }
+
+/**
+ * @brief
+ *      Timer A interruption related to communications.
+ *      Basic software defined UART at 9600 baud, using a compare-based sampling technique
+ *      Activates only when data reader starts communication
+ */
 
 #pragma vector=TIMER4_A0_VECTOR
 __interrupt void Timer4_A0 (void)
@@ -728,22 +676,6 @@ __interrupt void Timer4_A0 (void)
 
 
 
-/**
- * @brief
- *      Check if there is any byte been transmitted through the optical
- *      interface.
- *
- * @return
- *      Returns 'true' if the optical interface is transmitting or 'false'
- *      otherwise.
- */
-STATIC inline bool isTransmitting()
-{
-    return !EUSCI_A_UART_getInterruptStatus(OPTINT_UART_ADDR,
-                               EUSCI_A_UART_TRANSMIT_COMPLETE_INTERRUPT_FLAG);
-}
-
-
 bool optcomm_RxPeekByte(uint8_t *byte)
 {
 
@@ -777,144 +709,6 @@ bool optcomm_RxPeekByte(uint8_t *byte)
 }
 
 
-STATIC void configUsart(void)
-{
-    // Configure UART
-    EUSCI_A_UART_initParam param = { 0 };
-    param.parity = OPTINT_PARITY;
-    param.msborLsbFirst = OPTINT_MSB_LSB_FIRST;
-    param.numberofStopBits = OPTINT_UART_MODE;
-    param.uartMode = OPTINT_UART_MODE;
-
-#if ((HAL_SYS_SMCLK_FREQ_HZ ==8000000) && (OPTINT_UART_BAUDRATE == 57600))
-                param.selectClockSource = EUSCI_A_UART_CLOCKSOURCE_SMCLK;
-                param.clockPrescalar = 8;           // 8000000/16/57600 = 8.68
-                param.firstModReg = 10;              // UCOS16=1, BRFx = 10, BRSx = 0xF7
-                param.secondModReg = 0xF7;
-                param.overSampling = EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION;
-#elif ((HAL_SYS_SMCLK_FREQ_HZ==8000000) && (OPTINT_UART_BAUDRATE == 115200))
-                param.selectClockSource = EUSCI_A_UART_CLOCKSOURCE_SMCLK;
-                param.clockPrescalar = 4;           // 8000000/16/115200 = 4.34
-                param.firstModReg = 5;              // UCOS16=1, BRFx = 5, BRSx = 0x55
-                param.secondModReg = 0x55;
-                param.overSampling = EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION;
-#elif ((HAL_SYS_SMCLK_FREQ_HZ==8000000) && (OPTINT_UART_BAUDRATE == 9600))
-                param.selectClockSource = EUSCI_A_UART_CLOCKSOURCE_SMCLK;
-                param.clockPrescalar = 52;           // 32768/9600 = 3.41
-                param.firstModReg = 1;              // UCOS16=0 BRFx = 0, BRSx = 0x92
-                param.secondModReg = 0x49;
-                param.overSampling = EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION;
-#elif ((OPTINT_UART_BAUDRATE == 9600) && (HAL_SYS_ACLK_FREQ_HZ==32768))
-                param.selectClockSource = EUSCI_A_UART_CLOCKSOURCE_ACLK;
-                param.clockPrescalar = 3;           // 32768/9600 = 3.41
-                param.firstModReg = 0;              // UCOS16=0 BRFx = 0, BRSx = 0x92
-                param.secondModReg = 0x92;
-                param.overSampling = EUSCI_A_UART_LOW_FREQUENCY_BAUDRATE_GENERATION;
-#else
-#error "UART Baudrate Configuration not supported "
-#endif
-
-
-    EUSCI_A_UART_enableInterrupt(OPTINT_UART_ADDR,
-                                 EUSCI_A_UART_RECEIVE_INTERRUPT);
-
-    EUSCI_A_UART_enableInterrupt(OPTINT_UART_ADDR,
-                                 EUSCI_A_UART_STARTBIT_INTERRUPT);
-
-    if (STATUS_FAIL == EUSCI_A_UART_init(OPTINT_UART_ADDR, &param))
-    {
-        return;
-    }
-
-    // Enable transmit complete interrupt
-    EUSCI_A_UART_clearInterrupt(OPTINT_UART_ADDR,
-                                EUSCI_A_UART_TRANSMIT_INTERRUPT_FLAG);
-
-    EUSCI_A_UART_enable(OPTINT_UART_ADDR);
-
-
-
-    // Disable USART and GPIO's
-    disableUsart();
-}
-
-
-STATIC void enableUsart(void)
-{
-    //GPIO_setAsInputPin(OPTINT_UART_PORT, OPTINT_UART_RX_PIN);
-    //GPIO_setAsInputPinWithPullDownResistor(OPTINT_UART_PORT, OPTINT_UART_RX_PIN);
-
-    //GPIO_setAsOutputPin(OPTINT_UART_PORT, OPTINT_UART_TX_PIN);
-
-    // Set IR_EN1 to High Level
-    GPIO_setOutputHighOnPin(OPTINT_LIGHT_SENSOR_PORT, OPTINT_ENABLE1_PIN);
-
-    // Set IR_EN2 to High Level
-    GPIO_setOutputHighOnPin(OPTINT_LIGHT_SENSOR_PORT, OPTINT_ENABLE2_PIN);
-
-
-    /*
-     * Select Port 2
-     * Set Pin 0, 1 to input secondary Module fFunction or PySEL1,0 = [01],
-     *  (UCA0TXD/UCA0SIMO, UCA0RXD/UCA0SOMI).
-     */
-
-    //GPIO_setAsInputPin(OPTINT_UART_PORT, OPTINT_UART_RX_PIN);
-
-    //P2IN |= BIT1;
-
-    //P2IN &= ~BIT0;
-    //P2DIR |= BIT0;
-    //P2DIR &= ~BIT1;
-
-    //PJSEL0 |= BIT4 | BIT5;
-    //P2SEL1 |= BIT0 | BIT1;
-    //P2SEL0  &= ~(BIT0 | BIT1);
-
-    //GPIO_setAsInputPinWithPullDownResistor(OPTINT_UART_PORT, OPTINT_UART_RX_PIN);
-
-
-    //GPIO_setAsPeripheralModuleFunctionInputPin(
-    //        OPTINT_UART_PORT,
-    //        OPTINT_UART_TX_PIN,
-    //        GPIO_SECONDARY_MODULE_FUNCTION);
-
-    //EUSCI_A_UART_enable(OPTINT_UART_ADDR);
-
-
-
-    GPIO_setAsOutputPin(OPTINT_UART_PORT, OPTINT_UART_TX_PIN);
-
-    //EUSCI_A_UART_selectDeglitchTime(OPTINT_UART_ADDR, EUSCI_A_UART_DEGLITCH_TIME_50ns);
-
-
-
-}
-
-STATIC void disableUsart(void)
-{
-    /*
-     * Select Port 2
-     * Set Pin 0, 1 to output Primary Module Function or PySEL1,0 = [01],
-     *  (UCA0TXD/UCA0SIMO, UCA0RXD/UCA0SOMI).
-     */
-    //GPIO_setAsPeripheralModuleFunctionOutputPin(
-    //        OPTINT_UART_PORT,
-    //        OPTINT_UART_TX_PIN + OPTINT_UART_RX_PIN,
-    //        GPIO_PRIMARY_MODULE_FUNCTION);
-
-    //GPIO_setAsOutputPin(OPTINT_UART_PORT, OPTINT_UART_RX_PIN);
-    //GPIO_setAsOutputPin(OPTINT_UART_PORT, OPTINT_UART_TX_PIN);
-
-    // Put RX as output high to LS circuit and TX low to disable LED
-    //GPIO_setOutputHighOnPin(OPTINT_UART_PORT, OPTINT_UART_RX_PIN);
-    GPIO_setOutputLowOnPin(OPTINT_UART_PORT, OPTINT_UART_TX_PIN);
-
-    //EUSCI_A_UART_clearInterrupt(OPTINT_UART_ADDR,
-                                //EUSCI_A_UART_RECEIVE_INTERRUPT_FLAG);
-
-    //EUSCI_A_UART_disable (OPTINT_UART_ADDR);
-}
 
 static void setTimeoutOptInt(uint64_t ull_timeout)
 {

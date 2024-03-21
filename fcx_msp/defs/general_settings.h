@@ -62,7 +62,8 @@
 #define CONFIG_RF_RX_ENABLED                                0
 
 /*
- * Fixed Point calculation. Indicates if should use fixed point in all
+ * Fixed Point calculatioormal
+ * n. Indicates if should use fixed point in all
  * math calculation methods
  */
 #define FIXED_POINT_CALC                                    1
@@ -81,9 +82,15 @@
  * Enable change mode by optic interface
  */
 #define CONFIG_OPTCOMM_CHANGE_MODE                          1
-
+/*
+ * Enable ability to change configurations through optic interface *DO NOT ACTIVATE*
+ */
 #define OPTCOMM_CHANGE_CONFIG                               0
 #endif /* CONFIG_OPTCOMM_ENABLED */
+
+#if OPTCOMM_CHANGE_CONFIG
+#error "Build inválida. Remover OPTCOMM_CHANGE_CONFIG"
+#endif
 
 #if CONFIG_LOGGER_ENABLED
 /*
@@ -168,7 +175,7 @@
 /*
  * Enable DEBUG analog sense
  */
-#define DEBUG_ANASENS                                       1
+#define DEBUG_ANASENS                                       0
 
 /*
  * Enable DEBUG_OPTINT
@@ -203,7 +210,7 @@
 /*
  * DEBUG_BATT
  */
-#define DEBUG_BATT                                          1
+#define DEBUG_BATT                                          0
 
 /*
  * DEBUG_REV_INSTALL
@@ -225,18 +232,13 @@
  */
 #define DEBUG_FRAUD                                         0
 
-/*
- * DEBUG_FW_INTEGRITY
- */
-#define DEBUG_FW_INTEGRITY                                  0
-
 #if (DEBUG_PROBE_VERIF  || DEBUG_PROBE_NORMAL   || DEBUG_PRINT_CONST    ||   \
     DEBUG_PRINT_CONFIG  || DEBUG_PRINT_ULOOP    || DEBUG_PRINT_OPTCOMM  ||   \
     DEBUG_OPTINT        /*|| DEBUG_ANASENS  */      || DEBUG_USERINT        ||   \
     DEBUG_LOGGER        || DEBUG_SCREENMNG      || DEBUG_PROC_FLOWRATE  ||   \
     DEBUG_ALARMMNG      || DEBUG_BRUSH          || DEBUG_BATT           ||   \
     DEBUG_REV_INSTALL   || DEBUG_NO_USAGE       || DEBUG_TEMP           ||   \
-    DEBUG_FRAUD )//|| DEBUG_NORMAL || DEBUG_FW_INTEGRITY)
+    DEBUG_FRAUD )//|| DEBUG_NORMAL)
 #define DEBUG_SERIAL                                        0
 #define DEBUG                                               1
 #else

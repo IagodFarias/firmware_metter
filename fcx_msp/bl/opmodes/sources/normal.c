@@ -202,7 +202,7 @@ static s_selection_state_t gs_unlockScreenSelectionState;
 static bool gb_selectionLocked;
 
 /** Screen unlocked timeout in milliseconds. */
-static uint64_t gull_screenUnlockedTimeoutMs;
+static uint64_t gull_screenUnlockedTimeoutMs = 0;
 
 /**  Get application configuration */
 static s_app_config_t *gps_config = NULL;
@@ -554,7 +554,7 @@ STATIC bool selectionSequenceCompleted(s_selection_state_t *ps_selectionState)
                 }
 
 #if DEBUG_OPTINT
-                printf("%u", userint_getState());
+                printf("%u\n", userint_getState());
 #endif
 
                 if(E_USERINT_CMD_CHANGE_SCREEN == userint_getState())

@@ -109,9 +109,6 @@ void cmdmng_init(void)
     uint16_t *dev_id = NULL;
     TLV_getInfo(TLV_TAG_DIERECORD, 0, &length, &dev_id);
 
-    /*struct s_TLV_Die_Record {uint32_t wafer_id uint16_t die_x_position;
-                               uint16_t die_y_position uint16_t test_results;*/
-
     // fcxId = waferid + die_x + die_y.
     gs_packet.ul_fcxId =  (((uint32_t) dev_id[1] << 16) | dev_id[0]) + ((uint32_t)(dev_id[2] << 8)) + ((uint32_t) dev_id[3] << 16);
 }

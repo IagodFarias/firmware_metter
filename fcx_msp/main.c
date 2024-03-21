@@ -44,6 +44,10 @@
 #include "pulsemng.h"
 #endif /* CONFIG_PULSE_ENABLED */
 
+#if OPTCOMM_CHANGE_CONFIG
+#error "Build inválida. Remover OPTCOMM_CHANGE_CONFIG"
+#endif
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/

@@ -70,7 +70,7 @@
                                                 OPTCOMM_CRC_LEN
 
 /** Maximum logs transmitted per meter's cycle. */
-#define OPTCOMM_MAX_LOGS_PER_CYCLE              2
+#define OPTCOMM_MAX_LOGS_PER_CYCLE              10
 
 /** Length of log register. */
 #define OPTCOMM_LOG_LEN                         34
@@ -112,10 +112,10 @@
                                                     CONFIG_CONSTS_MAX_SIZE)
 
 /** Division of pages on the configuration. */
-#define OPTCOMM_MSG_CONFIG_MAX_PAYLOAD           40
+#define OPTCOMM_MSG_CONFIG_MAX_PAYLOAD           34
 
 /** Division of pages on the configuration. */
-#define OPTCOMM_MSG_CONFIG_NUM_PAGES             12
+#define OPTCOMM_MSG_CONFIG_NUM_PAGES             20
 
 /*******************************************************************************
  * Enumerations

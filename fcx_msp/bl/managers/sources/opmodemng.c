@@ -60,7 +60,17 @@ static E_OPMODE_t ge_previousOpMode;
  */
 void opmodemng_init(void)
 {
+
+#if DEBUG_NORMAL
+    ge_currentOpMode = E_OPMODE_NORMAL;
+    ge_previousOpMode = E_OPMODE_NORMAL;
+    ASSERT(opmodemng_setActivationFlag(true));
+    ASSERT(opmodemng_setCalibrationFlag(true));
+    normal_init();
+#endif
+
     s_app_config_t *ps_config = configmng_getAppConfig();
+
 
     if(ps_config->b_isCalibrated)
     {
@@ -89,25 +99,10 @@ void opmodemng_init(void)
         ge_currentOpMode = E_OPMODE_PRE_CALIBRATION;
         ge_previousOpMode = E_OPMODE_PRE_CALIBRATION;
 
-
-#if DEBUG_NORMAL
-            opmodemng_setCalibrationFlag(true);
-            opmodemng_setActivationFlag(true);
-            opmodemng_setPreviousOpMode(E_OPMODE_NORMAL);
-            opmodemng_setCurrentOpMode(E_OPMODE_NORMAL);
-            ge_currentOpMode = E_OPMODE_NORMAL;
-            ge_previousOpMode = E_OPMODE_NORMAL;
-            normal_init();
-#else
-            // Initialize pre-calibration operating mode
-            precalib_init();
-#endif
-
-
-
+        // Initialize pre-calibration operating mode
+        precalib_init();
 
     }
-    //normal_init();
 }
 
 /**
