@@ -42,6 +42,10 @@
 /** Address where system configuration is stored. */
 #define ADDR_SYS_CONFIG                 0xFA00
 
+
+/** Length of the calibration instant. */
+#define CONFIG_CALIBRATION_DATE_LEN     14 //yyyyMMdd + hhmmss
+
 /** Length of the replacement date. */
 #define CONFIG_REPLACEMENT_DATE_LEN     8
 
@@ -52,7 +56,7 @@
 #define CONFIG_FIRMWARE_VERSION_LEN     8
 
 /** Length of the configuration array. */
-#define CONFIG_STRUCT_SIZE              654U
+#define CONFIG_STRUCT_SIZE              684U
 
 /** Number of bytes in constant array */
 #define CONFIG_CONSTS_MAX_SIZE          480U
@@ -118,6 +122,8 @@
     },                                                                          \
     .s_production =                                                             \
     {                                                                           \
+        .auc_calibrationDate        = {'1', '2', '3', '4', '5', '6', '7', '8',  \
+                                       '9', 'A', 'B', 'C', 'D', 'E'},           \
         .auc_replacementDate        = {'1', '3', '0', '2', '1', '0', '1', '0'}, \
         .auc_serialNumber           = {'1', '2', '3', '4', '5', '6', '7', '8',  \
                                        '9', '0', '0', '0'}                      \
@@ -147,10 +153,10 @@
     },                                                                          \
     .s_alarms =                                                                 \
     {                                                                           \
-        .ui_q3Meter                 = 2500,                                     \
-        .uc_brushPercent            = 10,                                        \
+        .ui_q3Meter                 = 4000,                                     \
+        .uc_brushPercent            = 25,                                       \
         .ul_brushTimeout            = 1800000UL,                                \
-        .uc_revInstallParam         = 10,                                       \
+        .ui_revInstallParam         = 10,                                       \
         .uc_noUsageDays             = 30,                                       \
         .uc_highTemp                = 65,                                       \
         .uc_lowTemp                 = 10,                                       \
@@ -207,6 +213,8 @@ typedef struct S_FW_CONFIG
 typedef struct S_PROD_CONFIG
 {
     /** Replacement date. */
+    uint8_t auc_calibrationDate[CONFIG_CALIBRATION_DATE_LEN];
+    /** Replacement date. */
     uint8_t auc_replacementDate[CONFIG_REPLACEMENT_DATE_LEN];
     /** Serial number. */
     uint8_t auc_serialNumber[CONFIG_SERIAL_NUMBER_LEN];
@@ -261,17 +269,17 @@ typedef struct S_ALARMS_CONFIG
     /** Q3 from meter. */
     uint16_t ui_q3Meter; // 2 bytes in Liters
     /** Maximum Overflow Alarm configuration in percent 1 to 100%. 0 disable the alarm*/
-    uint8_t uc_brushPercent; // 1 byte
+    uint16_t uc_brushPercent; // 2 byte
     /** Maximum Overflow Alarm configuration. */
     uint32_t ul_brushTimeout; // 4 byte
     /** Reverse install Alarm in liters 0 to 255, when 0 disable the alarm. */
-    uint8_t uc_revInstallParam; // 1 byte
+    uint16_t ui_revInstallParam; // 2 byte
     /** No usage alarm in days 1 to 255, when 0 disable the alarm. */
-    uint8_t uc_noUsageDays; // 1 byte 
+    uint16_t uc_noUsageDays; // 2 byte
     /** High temperature alarm in Celsius, when 0 disable the alarm. */
-    uint8_t uc_highTemp; // 1 byte 
+    uint16_t uc_highTemp; // 2 byte
     /** Low temperature alarm in Celsius, when 0 disable the alarm. */
-    uint8_t uc_lowTemp; // 1 byte 
+    uint16_t uc_lowTemp; // 2 byte
 } s_alarms_config_t;
 
 /** System configuration structure. */
@@ -280,13 +288,13 @@ typedef struct S_SYS_CONFIG
     /** Firmware configuration */
     s_fw_config_t s_firmware; // 8 bytesConfigM
     /** Production configuration */
-    s_prod_config_t s_production; // 20 BytesConfigM
+    s_prod_config_t s_production; // 34 BytesConfigM
     /** Mechanical configuration */
-    s_mec_config_t  s_mechanical; // 24 Bytes
+    s_mec_config_t s_mechanical; // 24 Bytes
     /** Calibration configuration */
     s_calib_config_t s_calibration;// 498 Bytes
     /** Ultrasonic configuration */
-    s_us_config_t   s_ultrasonic; // 66 bytes
+    s_us_config_t s_ultrasonic; // 66 bytes
     /** Pulse configuration */
     s_pulse_config_t s_pulse; // 8 bytes
     /** Screen configuration */
@@ -296,8 +304,8 @@ typedef struct S_SYS_CONFIG
     /** wM-Bus configuration */
     s_wmbus_config_t s_wmbus; // 26 bytes
     /** Alarms configuration */
-    s_alarms_config_t s_alarms; // 11 bytes
-} s_sys_config_t; //total  = 665
+    s_alarms_config_t s_alarms; // 16 bytes
+} s_sys_config_t; //total  = 684
 
 /** Application configuration structure. */
 typedef struct S_APP_CONFIG
@@ -308,6 +316,10 @@ typedef struct S_APP_CONFIG
     bool b_isActivated;
     /**  Key used to perform critical operation by optical interface. */
     uint32_t ul_permissionKey;
+    /** Pulse configuration */
+    s_pulse_config_t s_pulse; // 8 bytes
+    /** Logger configuration  */
+    s_logger_config_t s_logger; // 2 bytes
 } s_app_config_t;
 
 /*******************************************************************************

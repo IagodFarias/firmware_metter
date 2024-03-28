@@ -98,7 +98,7 @@ static const s_screen_t gs_screens[] =
     {
         .e_screenType = E_SCREEN_TYPE_FLOWRATE,
         .pf_getData = (void (*)(void)) proc_getCurrentFlowRate,
-        .uc_doubleResolution = 6 // 4, normally TODO CHANGE
+        .uc_doubleResolution = 4
     },
     /** Reverse volume screen */
     {
@@ -276,16 +276,16 @@ void verif_run(void)
         systick_setWakeUpIntMs(VERIF_UPDATE_INT_MS);
     }
 
+#if CONFIG_OPTCOMM_ENABLED
+    // Update optcomm
+    optcomm_update();
+#endif
+
     // Switch screen in case user has pressed optical interface
     if(E_USERINT_CMD_CHANGE_SCREEN == userint_getState())
     {
         screenmng_nextScreen();
     }
-
-#if CONFIG_OPTCOMM_ENABLED
-    // Update optcomm
-    optcomm_update();
-#endif
 
 #if CONFIG_FRAUD_ENABLED
     // Update fraud detection

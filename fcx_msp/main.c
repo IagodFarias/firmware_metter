@@ -69,7 +69,7 @@
 // *****************************************************************************
 
 void main(void)
-   {
+    {
     // Initializes the basic functionality of the system
     hal_init();
 
@@ -122,6 +122,7 @@ void main(void)
     /* Main loop  */
     while (1)
     {
+
         // Update system tick
         systick_updateSysTickMs();
 

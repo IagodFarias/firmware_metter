@@ -377,6 +377,12 @@ void cmdmng_dispatch(void)
                 if(opmodemng_getCurrentOpMode() != E_OPMODE_NORMAL)
                 {
                     normal_init();
+
+                    // Set active flag
+                    ASSERT(opmodemng_setActivationFlag(true));
+                    // Set calibration flag
+                    ASSERT(opmodemng_setCalibrationFlag(true));
+
                     opmodemng_setCurrentOpMode(E_OPMODE_NORMAL);
                 }
 
@@ -390,6 +396,12 @@ void cmdmng_dispatch(void)
                 if (opmodemng_getCurrentOpMode() != E_OPMODE_VERIFICATION)
                 {
                     verif_init();
+
+                    // Set active flag
+                    ASSERT(opmodemng_setActivationFlag(true));
+                    // Set calibration flag
+                    ASSERT(opmodemng_setCalibrationFlag(true));
+
                     opmodemng_setCurrentOpMode (E_OPMODE_VERIFICATION);
                 }
 
@@ -441,7 +453,7 @@ void cmdmng_dispatch(void)
                     sizeof(s_sys_config_t));
 
                 // Publish system configuration
-                configmng_updateSysConfig();
+                configmng_setSysConfig(gps_sysConfig);
                 gs_packet.uc_resp = CMDMNG_CMD_ACK;
 
                 serial_transmitBytes((uint8_t*) &gs_packet, sizeof(gs_packet));
@@ -469,8 +481,35 @@ void cmdmng_dispatch(void)
                 s_actualDateTime.tm_year = s_calendar.uc_year;
                 s_actualDateTime.tm_isdst = 0;
 
+                // Encode Year (4 digits)
+                gps_sysConfig->s_production.auc_calibrationDate[7] = 48 + (int)((1900 + s_calendar.uc_year) / 1000);
+                gps_sysConfig->s_production.auc_calibrationDate[6] = 48 + (int)(((1900 + s_calendar.uc_year) / 100) % 10);
+                gps_sysConfig->s_production.auc_calibrationDate[5] = 48 + (int)(((1900 + s_calendar.uc_year) / 10) % 10);
+                gps_sysConfig->s_production.auc_calibrationDate[4] = 48 + (int)((1900 + s_calendar.uc_year) % 10);
+
+                // Encode Month (2 digits)
+                gps_sysConfig->s_production.auc_calibrationDate[3] = 48 + (int)((s_calendar.uc_month + 1) / 10);
+                gps_sysConfig->s_production.auc_calibrationDate[2] = 48 + (int)((s_calendar.uc_month + 1) % 10);
+
+                // Encode Day (2 digits)
+                gps_sysConfig->s_production.auc_calibrationDate[1] = 48 + (int)(s_calendar.uc_day / 10);
+                gps_sysConfig->s_production.auc_calibrationDate[0] = 48 + (int)(s_calendar.uc_day % 10);
+
+                // Encode Hour (2 digits)
+                gps_sysConfig->s_production.auc_calibrationDate[11] = 48 + (int)(s_calendar.uc_hour / 10);
+                gps_sysConfig->s_production.auc_calibrationDate[10] = 48 + (int)(s_calendar.uc_hour % 10);
+
+                // Encode Minute (2 digits)
+                gps_sysConfig->s_production.auc_calibrationDate[9] = 48 + (int)(s_calendar.uc_min / 10);
+                gps_sysConfig->s_production.auc_calibrationDate[8] = 48 + (int)(s_calendar.uc_min % 10);
+
+                // Encode Second (2 digits)
+                gps_sysConfig->s_production.auc_calibrationDate[13] = 48 + (int)(s_calendar.uc_sec / 10);
+                gps_sysConfig->s_production.auc_calibrationDate[12] = 48 + (int)(s_calendar.uc_sec % 10);
+
+
                 // Set new date and time
-                if(systick_setActualDateTime(&s_actualDateTime))
+                if(systick_setActualDateTime(&s_actualDateTime) && configmng_setSysConfig(gps_sysConfig))
                 {
                     // Respond with ACK
                     gs_packet.uc_resp = CMDMNG_CMD_ACK;

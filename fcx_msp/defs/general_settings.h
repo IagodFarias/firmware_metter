@@ -129,7 +129,7 @@
 #define DEBUG_PROC_FLOWRATE                                 0
 #define DEBUG_FLOWRATE                                      0
 
-#define DEBUG_NORMAL                                        1
+#define DEBUG_NORMAL                                        0
 
 #define DEBUG_CHANGE_TO_STANDBY                             0
 
@@ -241,8 +241,6 @@
     DEBUG_FRAUD )//|| DEBUG_NORMAL)
 #define DEBUG_SERIAL                                        0
 #define DEBUG                                               1
-#else
-#define DEBUG_SERIAL                                        0
 #endif
 
 /*******************************************************************************

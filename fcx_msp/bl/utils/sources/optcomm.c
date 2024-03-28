@@ -74,11 +74,8 @@ typedef enum E_OPTCOMM_STATE
     /** Reading sys config page */
     E_OPTCOMM_STATE_READING_CONFIG_PAGE,
 #endif
-
-#if OPTCOMM_CHANGE_CONFIG
     /** Updateing sys config page */
     E_OPTCOMM_STATE_UPDATING_CONFIG_PAGE,
-#endif
 
 #if OPTCOMM_CHANGE_MODE
     /** Changing operating mode state */
@@ -174,13 +171,11 @@ static s_code_verif_params_t gs_readMemParam;
 /** Pointer to system configuration. */
 static s_sys_config_t *gps_sysConfig;
 
-#if OPTCOMM_CHANGE_MODE
 /** Operation mode. */
 static E_OPMODE_t ge_opmode;
 
 /** Device key. */
 static uint32_t gul_key;
-#endif /* OPTCOMM_CHANGE_MODE */
 
 /** Current config page being sent. */
 static uint8_t guc_configPage;
@@ -1264,17 +1259,17 @@ static inline bool readConfigPage(void)
     {
         ui_remainingBytes = (sizeof(s_sys_config_t)-(guc_configPage*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD));
 
-        if(ui_remainingBytes < OPTCOMM_MSG_CONFIG_MAX_PAYLOAD)
+        if(ui_remainingBytes > OPTCOMM_MSG_CONFIG_MAX_PAYLOAD)
         {
             // This changes the number of bytes to send in case that the remaining
-            // bytes are less then the max payload
+            // bytes are bigger than the max payload
             ui_remainingBytes = OPTCOMM_MSG_CONFIG_MAX_PAYLOAD;
         }
 
 #if DEBUG_OPTCOMM
-        printf("(OPTCOMM): page  %d ----\n", page);
+        printf("(OPTCOMM): page  %d ----\n", guc_configPage);
         printf("(OPTCOMM): ui_remainingBytes  %d\n", ui_remainingBytes);
-        printf("(OPTCOMM): page*ui_maxPayLoad %d\n", page*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD);
+        printf("(OPTCOMM): page*ui_maxPayLoad %d\n", guc_configPage*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD);
         printf("(OPTCOMM): crc %04x\n", crc16);
 #endif /* DEBUG_OPTCOMM */
 
