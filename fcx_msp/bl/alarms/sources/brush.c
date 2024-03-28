@@ -29,10 +29,6 @@
 #define BRUSH_ALARM_DEFAULT_MS                    10000ULL // 10 seconds
 #endif
 
-#define BRUSH_PARAM_1                             1.05f // 5%
-#define BRUSH_PARAM_2                             1.10f // 10%
-#define BRUSH_PARAM_3                             1.20f // 20%
-
 /*******************************************************************************
  * Enumerations
  ******************************************************************************/
@@ -178,9 +174,7 @@ static void calcFlowRateLimit(void)
     gd_flowRateLimit /= 1000.0;
 
     // Calculate flow rate limit
-    gd_flowRateLimit *= 1.0 + gps_alarmConfig->uc_brushPercent; // TODO value in m³/h
-
-    gd_flowRateLimit = 1.0;
+    gd_flowRateLimit *= 1.0 + (gps_alarmConfig->uc_brushPercent)/100;
 }
 
 static inline double_t getDoubleAbs(double_t d_value)

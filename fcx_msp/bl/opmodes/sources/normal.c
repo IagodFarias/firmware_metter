@@ -108,7 +108,7 @@ typedef struct S_SELECTION_STATE
 STATIC INLINE void checkScreenLockingState();
 STATIC bool selectionSequenceCompleted(s_selection_state_t *ps_selectionState);
 STATIC uint8_t * getAlarmTextAndSetIndicators01();
-STATIC uint8_t * getAlarmTextAndSetIndicators02();
+//STATIC uint8_t * getAlarmTextAndSetIndicators02();
 
 /*******************************************************************************
  * Global variables
@@ -152,12 +152,12 @@ static const s_screen_t gs_screens[] =
         .pf_getData = (void (*)(void)) getAlarmTextAndSetIndicators01,
         .uc_doubleResolution = 0
     },
-    /** Alarms screen 02*/
+    /** Alarms screen 02
     {
         .e_screenType = E_SCREEN_TYPE_TEXT,
         .pf_getData = (void (*)(void)) getAlarmTextAndSetIndicators02,
         .uc_doubleResolution = 0
-    },
+    },*/
     /** Display test screen */
     {
         .e_screenType = E_SCREEN_TYPE_TEST,
@@ -385,6 +385,11 @@ void normal_run(void)
     // Update frequency scheme
     dfsm_update();
 
+#if CONFIG_OPTCOMM_ENABLED
+    // Update optcomm
+    optcomm_update();
+#endif
+
     // Switch screen in case user has pressed optical interface
     if(b_userInt)
     {
@@ -396,11 +401,6 @@ void normal_run(void)
     {
         checkScreenLockingState();
     }
-
-#if CONFIG_OPTCOMM_ENABLED
-    // Update optcomm
-    optcomm_update();
-#endif
 
     // Update alarm modules detection
     leak_update();
@@ -594,73 +594,83 @@ STATIC bool selectionSequenceCompleted(s_selection_state_t *ps_selectionState)
  */
 STATIC uint8_t * getAlarmTextAndSetIndicators01()
 {
-    static uint8_t auc_msg[] = "A1.-------";
+    static uint8_t auc_msg[] = "A.--------";
 
     // Check reverse flow
     if(alarmmng_isReverseFlow())
     {
-        auc_msg[3] = '1';
+        auc_msg[2] = '1';
+    }
+    else
+    {
+        auc_msg[2] = '-';
+    }
+
+    // Check leakage
+    if(alarmmng_isLeakage())
+    {
+        auc_msg[3] = '2';
     }
     else
     {
         auc_msg[3] = '-';
     }
 
-    // Check leakage
-    if(alarmmng_isLeakage())
+    // Check air in pipe
+    if(alarmmng_isAirInPipe())
     {
-        auc_msg[4] = '2';
+        auc_msg[4] = '3';
     }
     else
     {
         auc_msg[4] = '-';
     }
 
-    // Check air in pipe
-    if(alarmmng_isAirInPipe())
+    // Check battery
+    if(batt_isLow())
     {
-        auc_msg[5] = '3';
+        auc_msg[5] = '4';
     }
     else
     {
         auc_msg[5] = '-';
     }
-
-    // Check battery
-    if(batt_isLow())
-    {
-        auc_msg[6] = '4';
-    }
-    else
-    {
-        auc_msg[6] = '-';
-    }
 #if CONFIG_FRAUD_ENABLED
     // Check Tamper
     if(fraud_wasViolated())
     {
-        auc_msg[7] = '5';
+        auc_msg[6] = '5';
     }
     else
     {
-        auc_msg[7] = '-';
+        auc_msg[6] = '-';
     }
 #endif
 
     // Check maximum overflow alarm
     if(alarmmng_isBrush())
     {
-        auc_msg[8] = '6';
+        auc_msg[7] = '6';
+    }
+    else
+    {
+        auc_msg[7] = '-';
+    }
+
+    // Check no usage
+    if(alarmmng_isNoUsage())
+    {
+        auc_msg[8] = '7';
     }
     else
     {
         auc_msg[8] = '-';
     }
 
-    // Check no usage
-    if(alarmmng_isNoUsage())
+    if(alarmmng_isOverTemp())
     {
-        auc_msg[9] = '7';
+        display_setIcon(E_ICON_ERROR);
+        auc_msg[9] = '8';
     }
     else
     {
@@ -677,7 +687,7 @@ STATIC uint8_t * getAlarmTextAndSetIndicators01()
  *  @return
  *      Text to be shown in display.
  */
-STATIC uint8_t * getAlarmTextAndSetIndicators02()
+/*STATIC uint8_t * getAlarmTextAndSetIndicators02()
 {
     static uint8_t auc_msg[] = "A2.-------";
 
@@ -694,3 +704,4 @@ STATIC uint8_t * getAlarmTextAndSetIndicators02()
 
     return auc_msg;
 }
+*/
