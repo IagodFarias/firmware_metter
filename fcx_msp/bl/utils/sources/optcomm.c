@@ -33,7 +33,7 @@
 #define OPTCOMM_CONN_TRIES                              6
 
 /** SYNC_REQ skip count. */
-#define OPTCOMM_SYNC_REQ_SKIP_CNT                       2
+#define OPTCOMM_SYNC_REQ_SKIP_CNT                       1
 
 /** Max weekday valid. */
 #define OPTCOMM_MAX_VALID_WEEKDAY                       7
@@ -910,10 +910,15 @@ static void processRxMessage(s_optcomm_msg_t *ps_msg)
             printf("(OPTCOMM): Received invalid COMMAND %d \n", ps_msg->e_cmd);
 #endif /* DEBUG_OPTCOMM */
 
-            // Change the OPTCOMM's state to respond invalid
-            // command in next meter's cycle
-            ge_state = E_OPTCOMM_STATE_RESPONDING_INVALID_CMD;
-            break;
+            if(ps_msg->e_cmd == E_OPTCOMM_CMD_SYNC_REQ){ //re-send missed sync to ease comms
+                ge_state = E_OPTCOMM_STATE_WAITING_CMD;
+            }else{
+                // Change the OPTCOMM's state to respond invalid
+                // command in next meter's cycle
+                ge_state = E_OPTCOMM_STATE_RESPONDING_INVALID_CMD;
+                break;
+            }
+
     }
 
     if(b_isValidCmd && gfp_activityCallback)
