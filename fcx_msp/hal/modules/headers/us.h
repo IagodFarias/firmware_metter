@@ -5,7 +5,7 @@
  * @date    28/02/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 #ifndef US_H_
@@ -212,7 +212,7 @@ typedef struct S_US_TX_CONFIG
     uint16_t ui_txPConfig0;
     /** Set PCONFIG for channel 1. */
     uint16_t ui_txPConfig1;
-    /** Set PCONFIG for channel 2. */
+    /** Set PCONFIG f or channel 2. */
     uint16_t ui_txPConfig2;
     /** Set PCONFIG for channel 3. */
     uint16_t ui_txPConfig3;

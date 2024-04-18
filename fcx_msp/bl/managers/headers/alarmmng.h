@@ -5,7 +5,7 @@
  * @date    03/04/2018
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 #ifndef ALARMMNG_H_
 #define ALARMMNG_H_

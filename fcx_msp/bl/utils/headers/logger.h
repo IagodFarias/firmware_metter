@@ -5,7 +5,7 @@
  * @date    03/10/2023
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medi��o. All rights reserved.
  ******************************************************************************/
 
 #ifndef BL_HEADERS_LOGGER_H_

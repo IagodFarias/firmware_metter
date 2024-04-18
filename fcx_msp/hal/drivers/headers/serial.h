@@ -6,7 +6,7 @@
  * @date    11/08/2014
  * @author  Robson Cardoso
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 #ifndef SERIAL_H_
 #define SERIAL_H_

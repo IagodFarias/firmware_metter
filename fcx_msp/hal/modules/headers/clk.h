@@ -4,7 +4,7 @@
  * @author  Eric Costa Hall
  * @date    11/10/2021
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 #ifndef CLK_H_
 #define CLK_H_

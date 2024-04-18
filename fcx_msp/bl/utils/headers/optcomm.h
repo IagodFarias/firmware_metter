@@ -5,7 +5,7 @@
  * @date    01/11/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medi��o. All rights reserved.
  ******************************************************************************/
 #if CONFIG_OPTCOMM_ENABLED
 

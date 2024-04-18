@@ -5,7 +5,7 @@
  * @date    04/11/2021
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 #ifndef NO_USAGE_H_
 #define NO_USAGE_H_

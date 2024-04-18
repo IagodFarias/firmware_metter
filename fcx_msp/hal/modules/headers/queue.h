@@ -1,6 +1,6 @@
 //=============================================================================
 /*!
- *    FAE Tecnologia
+ *    FAE Sistemas de Medição
  *    All rights reserved
  *
  *    Coding standards: v1.1

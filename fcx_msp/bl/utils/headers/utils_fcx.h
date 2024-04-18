@@ -4,7 +4,7 @@
  * @author 	Robson Cardoso
  * @date 	14/02/2017
  * @section license
- * 			FAE Tecnologia. All rights reserved.
+ * 			FAE Sistemas de Medi��o. All rights reserved.
  ******************************************************************************/
 
 #ifndef UTILS_H_

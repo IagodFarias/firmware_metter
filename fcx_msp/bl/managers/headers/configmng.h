@@ -5,7 +5,7 @@
  * @date    28/02/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 #ifndef CONFIGMNG_H_
@@ -184,9 +184,8 @@ typedef enum E_LOGGER_CONFIG_INTERVAL
     E_LOGGER_CONFIG_INTERVAL_HALF_DAILY,             // A log every 12 hours
     E_LOGGER_CONFIG_INTERVAL_DAILY,                  // A log every day
     E_LOGGER_CONFIG_INTERVAL_WEEKLY,                 // A log every week
-//    E_LOGGER_CONFIG_INTERVAL_MONTHLY,                // A log every month
-    E_LOGGER_CONFIG_INTERVAL_15MIN,                  // A log every 15 minutes
-    E_LOGGER_CONFIG_INTERVAL_MONTHLY                // A log every month
+    E_LOGGER_CONFIG_INTERVAL_MONTHLY,                // A log every month
+    E_LOGGER_CONFIG_INTERVAL_15MIN                  // A log every 15 minutes
 
 } E_LOGGER_CONFIG_INTERVAL_t;
 
@@ -317,9 +316,6 @@ typedef struct S_APP_CONFIG
     /**  Key used to perform critical operation by optical interface. */
     uint32_t ul_permissionKey;
     /** Pulse configuration */
-    s_pulse_config_t s_pulse; // 8 bytes
-    /** Logger configuration  */
-    s_logger_config_t s_logger; // 2 bytes
 } s_app_config_t;
 
 /*******************************************************************************

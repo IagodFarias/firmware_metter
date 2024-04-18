@@ -5,7 +5,7 @@
  * @date    13/04/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 #ifndef BATT_H_
 #define BATT_H_

@@ -4,7 +4,7 @@
  * @author  Robson Cardoso
  * @date    17/02/2017
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 #ifndef ANASENS_H_

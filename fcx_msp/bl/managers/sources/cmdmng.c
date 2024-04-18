@@ -5,7 +5,7 @@
  * @date    04/08/2021
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medi��o. All rights reserved.
  ******************************************************************************/
 /*******************************************************************************
  * Includes

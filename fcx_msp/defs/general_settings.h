@@ -5,7 +5,7 @@
  * @date    13/04/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 #ifndef GENERAL_SETTINGS_H_
@@ -129,7 +129,7 @@
 #define DEBUG_PROC_FLOWRATE                                 0
 #define DEBUG_FLOWRATE                                      0
 
-#define DEBUG_NORMAL                                        0
+#define DEBUG_NORMAL                                        1
 
 #define DEBUG_CHANGE_TO_STANDBY                             0
 

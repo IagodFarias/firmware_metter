@@ -5,7 +5,7 @@
  * @date    01/10/2017
  * @details Module which implements the communication by optical interface.
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -46,7 +46,7 @@
  *  This value is estimated and spend +- 800ms time processing.
  *  This estimate used an oscilloscope and a GPIO to get the correct time
  *  from process.*/
-#define OPTCOMM_CRC_CHECK_MAX_BYTES_PER_CYCLE           0xFFFF
+#define OPTCOMM_CRC_CHECK_MAX_BYTES_PER_CYCLE           0xFF00
 
 /*******************************************************************************
  * Enumerations
@@ -179,7 +179,6 @@ static uint32_t gul_key;
 
 /** Current config page being sent. */
 static uint8_t guc_configPage;
-
 
 
 /** Callback to be called whenever an activity occurs in the OPTCOMM. */
@@ -857,6 +856,13 @@ static void processRxMessage(s_optcomm_msg_t *ps_msg)
             s_rxParam.ul_length |= ((uint32_t) ps_msg->auc_payload[6]) << 16;
             s_rxParam.ul_length |= ((uint32_t) ps_msg->auc_payload[7]) << 24;
 
+#if DEBUG_OPTCOMM
+            printf("(OPTCOMM): Payload: %X %X %X %X %X %X %X %X\n", ps_msg->auc_payload[0], ps_msg->auc_payload[1], ps_msg->auc_payload[2], ps_msg->auc_payload[3], ps_msg->auc_payload[4], ps_msg->auc_payload[5], ps_msg->auc_payload[6], ps_msg->auc_payload[7]);
+            printf("(OPTCOMM): Checksum Offset: %X\n", s_rxParam.ul_offset);
+            printf("(OPTCOMM): Checksum Length: %X\n", s_rxParam.ul_length);
+#endif
+
+
                 if(isValidParamReadMem(&s_rxParam))
                 {
                     memcpy(&gs_readMemParam, &s_rxParam,
@@ -1188,12 +1194,11 @@ static bool receiveMessage(s_optcomm_msg_t *ps_msg)
                     crc_init();
                     crc_calc(gauc_buffer, ui_rxLen - OPTCOMM_CRC_LEN);
 
-
                     // Check with the received CRC matches with the calculated CRC
-                    if(crc_result() == ps_msg->ui_crc || ps_msg->e_cmd == E_OPTCOMM_CMD_CHANGE_OPMODE)
+                    if(crc_result() == ps_msg->ui_crc || ps_msg->e_cmd == E_OPTCOMM_CMD_CHANGE_OPMODE || ps_msg->e_cmd == E_OPTCOMM_CMD_READ_MEMORY_CHECKSUM)
                     {
                         memcpy(&ps_msg->ui_len, &gauc_buffer[2], OPTCOMM_MSG_SIZE_LEN);
-                        memcpy(ps_msg->auc_payload,
+                        memcpy(&ps_msg->auc_payload,
                             &gauc_buffer[OPTCOMM_MSG_HEADER_LEN],
                             ui_rxLen - OPTCOMM_MSG_HEADER_LEN - OPTCOMM_CRC_LEN);
 
@@ -1255,7 +1260,7 @@ static inline bool readConfigPage(void)
                              sizeof(s_sys_config_t));
     }
 
-    if(guc_configPage < OPTCOMM_MSG_CONFIG_NUM_PAGES)
+    if(guc_configPage <= OPTCOMM_MSG_CONFIG_NUM_PAGES)
     {
         ui_remainingBytes = (sizeof(s_sys_config_t)-(guc_configPage*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD));
 
@@ -1287,12 +1292,6 @@ static inline bool readConfigPage(void)
         // Send page
         optint_send(gauc_buffer, ui_remainingBytes);
         guc_configPage++;
-        if(guc_configPage < OPTCOMM_MSG_CONFIG_NUM_PAGES)
-        {
-            // disable transmition to save power between cycles
-            // Keep 'on' for the last cicle
-            //optint_enableTx(false);
-        }
         b_pendingBytesToSend = true;
     }
     if(guc_configPage == OPTCOMM_MSG_CONFIG_NUM_PAGES)
@@ -1318,22 +1317,45 @@ static inline bool readConfigPage(void)
  */
 static inline bool calcCrcFromMemory(void)
 {
+    static uint8_t ui_block = 0;
+    static uint32_t ul_remainingAddr;
+    static uint32_t ul_offset;
     static uint16_t ui_crc16 = 0;
     bool b_pendingBytesToCheck = true;
 
-    crc_init();
+    if(ui_block == 0)
+    {
+        ui_block = gs_readMemParam.ul_length /
+            OPTCOMM_CRC_CHECK_MAX_BYTES_PER_CYCLE;
+        ul_offset = gs_readMemParam.ul_offset;
+        ul_remainingAddr = gs_readMemParam.ul_length;
+    }
 
-    // Calculate crc16
-    crc_calc((uint8_t*) gs_readMemParam.ul_offset, gs_readMemParam.ul_length);
+    crc_initWithPrevious(ui_crc16);
 
-    // Clear remaining
-    gs_readMemParam.ul_length = 0;
+    if(ul_remainingAddr > OPTCOMM_CRC_CHECK_MAX_BYTES_PER_CYCLE)
+    {
+        // Calculate crc16
+        crc_calc((uint8_t*) ul_offset, OPTCOMM_CRC_CHECK_MAX_BYTES_PER_CYCLE);
+
+        ul_offset += OPTCOMM_CRC_CHECK_MAX_BYTES_PER_CYCLE;
+        ul_remainingAddr -= OPTCOMM_CRC_CHECK_MAX_BYTES_PER_CYCLE;
+    }
+    else
+    {
+        // Calculate crc16
+        crc_calc((uint8_t*) ul_offset, ul_remainingAddr);
+
+        // Clear remaining
+        ul_remainingAddr = 0;
+    }
+
+    // Get result
+    ui_crc16 = crc_result();
 
     // Prepare response to send
-    if(gs_readMemParam.ul_length == 0)
+    if(!ul_remainingAddr)
     {
-
-        ui_crc16 = crc_result();
         // Start a message to send and set length of message
         startMessage(E_OPTCOMM_CMD_READ_MEMORY_CHECKSUM, 
             sizeof(uint16_t));
@@ -1351,7 +1373,9 @@ static inline bool calcCrcFromMemory(void)
         // Send the crc16 from message
         finishMessage();
 
-        // Reset flag
+        // Reset All flag
+        ui_crc16 = 0;
+        ui_block = 0;
         b_pendingBytesToCheck = false;
     }
 

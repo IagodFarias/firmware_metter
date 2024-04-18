@@ -4,7 +4,7 @@
  * @author  Robson Cardoso
  * @date    17/05/2016
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 #ifndef HAL_H_
