@@ -5,7 +5,7 @@
  * @date    07/03/2018
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -119,6 +119,11 @@ void postcalib_init()
 
     // Disable processing
     proc_disableProcessing();
+
+#if CONFIG_OPTCOMM_ENABLED
+    // Initialize optical communication
+    optcomm_init();
+#endif /* CONFIG_OPTCOMM_ENABLED */
 
     // Calculate the post-calibration timeout
     gull_postCalibTimeout = systick_getSysTickMs();

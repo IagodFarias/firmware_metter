@@ -4,7 +4,7 @@
  * @author  Eric Costa Hall
  * @date    07/06/2021
  * @section license
- *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved
+ *          FAE Sistemas de Medição. All rights reserved
  ******************************************************************************/
 #include <stdint.h>
 

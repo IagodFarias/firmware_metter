@@ -5,7 +5,7 @@
  * @date    01/11/2017
  * @details
  * @section license
- *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 #if CONFIG_OPTCOMM_ENABLED
 
@@ -70,7 +70,7 @@
                                                 OPTCOMM_CRC_LEN
 
 /** Maximum logs transmitted per meter's cycle. */
-#define OPTCOMM_MAX_LOGS_PER_CYCLE              10
+#define OPTCOMM_MAX_LOGS_PER_CYCLE              50
 
 /** Length of log register. */
 #define OPTCOMM_LOG_LEN                         34
@@ -115,7 +115,7 @@
 #define OPTCOMM_MSG_CONFIG_MAX_PAYLOAD           34
 
 /** Division of pages on the configuration. */
-#define OPTCOMM_MSG_CONFIG_NUM_PAGES             20
+#define OPTCOMM_MSG_CONFIG_NUM_PAGES             21
 
 /*******************************************************************************
  * Enumerations

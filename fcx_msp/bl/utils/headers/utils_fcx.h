@@ -4,7 +4,7 @@
  * @author 	Robson Cardoso
  * @date 	14/02/2017
  * @section license
- * 			FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
+ * 			FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 #ifndef UTILS_H_
@@ -88,7 +88,7 @@ void utils_assert(const uint8_t *puc_file, uint16_t ui_line);
  * @return
  *      The value of \f$Y=f(X)\f$.
  */
-double_t utils_linearInterp(double_t d_X, const s_lut_coordinate_t *ps_lut,
+double_t utils_linearInterp(double_t d_X, s_lut_coordinate_t *ps_lut,
                             uint8_t uc_size);
 /**
  * @brief
@@ -113,10 +113,10 @@ double_t utils_linearInterp(double_t d_X, const s_lut_coordinate_t *ps_lut,
  *      Returns the index of the lookup table where the the number @p d_X lies
  *      within.
  */
-uint8_t utils_lutSearch(double_t d_X, const s_lut_coordinate_t *ps_lut,
+uint8_t utils_lutSearch(double_t d_X, s_lut_coordinate_t *ps_lut,
                         uint8_t uc_size);
 #if FIXED_POINT_CALC
-uint8_t utils_lutSearchIQ(uint32_t d_X, const s_lut_coordinate_iq_t *ps_lut,
+uint8_t utils_lutSearchIQ(uint32_t d_X, s_lut_coordinate_iq_t *ps_lut,
                         uint8_t uc_size);
 #endif
 double_t utils_calcStd(int16_t *pi_data, uint16_t ui_size);

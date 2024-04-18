@@ -5,7 +5,7 @@
  * @date    04/08/2021
  * @details
  * @section license
- *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 /*******************************************************************************
  * Includes
@@ -439,6 +439,11 @@ void cmdmng_dispatch(void)
                 // Send system configuration structure
                 serial_transmitBytes((uint8_t*) gps_sysConfig, 
                     sizeof(s_sys_config_t));
+
+                gs_packet.uc_resp = CMDMNG_CMD_ACK;
+
+                serial_transmitBytes((uint8_t*) &gs_packet, sizeof(gs_packet));
+
             break;
 
             /** Write the whole system configuration */
@@ -452,9 +457,17 @@ void cmdmng_dispatch(void)
                 serial_receiveBytes((uint8_t *) gps_sysConfig, 
                     sizeof(s_sys_config_t));
 
-                // Publish system configuration
-                configmng_setSysConfig(gps_sysConfig);
-                gs_packet.uc_resp = CMDMNG_CMD_ACK;
+                // Set system configuration
+                if(configmng_setSysConfig(gps_sysConfig))
+                {
+                    // Respond with ACK
+                    gs_packet.uc_resp = CMDMNG_CMD_ACK;
+                }
+                else
+                {
+                    // Respond with NACK in case of failure
+                    gs_packet.uc_resp = CMDMNG_CMD_NACK;
+                }
 
                 serial_transmitBytes((uint8_t*) &gs_packet, sizeof(gs_packet));
             break;
