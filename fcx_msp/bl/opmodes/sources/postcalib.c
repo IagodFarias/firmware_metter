@@ -1,7 +1,7 @@
 /***************************************************************************//**
  * @brief
  * @file    postcalib.c
- * @author  Gustavo Salom√£o
+ * @author  Gustavo Salom„o
  * @date    07/03/2018
  * @details
  * @section license
@@ -20,6 +20,7 @@
 #include "configmng.h"
 #include "power.h"
 #include "userint.h"
+#include "optcomm.h"
 
 /*******************************************************************************
  * Definitions

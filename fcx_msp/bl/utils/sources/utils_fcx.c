@@ -19,10 +19,10 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-uint8_t utils_lutSearch(double_t d_X, s_lut_coordinate_t *ps_lut,
+uint8_t utils_lutSearch(double_t d_X, const s_lut_coordinate_t *ps_lut,
                         uint8_t uc_size);
 #if FIXED_POINT_CALC
-uint8_t utils_lutSearchIQ(uint32_t d_X, s_lut_coordinate_iq_t *ps_lut,
+uint8_t utils_lutSearchIQ(uint32_t d_X, const s_lut_coordinate_iq_t *ps_lut,
                         uint8_t uc_size);
 #endif
 double_t utils_calcStd(int16_t *pi_data, uint16_t ui_size);
@@ -37,7 +37,7 @@ void utils_assert(bool b_expr);
 /*******************************************************************************
  * Public functions
  ******************************************************************************/
-double_t utils_linearInterp(double_t d_X, s_lut_coordinate_t *ps_lut,
+double_t utils_linearInterp(double_t d_X, const s_lut_coordinate_t *ps_lut,
                             uint8_t uc_size)
 {
     double_t d_Y = 0;
@@ -76,7 +76,7 @@ double_t utils_linearInterp(double_t d_X, s_lut_coordinate_t *ps_lut,
     return d_Y;
 }
 
-uint8_t utils_lutSearch(double_t d_X, s_lut_coordinate_t *ps_lut,
+uint8_t utils_lutSearch(double_t d_X, const s_lut_coordinate_t *ps_lut,
                         uint8_t uc_size)
 {
     uint8_t uc_idx;
@@ -87,7 +87,7 @@ uint8_t utils_lutSearch(double_t d_X, s_lut_coordinate_t *ps_lut,
 }
 
 #if FIXED_POINT_CALC
-uint8_t utils_lutSearchIQ(uint32_t d_X, s_lut_coordinate_iq_t *ps_lut,
+uint8_t utils_lutSearchIQ(uint32_t d_X, const s_lut_coordinate_iq_t *ps_lut,
                         uint8_t uc_size)
 {
     uint8_t uc_idx;

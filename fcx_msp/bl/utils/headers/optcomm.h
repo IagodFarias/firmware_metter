@@ -70,7 +70,7 @@
                                                 OPTCOMM_CRC_LEN
 
 /** Maximum logs transmitted per meter's cycle. */
-#define OPTCOMM_MAX_LOGS_PER_CYCLE              50
+#define OPTCOMM_MAX_LOGS_PER_CYCLE              10
 
 /** Length of log register. */
 #define OPTCOMM_LOG_LEN                         34

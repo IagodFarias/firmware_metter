@@ -62,7 +62,7 @@
 #define OPTINT_UART_BAUDRATE                    (9600)
 
 /** Optint receive timeout in milliseconds. */
-#define OPTINT_RECEIVE_TIMEOUT_MS               200
+#define OPTINT_RECEIVE_TIMEOUT_MS               75
 #define OPTINT_TIMEOUT_RX                       OPTINT_RECEIVE_TIMEOUT_MS << 5
 #define OPTINT_TIMER_MAX_DELAY                  65535
 

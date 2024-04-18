@@ -179,7 +179,7 @@ __persistent static s_processing_t gs_processing = PROC_PROCESSING_DEFAULT;
 
 /** Show the relationship between the speed of sound in meters per second and
     the water temperature in °C. */
-static s_lut_coordinate_t gas_lutSosToTemperature[PROC_SOS_TO_TEMP_LUT_SIZE] =
+static const s_lut_coordinate_t gas_lutSosToTemperature[PROC_SOS_TO_TEMP_LUT_SIZE] =
 {
     {1.40238743999999997e+03, 0.0},
     {1.44727957965388487e+03, 10.0},
@@ -196,7 +196,7 @@ static s_lut_coordinate_t gas_lutSosToTemperature[PROC_SOS_TO_TEMP_LUT_SIZE] =
 
 /** Show the relationship between the media temperature in ÂºC and the kinematic
     viscosity of the water in squared meters per second. */
-static s_lut_coordinate_t gas_lutTemperatureToViscosity[PROC_TEMP_TO_VISC_LUT_SIZE] =
+static const s_lut_coordinate_t gas_lutTemperatureToViscosity[PROC_TEMP_TO_VISC_LUT_SIZE] =
 {
     {0.0,   1.79199999999999995e-06},
     {10.0,  1.30800000003907788e-06},
