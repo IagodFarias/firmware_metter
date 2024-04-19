@@ -4,7 +4,7 @@
  * @author  Eric Costa Hall
  * @date    07/06/2021
  * @section license
- *          FAE Sistemas de Medição. All rights reserved
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved
  ******************************************************************************/
 #include <stdint.h>
 
@@ -45,7 +45,7 @@
 #endif /* CONFIG_PULSE_ENABLED */
 
 #if OPTCOMM_CHANGE_CONFIG
-#error "Build inválida. Remover OPTCOMM_CHANGE_CONFIG"
+#error "Build invï¿½lida. Remover OPTCOMM_CHANGE_CONFIG"
 #endif
 
 /*******************************************************************************

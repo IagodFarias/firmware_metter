@@ -5,7 +5,7 @@
  * @date    01/03/2017
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -99,8 +99,22 @@ void opmodemng_init(void)
         ge_currentOpMode = E_OPMODE_PRE_CALIBRATION;
         ge_previousOpMode = E_OPMODE_PRE_CALIBRATION;
 
-        // Initialize pre-calibration operating mode
-        precalib_init();
+
+#if DEBUG_NORMAL
+            opmodemng_setCalibrationFlag(true);
+            opmodemng_setActivationFlag(true);
+            opmodemng_setPreviousOpMode(E_OPMODE_NORMAL);
+            opmodemng_setCurrentOpMode(E_OPMODE_NORMAL);
+            ge_currentOpMode = E_OPMODE_NORMAL;
+            ge_previousOpMode = E_OPMODE_NORMAL;
+            normal_init();
+#else
+            // Initialize pre-calibration operating mode
+            precalib_init();
+#endif
+
+
+
 
     }
 }

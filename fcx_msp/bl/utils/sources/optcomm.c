@@ -5,7 +5,7 @@
  * @date    01/10/2017
  * @details Module which implements the communication by optical interface.
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -29,11 +29,15 @@
 #endif /* DEBUG_OPTCOMM */
 
 #if CONFIG_OPTCOMM_ENABLED
+/** Interval in milliseconds to open the synchronization request. */
+#define OPTCOMM_SYNC_REQ_INTERVAL                       50UL
+
 /** Number of tries to receive the first ACK before it's connected. */
 #define OPTCOMM_CONN_TRIES                              6
 
 /** SYNC_REQ skip count. */
-#define OPTCOMM_SYNC_REQ_SKIP_CNT                       1
+#define OPTCOMM_SYNC_REQ_SKIP_CNT               (OPTCOMM_SYNC_REQ_INTERVAL / \
+                                                 systick_getWakeUpIntMs())
 
 /** Max weekday valid. */
 #define OPTCOMM_MAX_VALID_WEEKDAY                       7

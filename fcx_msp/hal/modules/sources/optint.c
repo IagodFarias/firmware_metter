@@ -5,7 +5,7 @@
  * @date    17/03/2017
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -89,7 +89,7 @@ static bool timeoutOptIntCallback(void);
 /** Low threshold lookup table. */
 static const s_lut_coordinate_iq_t gas_percThreshold[OPTINT_PERC_THRES_LUT_SIZE] =
 {
-     //TABELA com valores na abcissa referente à tensão que o fototransistor mandar de acordo com a intensidade da luz
+     //TABELA com valores na abcissa referente ï¿½ tensï¿½o que o fototransistor mandar de acordo com a intensidade da luz
     {_IQ19(2300.0), _IQ19(0.995)},
     {_IQ19(2500.0), _IQ19(0.99)},
     {_IQ19(2800.0), _IQ19(0.99)},
@@ -175,6 +175,11 @@ void optint_init(void)
     
     // Queue initialize to interface
     queue_init((uint32_t *)&gaul_queue, OPTINT_QUEUE_SIZE, gps_queue);
+
+#if CONFIG_OPTCOMM_ENABLED
+    // Config UART
+    //configUsart();
+#endif
 
     // Initialize state variable
     ge_optIntState = E_OPTINT_STATE_RELEASED;

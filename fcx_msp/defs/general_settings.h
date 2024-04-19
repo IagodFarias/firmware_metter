@@ -5,7 +5,7 @@
  * @date    13/04/2017
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 #ifndef GENERAL_SETTINGS_H_
@@ -89,7 +89,7 @@
 #endif /* CONFIG_OPTCOMM_ENABLED */
 
 #if OPTCOMM_CHANGE_CONFIG
-#error "Build inválida. Remover OPTCOMM_CHANGE_CONFIG"
+#error "Build invï¿½lida. Remover OPTCOMM_CHANGE_CONFIG"
 #endif
 
 #if CONFIG_LOGGER_ENABLED
@@ -175,7 +175,7 @@
 /*
  * Enable DEBUG analog sense
  */
-#define DEBUG_ANASENS                                       0
+#define DEBUG_ANASENS                                       1
 
 /*
  * Enable DEBUG_OPTINT
@@ -210,7 +210,7 @@
 /*
  * DEBUG_BATT
  */
-#define DEBUG_BATT                                          0
+#define DEBUG_BATT                                          1
 
 /*
  * DEBUG_REV_INSTALL
@@ -238,7 +238,7 @@
     DEBUG_LOGGER        || DEBUG_SCREENMNG      || DEBUG_PROC_FLOWRATE  ||   \
     DEBUG_ALARMMNG      || DEBUG_BRUSH          || DEBUG_BATT           ||   \
     DEBUG_REV_INSTALL   || DEBUG_NO_USAGE       || DEBUG_TEMP           ||   \
-    DEBUG_FRAUD )//|| DEBUG_NORMAL)
+    DEBUG_FRAUD )//)//|| DEBUG_NORMAL)
 #define DEBUG_SERIAL                                        0
 #define DEBUG                                               1
 #endif
