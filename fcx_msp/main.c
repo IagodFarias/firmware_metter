@@ -69,7 +69,7 @@
 // *****************************************************************************
 
 void main(void)
-    {
+{
     // Initializes the basic functionality of the system
     hal_init();
 

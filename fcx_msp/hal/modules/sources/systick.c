@@ -41,11 +41,11 @@
 #define SYSTICK_MAX_TICK_CNT_MS                     253402300799UL
 
 /** Convert millisecond to tick */
-//#define SYSTICK_MS_TO_TICK(ms)                      ((ms * LFCLK_FREQ) / 1000L) \
+#define SYSTICK_MS_TO_TICK(ms)                      ((ms * LFCLK_FREQ) / 1000L) \
                                                         - 1
 
 /** Convert millisecond to tick */
-#define SYSTICK_MS_TO_TICK(ms)                      ms << 5
+//#define SYSTICK_MS_TO_TICK(ms)                      ms << 5
 
 /*******************************************************************************
  * Prototypes

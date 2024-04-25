@@ -50,7 +50,7 @@
  *  This value is estimated and spend +- 800ms time processing.
  *  This estimate used an oscilloscope and a GPIO to get the correct time
  *  from process.*/
-#define OPTCOMM_CRC_CHECK_MAX_BYTES_PER_CYCLE           0xFF00
+#define OPTCOMM_CRC_CHECK_MAX_BYTES_PER_CYCLE           0xFFFF
 
 /*******************************************************************************
  * Enumerations
@@ -862,8 +862,8 @@ static void processRxMessage(s_optcomm_msg_t *ps_msg)
 
 #if DEBUG_OPTCOMM
             printf("(OPTCOMM): Payload: %X %X %X %X %X %X %X %X\n", ps_msg->auc_payload[0], ps_msg->auc_payload[1], ps_msg->auc_payload[2], ps_msg->auc_payload[3], ps_msg->auc_payload[4], ps_msg->auc_payload[5], ps_msg->auc_payload[6], ps_msg->auc_payload[7]);
-            printf("(OPTCOMM): Checksum Offset: %X\n", s_rxParam.ul_offset);
-            printf("(OPTCOMM): Checksum Length: %X\n", s_rxParam.ul_length);
+            printf("(OPTCOMM): Checksum Offset: %ull\n", s_rxParam.ul_offset);
+            printf("(OPTCOMM): Checksum Length: %ull\n", s_rxParam.ul_length);
 #endif
 
 
@@ -876,7 +876,7 @@ static void processRxMessage(s_optcomm_msg_t *ps_msg)
                 }
                 else
                 {
-                    ge_state = E_OPTCOMM_STATE_RESPONDING_NACK;
+                    ge_state = E_OPTCOMM_STATE_RESPONDING_INVALID_CMD;
                 }
             }
             else
@@ -1147,9 +1147,10 @@ static bool receiveMessage(s_optcomm_msg_t *ps_msg)
             case E_OPTCOMM_CMD_READ_SERIAL_NUMBER:
             case E_OPTCOMM_CMD_READ_FIRMWARE_VERSION:
             case E_OPTCOMM_CMD_READ_CONFIG_PAGE:
-#if OPTCOMM_CHANGE_CONFIG
+#if DEBUG && OPTCOMM_CHANGE_CONFIG
             case E_OPTCOMM_CMD_WRITE_CONFIG_PAGE:
 #endif
+            case E_OPTCOMM_CMD_READ_MEMORY_CHECKSUM:
             case E_OPTCOMM_CMD_SYNC_REQ:
             case E_OPTCOMM_CMD_SYNC:
             case E_OPTCOMM_CMD_SYNC_CONN:
@@ -1167,7 +1168,6 @@ static bool receiveMessage(s_optcomm_msg_t *ps_msg)
             case E_OPTCOMM_CMD_ENABLE_WMBUS_TX:
             case E_OPTCOMM_CMD_DISABLE_WMBUS_TX:
 #endif
-            case E_OPTCOMM_CMD_READ_MEMORY_CHECKSUM:
 
             b_isValidCmd = true;
             break;
@@ -1380,6 +1380,9 @@ static inline bool calcCrcFromMemory(void)
         // Reset All flag
         ui_crc16 = 0;
         ui_block = 0;
+        ul_remainingAddr = 0;
+        ul_offset = 0;
+        ui_crc16 = 0;
         b_pendingBytesToCheck = false;
     }
 
