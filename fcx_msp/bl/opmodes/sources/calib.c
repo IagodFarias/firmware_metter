@@ -5,7 +5,7 @@
  * @date    03/04/2017
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -19,8 +19,10 @@
 #include "configmng.h"
 #include "processing.h"
 #include "probe.h"
-#include "batt.h"
+#include "battdate.h"
 #include "userint.h"
+#include "aes_cmac.h"
+#include "batt.h"
 
 /*******************************************************************************
  * Definitions
@@ -133,7 +135,7 @@ void calib_init(void)
                                       NULL,
                                       NULL,
                                       NULL,
-                                      batt_isLow,
+                                      battdate_isOld,
                                       NULL,
                                       NULL,
                                       NULL,
@@ -151,8 +153,10 @@ void calib_init(void)
     // Disable processing filters
     proc_disableFilters();
 
-    // Enable processing
-    proc_enableProcessing();
+    if(!batt_isLow() && !cmac_isNonVerified()){
+        // Enable processing
+        proc_enableProcessing();
+    }
 
 #if DEBUG
     proc_resetVolumeCounters();

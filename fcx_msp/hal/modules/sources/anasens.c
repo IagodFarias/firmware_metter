@@ -5,7 +5,7 @@
  * @date    26/10/2021
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de MediÃ§Ã£o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -36,6 +36,7 @@
 #define ANASENSE_LIGHT_SENSE_MASK                   ANASENSE_ADC12IFGR0_0_MASK
 #define ANASENSE_VCC_SENSE_MASK                     ANASENSE_ADC12IFGR0_1_MASK
 
+
 #define ANASENSE_LIGHT_SENSE_MEM_MAP                ADC12_B_MEMORY_0
 #define ANASENSE_VCC_SENSE_MEM_MAP                  ADC12_B_MEMORY_1
 
@@ -44,7 +45,6 @@
  ******************************************************************************/
 static uint32_t getLightSenseVoltage(void);
 static uint32_t getVccSenseVoltage(void);
-static bool adc_meas_wait(void);
 static uint32_t convertAdcToIQ19V(uint16_t ui_input);
 static void disableAdc(void);
 static void enableAdc(void);
@@ -54,7 +54,6 @@ static void enableAdc(void);
  ******************************************************************************/
 static uint32_t giq19_opticalInputVoltage;
 static uint32_t giq19_batteryInputValue;
-static bool gb_isBatteryInputEnabled;
 
 /*******************************************************************************
  * Public functions
@@ -66,8 +65,10 @@ static bool gb_isBatteryInputEnabled;
 void anasens_init(void)
 {
 
-    ADC12_B_initParam initParam;
-    ADC12_B_configureMemoryParam configureMemoryParam;
+    ADC12_B_initParam initParam = {0};
+    ADC12_B_configureMemoryParam configureMemoryParam = {0};
+
+
 
     //If ref generator busy, WAIT
     while(Ref_A_isRefGenBusy(REF_A_BASE));
@@ -92,6 +93,17 @@ void anasens_init(void)
     // Init ADC12_B configuration
     ADC12_B_init(ADC12_B_BASE, &initParam);
 
+    /* Enables ADC12_B */
+    ADC12_B_enable(ADC12_B_BASE);
+    /*
+     * Base address of ADC12B Module
+     * For memory buffers 0-7 sample/hold for 4 clock cycles (47us-64us using MODOSC)
+     * For memory buffers 8-15 sample/hold for 64 clock cycles (5.9us - 8us using MODOSC)
+     * Disable Multiple Sampling
+     */
+    ADC12_B_setupSamplingTimer(ADC12_B_BASE, ADC12_B_CYCLEHOLD_4_CYCLES,
+            ADC12_B_CYCLEHOLD_4_CYCLES, ADC12_B_MULTIPLESAMPLESENABLE);
+
     //Configure Memory Buffer
     /*
      * Base address of the ADC12B Module
@@ -104,7 +116,7 @@ void anasens_init(void)
     configureMemoryParam.inputSourceSelect = ADC12_B_INPUT_A0;
     configureMemoryParam.refVoltageSourceSelect =
                                             ADC12_B_VREFPOS_INTBUF_VREFNEG_VSS;
-    configureMemoryParam.endOfSequence = ADC12_B_NOTENDOFSEQUENCE;
+    configureMemoryParam.endOfSequence = ADC12_B_ENDOFSEQUENCE;
     configureMemoryParam.windowComparatorSelect =
                                             ADC12_B_WINDOW_COMPARATOR_DISABLE;
     configureMemoryParam.differentialModeSelect =
@@ -119,7 +131,7 @@ void anasens_init(void)
      * Vref- = AVss
      */
     configureMemoryParam.memoryBufferControlIndex = ANASENSE_VCC_SENSE_MEM_MAP;
-    configureMemoryParam.inputSourceSelect = ADC12_B_INPUT_A15;
+    configureMemoryParam.inputSourceSelect = ADC12_B_INPUT_BATMAP;
     configureMemoryParam.refVoltageSourceSelect =
                                             ADC12_B_VREFPOS_INTBUF_VREFNEG_VSS;
     configureMemoryParam.endOfSequence = ADC12_B_ENDOFSEQUENCE;
@@ -129,11 +141,9 @@ void anasens_init(void)
                                             ADC12_B_DIFFERENTIAL_MODE_DISABLE;
     ADC12_B_configureMemory(ADC12_B_BASE, &configureMemoryParam);
 
+
     // Disable ADC peripheral
     disableAdc();
-
-    // Clear control flags
-    gb_isBatteryInputEnabled = false;
 
     giq19_opticalInputVoltage = 0;
     giq19_batteryInputValue = 0;
@@ -148,44 +158,24 @@ void anasens_startConversion(void)
     // Enable ADC and wait for stabilization
     enableAdc();
 
-    if(gb_isBatteryInputEnabled)
-    {
-        /*
-         * Base address of ADC12B Module
-         * For memory buffers 0-7 sample/hold for 4 clock cycles (47us-64us using MODOSC)
-         * For memory buffers 8-15 sample/hold for 64 clock cycles (5.9us - 8us using MODOSC)
-         * Disable Multiple Sampling
-         */
-        ADC12_B_setupSamplingTimer(ADC12_B_BASE, ADC12_B_CYCLEHOLD_4_CYCLES,
-                ADC12_B_CYCLEHOLD_16_CYCLES, ADC12_B_MULTIPLESAMPLESENABLE);
+    /*
+     * Base address of ADC12B Module
+     * For memory buffers 0-7 sample/hold for 4 clock cycles (47us-64us using MODOSC)
+     * For memory buffers 8-15 sample/hold for 64 clock cycles (5.9us - 8us using MODOSC)
+     * Disable Multiple Sampling
+     */
+    ADC12_B_setupSamplingTimer(ADC12_B_BASE, ADC12_B_CYCLEHOLD_4_CYCLES,
+                               ADC12_B_CYCLEHOLD_4_CYCLES, ADC12_B_MULTIPLESAMPLESDISABLE);
 
-        /*
-         * Base address of ADC12B Module
-         * Start the conversion into memory buffer 0
-         * Use the sequential-channel, sequential-conversion mode
-         */
-        ADC12_B_startConversion(ADC12_B_BASE,
-            ADC12_B_START_AT_ADC12MEM0, ADC12_B_SEQOFCHANNELS);
-    }
-    else
-    {
-        /*
-         * Base address of ADC12B Module
-         * For memory buffers 0-7 sample/hold for 4 clock cycles (47us-64us using MODOSC)
-         * For memory buffers 8-15 sample/hold for 64 clock cycles (5.9us - 8us using MODOSC)
-         * Disable Multiple Sampling
-         */
-        ADC12_B_setupSamplingTimer(ADC12_B_BASE, ADC12_B_CYCLEHOLD_4_CYCLES,
-                ADC12_B_CYCLEHOLD_4_CYCLES, ADC12_B_MULTIPLESAMPLESDISABLE);
+    /*
+     * Base address of ADC12B Module
+     * Start the conversion into memory buffer 0
+     * Use the single-channel, single-conversion mode
+     */
+    ADC12_B_startConversion(ADC12_B_BASE, ADC12_B_START_AT_ADC12MEM0,
+                            ADC12_B_SINGLECHANNEL);
 
-        /*
-         * Base address of ADC12B Module
-         * Start the conversion into memory buffer 0
-         * Use the single-channel, single-conversion mode
-         */
-        ADC12_B_startConversion(ADC12_B_BASE, ADC12_B_START_AT_ADC12MEM0,
-               ADC12_B_SINGLECHANNEL);
-    }
+
 }
 
 /**
@@ -194,68 +184,40 @@ void anasens_startConversion(void)
  */
 void anasens_update(void)
 {
-    // Wait for measurement
-    while(!adc_meas_wait());
+    while(!adc_light_meas_wait());
+
+    ADC12_B_setupSamplingTimer(ADC12_B_BASE, ADC12_B_CYCLEHOLD_64_CYCLES,
+                               ADC12_B_CYCLEHOLD_64_CYCLES, ADC12_B_MULTIPLESAMPLESDISABLE);
+
+    ADC12_B_startConversion(ADC12_B_BASE, ADC12_B_START_AT_ADC12MEM1,
+                            ADC12_B_SINGLECHANNEL);
 
     // Get converted voltage value
     giq19_opticalInputVoltage = getLightSenseVoltage();
 
-    if(gb_isBatteryInputEnabled)
-    {
-        // Convert ADC reading to voltage
-        giq19_batteryInputValue = getVccSenseVoltage();
-    }
+    while(!adc_vcc_meas_wait());
+
+    // Convert ADC reading to voltage
+    giq19_batteryInputValue = getVccSenseVoltage();
+
 
 #if DEBUG_ANASENS
+#include <stdio.h>
 
     uint16_t adc_mv = ADC12_B_getResults(ADC12_B_BASE,
-            ANASENSE_LIGHT_SENSE_MEM_MAP);
+                     ANASENSE_LIGHT_SENSE_MEM_MAP);
     printf("(ANASENS): Optical Input: %uV\n", adc_mv);
 
+    adc_mv = ADC12_B_getResults(ADC12_B_BASE,
+                        ANASENSE_VCC_SENSE_MEM_MAP);
+    printf("(ANASENS): Battery Input: %uV\n", giq19_batteryInputValue);
 
-    //printf("(ANASENS): Optical Input: %.3fV\n", _IQ19toF(giq19_opticalInputVoltage));
-
-
-    if(gb_isBatteryInputEnabled)
-    {
-
-        uint16_t adc_mv = ADC12_B_getResults(ADC12_B_BASE,
-                ANASENSE_VCC_SENSE_MEM_MAP);
-        printf("(ANASENS): Battery Input: %uV\n", adc_mv);
-
-    }
 #endif
 
     // Disable ADC
     disableAdc();
 
 }
-
-/**
- * @brief
- *      Enable battery input.
- */
-void anasens_enableBatteryInput(void)
-{
-#if DEBUG_ANASENS
-   printf("(ANASENS): Enabling battery channel %d\n", systick_getSysTickMs());
-#endif
-    gb_isBatteryInputEnabled = true;
-}
-
-/**
- * @brief
- *      Disable battery input.
- */
-void anasens_disableBatteryInput(void)
-{
-#if DEBUG_ANASENS
-   printf("(ANASENS): Disabling battery channel %d\n", systick_getSysTickMs());
-#endif
-
-    gb_isBatteryInputEnabled = false;
-}
-
 /**
  * @brief
  *      Get optical channel voltage measurement.
@@ -275,9 +237,9 @@ uint32_t anasens_getOpticalInputVoltage(void)
  * @return
  *      Returns battery channel voltage measurement.
  */
-uint16_t anasens_getBatteryInputVoltage(void)
+uint32_t anasens_getBatteryInputVoltage(void)
 {
-    return _IQ19toF(giq19_batteryInputValue);
+    return giq19_batteryInputValue;
 }
 
 static uint32_t getLightSenseVoltage(void)
@@ -293,24 +255,17 @@ static uint32_t getVccSenseVoltage(void)
     uint16_t adc_mv = ADC12_B_getResults(ADC12_B_BASE,
             ANASENSE_VCC_SENSE_MEM_MAP);
 
-    // Maximum count (4096) is equal to 2.5V,
-    // but since the Vin is divided by 2.5, then the maximum is 5V (5000mV)
-    //adc_mv = (uint32_t) 5000 * (uint32_t) adc_mv / (uint32_t) 4096;
-
-    return convertAdcToIQ19V(adc_mv);
+    return adc_mv;
 }
 
-static bool adc_meas_wait(void)
+bool adc_light_meas_wait(void)
 {
-    if(gb_isBatteryInputEnabled)
-    {
-        return (ADC12IFGR0 & ANASENSE_LIGHT_SENSE_MASK) &&
-                (ADC12IFGR0 & ANASENSE_VCC_SENSE_MASK);
-    }
-    else
-    {
-        return (ADC12IFGR0 & ANASENSE_LIGHT_SENSE_MASK);
-    }
+    return (ADC12IFGR0 & ANASENSE_LIGHT_SENSE_MASK);
+}
+
+bool adc_vcc_meas_wait(void)
+{
+    return (ADC12IFGR0 & ANASENSE_VCC_SENSE_MASK);
 }
 
 static uint32_t convertAdcToIQ19V(uint16_t ui_input)
@@ -338,3 +293,4 @@ static void disableAdc(void)
     // Disable ADC12 module
     ADC12_B_disable(ADC12_B_BASE);
 }
+

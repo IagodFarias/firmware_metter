@@ -22,6 +22,12 @@
 #include <stdio.h>
 #endif /* UNIT_TEST */
 
+#ifdef DEBUG_ASSERT
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(__FILE__, __LINE__))
+#else
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(expr))
+#endif /* DEBUG_ASSERT */
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

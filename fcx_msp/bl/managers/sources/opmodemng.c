@@ -30,6 +30,12 @@
 #define OPMODE_POST_CALIBRATION_UPDATE_INT_MS       1000ULL
 #define OPMODE_POST_CALIBRATION_US_SAMPLING_RATE_HZ 0.0
 
+#ifdef DEBUG_ASSERT
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(__FILE__, __LINE__))
+#else
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(expr))
+#endif /* DEBUG_ASSERT */
+
 /*******************************************************************************
  * Global variables
  ******************************************************************************/
@@ -64,8 +70,8 @@ void opmodemng_init(void)
 #if DEBUG_NORMAL
     ge_currentOpMode = E_OPMODE_STANDBY;
     ge_previousOpMode = E_OPMODE_STANDBY;
-    ASSERT(opmodemng_setActivationFlag(true));
-    ASSERT(opmodemng_setCalibrationFlag(true));
+    opmodemng_setActivationFlag(true);
+    opmodemng_setCalibrationFlag(true);
     standby_init();
 #endif
 
@@ -100,22 +106,18 @@ void opmodemng_init(void)
         ge_previousOpMode = E_OPMODE_PRE_CALIBRATION;
 
 
-#if DEBUG_NORMAL
+#if 1//DEBUG_NORMAL
             opmodemng_setCalibrationFlag(true);
             opmodemng_setActivationFlag(true);
-            opmodemng_setPreviousOpMode(E_OPMODE_NORMAL);
-            opmodemng_setCurrentOpMode(E_OPMODE_NORMAL);
-            ge_currentOpMode = E_OPMODE_NORMAL;
-            ge_previousOpMode = E_OPMODE_NORMAL;
-            normal_init();
+            opmodemng_setPreviousOpMode(E_OPMODE_STANDBY);
+            opmodemng_setCurrentOpMode(E_OPMODE_STANDBY);
+            ge_currentOpMode = E_OPMODE_STANDBY;
+            ge_previousOpMode = E_OPMODE_STANDBY;
+            standby_init();
 #else
             // Initialize pre-calibration operating mode
             precalib_init();
 #endif
-
-
-
-
     }
 }
 

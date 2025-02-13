@@ -2829,6 +2829,12 @@ extern USS_message_code USS_testPPGconfiguration(
 //!
 //! \return USS_message_code
 
+USS_message_code USS_starttestPPGconfiguration(USS_SW_Library_configuration *config,
+        USS_test_channel pPGChannel);
+
+USS_message_code USS_stoptestPPGconfiguration(USS_SW_Library_configuration *config);
+
+
 extern USS_message_code USS_testSDHSconversion(
 		USS_SW_Library_configuration *config, USS_test_channel SDHSChannel,
 		USS_capture_power_mode_option mode);
@@ -3020,6 +3026,10 @@ extern void USS_unregisterUUPSInterruptCallback(
 //! \return None
 extern void USS_unregisterHSPLLInterruptCallback(
 		USS_HSPLL_Interrupt interruptNum);
+
+USS_message_code USS_commonTriggerSingleCapture(USS_SW_Library_configuration *config,
+                                                uint8_t captureChannel,
+                                                uint16_t lowPowerDelay);
 
 //******************************************************************************
 //

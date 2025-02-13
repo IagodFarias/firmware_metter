@@ -49,6 +49,11 @@
 #define OPTINT_ENABLE1_PIN                      GPIO_PIN6
 #define OPTINT_ENABLE2_PIN                      GPIO_PIN7
 
+// New pin definitions for Port 8, Pins 4 and 5
+#define OPTINT_CONTROL_PORT                     GPIO_PORT_P8
+#define OPTINT_CONTROL_PIN                      GPIO_PIN4
+#define OPTINT_INPUT_PIN                        GPIO_PIN5
+
 #define OPTINT_MIN_ADC_RESOLUTION               _IQ19(0.4)
 
 #define OPTINT_NORMAL_TIMEOUT_TRIES             5
@@ -111,6 +116,7 @@ volatile uint8_t gauc_optint_TXByte;        // Value received once hasReceived i
 volatile uint8_t gauc_optint_RXByte;        // Value received once hasReceived is set
 volatile bool gb_OPTCOMM_has_received = false;
 volatile bool gb_OPTCOMM_has_sent = false;
+volatile uint8_t gui_bitIndex = 0;
 
 //Start timer in continuous mode sourced by SMCLK
 Timer_A_initContinuousModeParam initContParam = {
@@ -434,8 +440,7 @@ STATIC void optint_detect(uint32_t iq19_currentVoltage)
             }
         }
 
-
-#if DEBUG_OPTINT
+#if 0 //DEBUG_OPTINT
         bool b_printEnable = (E_OPMODE_NORMAL == opmodemng_getCurrentOpMode()) ||
                              (E_OPMODE_VERIFICATION == opmodemng_getCurrentOpMode());
 
@@ -540,6 +545,8 @@ void enableRxCircuit(bool b_enable)
         GPIO_selectInterruptEdge(OPTINT_UART_PORT, OPTINT_UART_RX_PIN, GPIO_HIGH_TO_LOW_TRANSITION);
         GPIO_setAsInputPin(OPTINT_UART_PORT, OPTINT_UART_RX_PIN);
 
+
+
         // Set IR_EN2 to High Level
         //GPIO_setAsOutputPin(OPTINT_LIGHT_SENSOR_PORT, OPTINT_ENABLE2_PIN);
         GPIO_setOutputHighOnPin(OPTINT_LIGHT_SENSOR_PORT, OPTINT_ENABLE2_PIN);
@@ -561,6 +568,9 @@ void enableRxCircuit(bool b_enable)
 
        // Set IR_EN2 to LOW Level
        GPIO_setOutputLowOnPin(OPTINT_LIGHT_SENSOR_PORT, OPTINT_ENABLE2_PIN);
+
+
+
     }
 }
 
@@ -606,37 +616,48 @@ __interrupt void Timer4_A0 (void)
             TIMER_A_CAPTURECOMPARE_REGISTER_0)
             + Bit_time;
 
-    if(gb_optint_isReceiving){
+    if (gb_optint_isReceiving) {
 
-        switch(guc_optint_bit_count % 11)
+        switch (gui_bitIndex)
         {
-            case 0: // startbit
-                if(guc_optint_bit_count == 0)  // Finished Entire Message
+            case 11: // startbit
+                if (guc_optint_bit_count == 0)  // Finished Entire Message
                 {
-                   Timer_A_stop(TIMER_A4_BASE); // SMCLK, timer off (for power consumption)
-                   Timer_A_disableInterrupt(TIMER_A4_BASE);  // Disable interrupt
+                    Timer_A_stop(TIMER_A4_BASE);          // SMCLK, timer off (for power consumption)
+                    Timer_A_disableInterrupt(TIMER_A4_BASE);  // Disable interrupt
+                    // Since the entire message is processed, we don't decrement guc_optint_bit_count here
                 }
                 else
                 {
                     guc_optint_bit_count--;
                 }
                 break;
-            case 1:
+
+            case 10:
                 gb_OPTCOMM_has_received = true;
                 guc_optint_bit_count--;
                 break;
-            case 2:
+
+            case 9:
                 guc_optint_bit_count--;
                 break;
+
             default:
                 gauc_optint_RXByte = gauc_optint_RXByte >> 1; // Shift the bits down
                 guc_optint_bit_count--;
-                if (GPIO_getInputPinValue(OPTINT_UART_PORT, OPTINT_UART_RX_PIN) == GPIO_INPUT_PIN_HIGH)       // If bit is set?
-                {
-                    gauc_optint_RXByte |= 0x80;        // Set the value in the RXByte variable
 
+                if (GPIO_getInputPinValue(OPTINT_UART_PORT, OPTINT_UART_RX_PIN) == GPIO_INPUT_PIN_HIGH)
+                {
+                    gauc_optint_RXByte |= 0x80; // Set the received bit
                 }
                 break;
+        }
+
+        // Move to the next index
+        gui_bitIndex++;
+        if (gui_bitIndex >= 11)
+        {
+            gui_bitIndex = 0;
         }
     }
     else

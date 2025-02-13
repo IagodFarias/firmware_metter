@@ -5,7 +5,7 @@
  * @date 	22/02/2017
  * @details
  * @section license
- * 			FAE Sistemas de Medição. All rights reserved.
+ * 			FAE Sistemas de Medio. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -15,10 +15,18 @@
 #include "display.h"
 #include "utils_fcx.h"
 #include "systick.h"
+#include "batt.h"
+#include "aes_cmac.h"
 
 #if DEBUG_SCREENMNG
 #include <stdio.h>
 #endif
+
+#ifdef DEBUG_ASSERT
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(__FILE__, __LINE__))
+#else
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(expr))
+#endif /* DEBUG_ASSERT */
 
 /*******************************************************************************
  * Definitions
@@ -65,10 +73,11 @@ void screenmng_init(void)
     gs_screenManager.pf_isTampered              = NULL;
     gs_screenManager.pf_isRfTransmission        = NULL;
     gs_screenManager.pf_isPulseTransmission     = NULL;
-    gs_screenManager.pf_isLowBattery            = NULL;
-    gs_screenManager.pf_isBrush            = NULL;
+    gs_screenManager.pf_isBatteryDateOld        = NULL;
+    gs_screenManager.pf_isBrush                 = NULL;
     gs_screenManager.pf_isRevInstall            = NULL;
     gs_screenManager.pf_isNoUsage               = NULL;
+    gs_screenManager.pf_isTempOutside           = NULL;
 
     // Initialize screen array list
     for(uc_screenId = 0; uc_screenId < SCREENMNG_MAX_SCREENS; uc_screenId++)
@@ -85,7 +94,7 @@ void screenmng_registerEventIndicators(bool (*pf_isReverseFlow)(void),
                                        bool (*pf_isTampered)(void),
                                        bool (*pf_isRfTransmission)(void),
                                        bool (*pf_isPulseTransmission)(void),
-                                       bool (*pf_isLowBattery)(void),
+                                       bool (*pf_isBatteryDateOld)(void),
                                        bool (*pf_isBrush)(void),
                                        bool (*pf_isRevInstall)(void),
                                        bool (*pf_isNoUsage)(void),
@@ -97,7 +106,7 @@ void screenmng_registerEventIndicators(bool (*pf_isReverseFlow)(void),
     gs_screenManager.pf_isTampered              = pf_isTampered;
     gs_screenManager.pf_isRfTransmission        = pf_isRfTransmission;
     gs_screenManager.pf_isPulseTransmission     = pf_isPulseTransmission;
-    gs_screenManager.pf_isLowBattery            = pf_isLowBattery;
+    gs_screenManager.pf_isBatteryDateOld        = pf_isBatteryDateOld;
     gs_screenManager.pf_isBrush                 = pf_isBrush;
     gs_screenManager.pf_isRevInstall            = pf_isRevInstall;
     gs_screenManager.pf_isNoUsage               = pf_isNoUsage;
@@ -116,7 +125,7 @@ uint8_t screenmng_addScreen(s_screen_t const *const ps_screen)
     }
 
     // Sanity check
-    ASSERT(uc_screenId < SCREENMNG_MAX_SCREENS);
+    //ASSERT(uc_screenId < SCREENMNG_MAX_SCREENS);
 
     // Create a new screen if we have not reached the end of the list
     if(uc_screenId < SCREENMNG_MAX_SCREENS)
@@ -211,12 +220,39 @@ void screenmng_update(void)
         {
             case E_SCREEN_TYPE_BLANK:
 
-                // TODO: turn off display to save energy
+                // TODO: turn off display to save even more energy
                 break;
 
             case E_SCREEN_TYPE_NET_VOLUME:
 
-                setNetVolumeScreen();
+                if(batt_isLow() == true)
+                {
+                    if(!gb_blinkFeature)
+                    {
+                        display_setString("F.1-------");
+                        display_setIcon(E_ICON_ERROR);
+                        gb_blinkFeature = true;
+                    }
+                    else{
+                        setNetVolumeScreen();
+                    }
+                }
+                else if(cmac_isNonVerified() == true){
+                    if(!gb_blinkFeature)
+                    {
+                        display_setString("F.-2------");
+                        display_setIcon(E_ICON_ERROR);
+                        gb_blinkFeature = true;
+                    }
+                    else{
+                        setNetVolumeScreen();
+                    }
+                }
+                else
+                {
+                    setNetVolumeScreen();
+                }
+
                 break;
 
             case E_SCREEN_TYPE_FLOWRATE:
@@ -418,9 +454,9 @@ static void setEventIndicators(void)
         }
     }
 
-    if(gs_screenManager.pf_isLowBattery != NULL)
+    if(gs_screenManager.pf_isBatteryDateOld != NULL)
     {
-        if(gs_screenManager.pf_isLowBattery())
+        if(gs_screenManager.pf_isBatteryDateOld())
         {
             display_setIcon(E_ICON_LOW_BAT);
         }
@@ -466,4 +502,7 @@ static void setEventIndicators(void)
             }
         }
     }
+
 }
+
+

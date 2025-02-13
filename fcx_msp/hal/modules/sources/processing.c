@@ -6,7 +6,7 @@
  * @date    02/03/2017
  * @details
  * @section license
- *          FAE Sistemas de Medi��o. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -178,7 +178,7 @@ STATIC void updateMaxFlowRate();
 __persistent static s_processing_t gs_processing = PROC_PROCESSING_DEFAULT;
 
 /** Show the relationship between the speed of sound in meters per second and
-    the water temperature in �C. */
+    the water temperature in °C. */
 static const s_lut_coordinate_t gas_lutSosToTemperature[PROC_SOS_TO_TEMP_LUT_SIZE] =
 {
     {1.40238743999999997e+03, 0.0},
@@ -194,7 +194,7 @@ static const s_lut_coordinate_t gas_lutSosToTemperature[PROC_SOS_TO_TEMP_LUT_SIZ
     {1.55515184104860759e+03, 74.0}
 };
 
-/** Show the relationship between the media temperature in ºC and the kinematic
+/** Show the relationship between the media temperature in ÂºC and the kinematic
     viscosity of the water in squared meters per second. */
 static const s_lut_coordinate_t gas_lutTemperatureToViscosity[PROC_TEMP_TO_VISC_LUT_SIZE] =
 {
@@ -221,9 +221,6 @@ static bool gb_isReverseFlow;
 
 /** Air in pipe flag. */
 static bool gb_isAirInPipe;
-
-/** Flags if processing is enabled. */
-static bool gb_enableProcessing;
 
 /** Flags if filters are enabled. */
 static bool gb_enableFilters;
@@ -603,10 +600,12 @@ s_processing_t* proc_getResults(void)
     return &gs_processing;
 }
 
+
 double_t proc_getNetVolume(void)
 {
     return (gs_processing.d_forwardVolume + gs_processing.d_reverseVolume);
 }
+
 
 double_t proc_getCurrentFlowRate(void)
 {
@@ -648,7 +647,7 @@ double_t proc_getMinFlowRate(void)
 
 void proc_resetFlowRates(void)
 {
-    gs_processing.d_minFlowRate = 20.0;
+    gs_processing.d_minFlowRate = 0.0;
     gs_processing.d_maxFlowRate = 0.0;
 }
 
@@ -872,8 +871,7 @@ static void updateFixedPointers(void)
  */
 STATIC void updateMinFlowRate()
 {
-    // Update minimum flow rate
-    if(gs_processing.d_currentFlowRate < gs_processing.d_minFlowRate)
+    if(gs_processing.d_currentFlowRate < gs_processing.d_minFlowRate || gs_processing.d_minFlowRate == 0.0)
     {
         gs_processing.d_minFlowRate = gs_processing.d_currentFlowRate;
     }
@@ -885,12 +883,12 @@ STATIC void updateMinFlowRate()
  */
 STATIC void updateMaxFlowRate()
 {
-    // Update maximum flow rate
-    if(gs_processing.d_maxFlowRate < gs_processing.d_currentFlowRate)
+    if(gs_processing.d_currentFlowRate > gs_processing.d_maxFlowRate || gs_processing.d_maxFlowRate == 0.0)
     {
         gs_processing.d_maxFlowRate = gs_processing.d_currentFlowRate;
     }
 }
+
 #endif
 
 #else

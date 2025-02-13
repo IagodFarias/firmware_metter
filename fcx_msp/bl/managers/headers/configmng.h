@@ -27,7 +27,7 @@
 #define CONFIG_VERSION_MAJOR                        3
 
 /** Version of the Minor number (based on Semantic Versioning 2.0.0) */
-#define CONFIG_VERSION_MINOR                        0
+#define CONFIG_VERSION_MINOR                        1
 
 /** Version of the Patch number (based on Semantic Versioning 2.0.0) */
 #define CONFIG_VERSION_PATCH                        1
@@ -41,7 +41,6 @@
 
 /** Address where system configuration is stored. */
 #define ADDR_SYS_CONFIG                 0xFA00
-
 
 /** Length of the calibration instant. */
 #define CONFIG_CALIBRATION_DATE_LEN     14 //yyyyMMdd + hhmmss
@@ -133,7 +132,7 @@
     .s_ultrasonic                   = US_CONFIG_ALL_DEFAULT,                    \
     .s_pulse =                                                                  \
     {                                                                           \
-        .d_pulsesPerCubicMeter      = 10.0                                      \
+        .d_pulsesPerCubicMeter      = 1000.0                                    \
     },                                                                          \
     .s_screen =                                                                 \
     {                                                                           \
@@ -245,10 +244,9 @@ typedef struct S_LOGGER_CONFIG
 /** Read memory code parameters. */
 typedef struct S_CODE_VERIF_PARAMS
 {
-    /** Memory offset. */
-    uint32_t ul_offset;
-    /** Length to read. */
-    uint32_t ul_length;
+    uint32_t ul_offset;       // Firmware offset
+    uint32_t ul_length;       // Firmware test length
+    uint8_t   aes_key[16];    // AES-128 key (16 bytes)
 } s_code_verif_params_t;
 
 /** wM-Bus configuration structure. */
@@ -423,13 +421,5 @@ uint8_t * configmng_getReplacementDateCharArray(void);
  */
 s_alarms_config_t * configmng_getAlarmConfig(void);
 
-/**
- * @brief
- *      Calculate CRC16 from non volatile memory.
- *
- * @return
- *      Return CRC result.
- */
-uint16_t configmng_calcCrcFromMem(uint32_t ul_offset, uint32_t ul_lenght);
 
 #endif /* CONFIGMNG_H_ */

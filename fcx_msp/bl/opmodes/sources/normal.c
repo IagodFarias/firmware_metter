@@ -5,7 +5,7 @@
  * @date    04/04/2017
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de MediÃ§Ã£o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -28,7 +28,7 @@
 #include "processing.h"
 #include "userint.h"
 #include "power.h"
-#include "batt.h"
+#include "battdate.h"
 #include "dfsm.h"
 #include "probe.h"
 #include "display.h"
@@ -36,6 +36,8 @@
 #include "rev_install.h"
 #include "no_usage.h"
 #include "temp.h"
+#include "batt.h"
+#include "aes_cmac.h"
 
 #if CONFIG_PULSE_ENABLED
 #include "pulsemng.h"
@@ -60,7 +62,7 @@
 #define NORMAL_SCREEN_UNLOCKED_TIMEOUT_MS               120000ULL
 
 /* Number of screens. */
-#define NORMAL_NUM_OF_SCREENS                           7
+#define NORMAL_NUM_OF_SCREENS                           8
 
 /*******************************************************************************
  * Enumerations
@@ -80,6 +82,8 @@ typedef enum E_SCREEN
     E_SCREEN_REPLACEMENT_DATE,
     /** Display ALARM */
     E_SCREEN_ALARM,
+    /** Display HARDWARE FAILURES */
+    /*E_SCREEN_HARD_FAILURES,*/
     /** Display test screen */
     E_SCREEN_TEST,
     /** Blank screen screen */
@@ -108,7 +112,6 @@ typedef struct S_SELECTION_STATE
 STATIC INLINE void checkScreenLockingState();
 STATIC bool selectionSequenceCompleted(s_selection_state_t *ps_selectionState);
 STATIC uint8_t * getAlarmTextAndSetIndicators01();
-//STATIC uint8_t * getAlarmTextAndSetIndicators02();
 
 /*******************************************************************************
  * Global variables
@@ -117,11 +120,11 @@ STATIC uint8_t * getAlarmTextAndSetIndicators01();
 static const s_screen_t gs_screens[] =
 {
     /** Net volume screen */
-    {
-        .e_screenType = E_SCREEN_TYPE_NET_VOLUME,
-        .pf_getData = (void (*)(void)) proc_getNetVolume,
-        .uc_doubleResolution = 3
-    },
+     {
+         .e_screenType = E_SCREEN_TYPE_NET_VOLUME,
+         .pf_getData = (void (*)(void)) proc_getNetVolume,
+         .uc_doubleResolution = 3
+     },
     /** Flow rate screen */
     {
         .e_screenType = E_SCREEN_TYPE_FLOWRATE,
@@ -152,10 +155,10 @@ static const s_screen_t gs_screens[] =
         .pf_getData = (void (*)(void)) getAlarmTextAndSetIndicators01,
         .uc_doubleResolution = 0
     },
-    /** Alarms screen 02
-    {
+    /** Hardware Failures screen 01 */
+    /*{
         .e_screenType = E_SCREEN_TYPE_TEXT,
-        .pf_getData = (void (*)(void)) getAlarmTextAndSetIndicators02,
+        .pf_getData = (void (*)(void)) getFailuresTextAndSetIndicators01,
         .uc_doubleResolution = 0
     },*/
     /** Display test screen */
@@ -218,6 +221,11 @@ void normal_init(void)
 {
     uint8_t uc_screenId;
 
+#if 1//DEBUG_NORMAL
+    opmodemng_setActivationFlag(true);
+    opmodemng_setCalibrationFlag(true);
+#endif
+
     // Initialize dynamic frequency scaling manager
     dfsm_init();
 
@@ -257,7 +265,7 @@ void normal_init(void)
 #else
                                       NULL,
 #endif /* CONFIG_PULSE_ENABLED */
-                                      batt_isLow,
+                                      battdate_isOld,
                                       brush_isOverflowing,
                                       rev_install_isDetected,
                                       no_usage_isDetected,
@@ -303,8 +311,10 @@ void normal_init(void)
     // Enable processing filters
     proc_enableFilters();
 
-    // Enable processing
-    proc_enableProcessing();
+    if(!batt_isLow() && !cmac_isNonVerified()){
+        // Enable processing
+        proc_enableProcessing();
+    }
 
 #if CONFIG_OPTCOMM_ENABLED
     // Initialize optical communication
@@ -393,6 +403,9 @@ void normal_run(void)
     // Switch screen in case user has pressed optical interface
     if(b_userInt)
     {
+#if DEBUG_USERINT
+        printf("(NORMAL:USERINT): activated:%u, screenlocked:%u\n",gps_config->b_isActivated, screenmng_isScreenLocked());
+#endif
         screenmng_nextScreen();
     }
 
@@ -408,6 +421,7 @@ void normal_run(void)
     rev_install_update();
     no_usage_update();
     temp_update();
+    battdate_update();    
 
 #if CONFIG_FRAUD_ENABLED
     // Update fraud detection
@@ -554,7 +568,7 @@ STATIC bool selectionSequenceCompleted(s_selection_state_t *ps_selectionState)
                 }
 
 #if DEBUG_OPTINT
-                printf("%u\n", userint_getState());
+                printf("%d\n", userint_getState());
 #endif
 
                 if(E_USERINT_CMD_CHANGE_SCREEN == userint_getState())
@@ -627,7 +641,7 @@ STATIC uint8_t * getAlarmTextAndSetIndicators01()
     }
 
     // Check battery
-    if(batt_isLow())
+    if(battdate_isOld())
     {
         auc_msg[5] = '4';
     }
@@ -682,17 +696,17 @@ STATIC uint8_t * getAlarmTextAndSetIndicators01()
 
 /**
  *  @brief
- *      Get alarm text to be shown in display and set alarm indicators 02.
+ *      Get failure text to be shown in display and set hardware failure indicators.
  *
  *  @return
  *      Text to be shown in display.
  */
-/*STATIC uint8_t * getAlarmTextAndSetIndicators02()
+uint8_t * getFailuresTextAndSetIndicators01()
 {
-    static uint8_t auc_msg[] = "A2.-------";
+    static uint8_t auc_msg[] = "F1.-------";
 
     // Check temperature outside alarm
-    if(alarmmng_isOverTemp())
+    if(batt_isLow())
     {
         display_setIcon(E_ICON_ERROR);
         auc_msg[3] = '1';
@@ -704,4 +718,5 @@ STATIC uint8_t * getAlarmTextAndSetIndicators01()
 
     return auc_msg;
 }
-*/
+
+

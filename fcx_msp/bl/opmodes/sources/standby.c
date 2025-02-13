@@ -30,6 +30,8 @@
 #if CONFIG_LOGGER_ENABLED
 #include "logger.h"
 #endif
+#include "aes_cmac.h"
+#include "batt.h"
 
 /*******************************************************************************
  * Defines
@@ -151,8 +153,10 @@ void standby_init(void)
     // Enable processing filters
     proc_enableFilters();
 
-    // Enable processing
-    proc_enableProcessing();
+    if(!batt_isLow() && !cmac_isNonVerified()){
+        // Enable processing
+        proc_enableProcessing();
+    }
 
     // Reset volume counters
     proc_resetVolumeCounters();

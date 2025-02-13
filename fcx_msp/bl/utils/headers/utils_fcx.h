@@ -21,11 +21,6 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#ifdef DEBUG_ASSERT
-#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(__FILE__, __LINE__))
-#else
-#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(expr))
-#endif /* DEBUG_ASSERT */
 
 /*******************************************************************************
  * Structures
@@ -58,6 +53,8 @@ typedef struct S_LUT_COORDINATE_IQ
 /** Due to footprint considerations, we only pass file name and line number, 
  *  not the assert expression (nor function name (C99)) */
 void utils_assert(const uint8_t *puc_file, uint16_t ui_line);
+#else
+void utils_assert(bool b_expr);
 #endif /* DEBUG_ASSERT */
 /**
  * @brief
@@ -121,11 +118,9 @@ uint8_t utils_lutSearchIQ(uint32_t d_X, const s_lut_coordinate_iq_t *ps_lut,
 #endif
 double_t utils_calcStd(int16_t *pi_data, uint16_t ui_size);
 double_t utils_calcSum(int16_t *pi_data, uint16_t ui_size);
-double_t utils_calcSumPositives(int16_t *pi_data, uint16_t ui_size);
 #if FIXED_POINT_CALC
 int32_t utils_doubleToFixed(double_t input, uint8_t uc_fixedPoint);
 double_t utils_fixedToDouble(int32_t input, uint8_t uc_fixedPoint);
 int32_t utils_fixedAbs(int32_t input);
 #endif
-void utils_assert(bool b_expr);
 #endif

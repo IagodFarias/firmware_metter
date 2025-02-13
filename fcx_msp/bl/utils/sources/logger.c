@@ -29,7 +29,7 @@
 #include "leak.h"
 #include "processing.h"
 #include "configmng.h"
-#include "batt.h"
+#include "battdate.h"
 #include "brush.h"
 
 #if DEBUG_LOGGER
@@ -173,7 +173,7 @@ static s_sys_config_t *gps_sysConfig;
 static bool gb_configChanged = false;
 
 /** Logs counter. */
-static uint8_t guc_numLogs;
+static uint16_t guc_numLogs;
 
 /** Timestamp structure pointer. */
 static struct tm *gps_timestamp;
@@ -182,10 +182,10 @@ static struct tm *gps_timestamp;
 static s_logger_timestamp_t gs_logTimestamp;
 
 /** Meter's volume. */
-static int32_t gl_volume;
+static int64_t gl_volume;
 
 /** Meter's flow rate. */
-static int32_t gl_flowRate;
+static int64_t gl_flowRate;
 
 // static double_t fpu_helper;
 
@@ -256,7 +256,7 @@ void logger_init()
     logger_updateConfig();
 
 #if DEBUG_LOGGER
-    printf("(LOGGER): Module init. Found %u logs.\n", guc_numLogs);
+    printf("(LOGGER): Module init. Found %ul logs.\n", guc_numLogs);
 #endif /* DEBUG_LOGGER */
 }
 
@@ -395,7 +395,7 @@ void logger_update()
  *  @return
  *      Number of log stored in the memory.
  */
-uint8_t logger_size()
+uint16_t logger_size()
 {
     return guc_numLogs;
 }
@@ -415,7 +415,7 @@ uint8_t logger_size()
  *  @return
  *      Returns TRUE if the log has been read with success or FALSE otherwise.
  */
-bool logger_read(s_logger_reg_t * const ps_reg, uint8_t uc_idx)
+bool logger_read(s_logger_reg_t * const ps_reg, uint16_t uc_idx)
 {
     bool b_status = false;
 
@@ -712,7 +712,7 @@ static inline void updateAlarmsStatus()
     }
 
     // Check battery
-    if(batt_isLow())
+    if(battdate_isOld())
     {
         guc_alarmFlags |= LOGGER_ALARM_FLAG_LOW_BATTERY;
     }
@@ -899,7 +899,7 @@ static bool unpack(s_logger_reg_t * const ps_reg, uint16_t uc_idx)
     // Read the log memory in a specific index
     if(readLog(gauc_logReg, uc_idx))
     {
-        uint8_t uc_logIdx = 0;
+        uint16_t uc_logIdx = 0;
         s_logger_timestamp_t *ps_timestamp;
 
         // Clear log register

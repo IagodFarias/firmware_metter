@@ -77,11 +77,6 @@ typedef enum E_CMDMNG_CMD
     E_CMDMNG_CMD_TEST_WMBUS_TX                  = 0xD5,
 #endif /* CONFIG_WMBUS_ENABLED */
 
-#if CONFIG_FW_INTEGRITY
-    /** Read firmware integrity */
-    E_CMDMNG_CMD_READ_FW_INTEGRITY              = 0xDC,
-#endif
-
 } E_CMDMNG_CMD_t;
 
 /** Command parameters enumeration. */

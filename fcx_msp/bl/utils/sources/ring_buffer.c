@@ -20,6 +20,12 @@
 #include "ring_buffer.h"
 #include "utils_fcx.h"
 
+#ifdef DEBUG_ASSERT
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(__FILE__, __LINE__))
+#else
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(expr))
+#endif /* DEBUG_ASSERT */
+
 /*******************************************************************************
  * Public functions
  ******************************************************************************/

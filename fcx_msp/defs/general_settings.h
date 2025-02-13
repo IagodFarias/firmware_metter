@@ -45,11 +45,6 @@
 #define CONFIG_OPTCOMM_ENABLED                              1
 
 /*
- * Enable Firmware Verification Through optical interface
- */
-#define CONFIG_FW_INTEGRITY                                 1
-
-/*
  * Enable fraud detection.
  */
 #define CONFIG_FRAUD_ENABLED                                0
@@ -112,7 +107,7 @@
 
 #define LCD_USE_RESISTOR                                    0
 #if LCD_USE_RESISTOR
-#define LCD_USE_RES_LADDER
+#define LCD_USE_RES_LADDER                                  0
 #define LCD_USE_CHARGEPUMP
 #endif
 
@@ -154,7 +149,7 @@
 #define DEBUG_PRINT_CONST                                   0
 
 /**
- * Enable printf of configuration struct
+ * Enable printf of configuration ,struct
  */
 #define DEBUG_PRINT_CONFIG                                  0
 
@@ -163,6 +158,11 @@
  * CONFIGMNG
  */
 #define DEBUG_PRINT_ULOOP                                   0
+
+/*
+ * Enable DEBUG integrity verification
+ */
+#define DEBUG_INTEGRITY                                     0
 
 /*
  * Enable DEBUG via serial
@@ -175,7 +175,7 @@
 /*
  * Enable DEBUG analog sense
  */
-#define DEBUG_ANASENS                                       1
+#define DEBUG_ANASENS                                       0
 
 /*
  * Enable DEBUG_OPTINT
@@ -210,7 +210,7 @@
 /*
  * DEBUG_BATT
  */
-#define DEBUG_BATT                                          1
+#define DEBUG_BATT                                          0
 
 /*
  * DEBUG_REV_INSTALL
@@ -240,7 +240,7 @@
     DEBUG_REV_INSTALL   || DEBUG_NO_USAGE       || DEBUG_TEMP           ||   \
     DEBUG_FRAUD )//)//|| DEBUG_NORMAL)
 #define DEBUG_SERIAL                                        0
-#define DEBUG                                               1
+#define DEBUG                                               0
 #endif
 
 /*******************************************************************************

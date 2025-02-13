@@ -57,19 +57,21 @@
 
 MEMORY
 {
-    TINYRAM                 : origin = 0xA, length = 0x16
-    BSL                     : origin = 0x1000, length = 0x800
-    CAL_CONF                : origin = 0x1900, length = 0x100
-    TLVMEM                  : origin = 0x1A00, length = 0x100
-    BOOTROM                 : origin = 0x1B00, length = 0x100
+    TINYRAM                 : origin = 0x000A, length = 0x0016
+    BSL                     : origin = 0x1000, length = 0x0800
+    CAL_CONF                : origin = 0x1900, length = 0x0100
+    TLVMEM                  : origin = 0x1A00, length = 0x0100
+    BOOTROM                 : origin = 0x1B00, length = 0x0100
     RAM                     : origin = 0x1C00, length = 0x1000
-    FRAM                    : origin = 0x4000, length = 0xBF80
+    METROLOGY               : origin = 0x4000, length = 0x9800, f = 0xffff
+    FRAM                    : origin = 0xD800, length = 0x2200
+    SYS_CONFIG				: origin = 0xFA00, length = 0x02FF
     FRAM2                   : origin = 0x10000,length = 0x33FE0
     VERSION                 : origin = 0x43FF0,length = 0x0008
     LIB_VERSION             : origin = 0x43FF8,length = 0x0008
-    JTAGSIGNATURE           : origin = 0xFF80, length = 0x0004, fill = 0xFFFF
-    BSLSIGNATURE            : origin = 0xFF84, length = 0x0004, fill = 0xFFFF
-    IPESIGNATURE            : origin = 0xFF88, length = 0x0008, fill = 0xFFFF
+    JTAGSIGNATURE           : origin = 0xFF80, length = 0x0004
+    BSLSIGNATURE            : origin = 0xFF84, length = 0x0004
+    IPESIGNATURE            : origin = 0xFF88, length = 0x0008
     INT00                   : origin = 0xFF90, length = 0x0002
     INT01                   : origin = 0xFF92, length = 0x0002
     INT02                   : origin = 0xFF94, length = 0x0002
@@ -146,42 +148,74 @@ MEMORY
 
 SECTIONS
 {
+
+
+	// Place USS-related objects at the METROLOGY section
+
+    .USS_ramfunc : {} load=METROLOGY, run=LEARAM, table(BINIT)
+
+	uss_config :
+	{
+
+		us.obj(.text)
+		processing.obj(.text)
+		batt.obj(.text)
+		display.obj(.text)
+		aes_cmac.obj(.text)
+		USS_Lib_HAL.obj(.text)
+		ussSwLibCalibration.obj(.text)
+		ussSwLibConfiguration.obj(.text)
+		ussSwLibMeasurement.obj(.text)
+		ussSwLibCommonSAPH.obj(.text)
+		ussSwLibCommonUSS.obj(.text)
+		ussSwLibCommonTimer.obj(.text)
+		ussSwLibCommonHSPLL.obj(.text)
+		ussSwLibCommonSDHS.obj(.text)
+		ussSwLibCommonInterrupts.obj(.text)
+	    ussSwLibCalibration.obj(.const)
+		USS_SW_CCS_large_code_large_data.lib<*.obj> (.text:*)
+
+	} > METROLOGY
+
+	EABI_Library :
+	{
+		--library=IQmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib(.text)
+		--library=QmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib(.text)
+ 		rts430x_lc_ld_eabi.lib<add*.obj> (.text:*)
+ 		rts430x_lc_ld_eabi.lib<abs*.obj> (.text:*)
+ 		rts430x_lc_ld_eabi.lib<labs*.obj> (.text:*)
+ 		rts430x_lc_ld_eabi.lib<cmp*.obj> (.text:*)
+		rts430x_lc_ld_eabi.lib<cvt*.obj> (.text:*)
+ 		rts430x_lc_ld_eabi.lib<fix*.obj> (.text:*)
+ 		rts430x_lc_ld_eabi.lib<flti*.obj> (.text:*)
+ 		rts430x_lc_ld_eabi.lib<mpy*.obj> (.text:*)
+ 		rts430x_lc_ld_eabi.lib<rem64*.obj> (.text:*)
+		rts430x_lc_ld_eabi.lib<fs*.obj> (.text)
+		rts430x_lc_ld_eabi.lib<mult*.obj> (.text)
+		rts430x_lc_ld_eabi.lib<asr*obj> (.text)
+		rts430x_lc_ld_eabi.lib<ls*obj> (.text)
+		rts430x_lc_ld_eabi.lib<div*.obj> (.text)
+		rts430x_lc_ld_eabi.lib<strto*.obj> (.text:*)
+		rts430x_lc_ld_eabi.lib<e_log10f.c.obj> (.text:log10f)
+
+	} > METROLOGY
+
+
+
     GROUP(RW_IPE)
     {
 
         GROUP(READ_WRITE_MEMORY)
         {
-
-            .TI.persistent : {}              /* For #pragma persistent            */
             .cio           : {}              /* C I/O Buffer                      */
             .sysmem        : {}              /* Dynamic memory allocation area    */
-        } PALIGN(0x0400), RUN_START(fram_rw_start)
+        }
 
-        GROUP(IPENCAPSULATED_MEMORY)
-        {
-        	// Place USS configuration at top of memory
-			uss_config :
-			{
-				--library=USS_SW_CCS_large_code_large_data.lib(.text)
-				USS_Lib_HAL.obj(.text)
-				ussSwLibCalibration.obj(.text)
-				ussSwLibConfiguration.obj(.text)
-				ussSwLibMeasurement.obj(.text)
-				ussSwLibCommonSAPH.obj(.text)
-				ussSwLibCommonUSS.obj(.text)
-				ussSwLibCommonTimer.obj(.text)
-				ussSwLibCommonHSPLL.obj(.text)
-				ussSwLibCommonSDHS.obj(.text)
-				ussSwLibCommonInterrupts.obj(.text)
-			}
 
-            .ipestruct     : {}              /* IPE Data structure             */
-            .ipe           : {}              /* IPE                            */
-            .ipe_const     : {}              /* IPE Protected constants        */
-            .ipe:_isr      : {}              /* IPE ISRs                       */
-        } PALIGN(0x0400), RUN_START(fram_ipe_start) RUN_END(fram_ipe_end) RUN_END(fram_rx_start)
+    } > FRAM
 
-    } > 0x4000
+
+    .TI.persistent    : {} > FRAM           /* Constant data                     */
 
     .version          : {}  > VERSION
     .libVersion       : {}  > LIB_VERSION
@@ -193,6 +227,10 @@ SECTIONS
     .mspabi.exidx     : {}  > FRAM          /* C++ Constructor tables            */
     .mspabi.extab     : {}  > FRAM          /* C++ Constructor tables            */
     .text:_isr        : {}  > FRAM          /* Code ISRs                         */
+
+
+
+
 
 #ifndef __LARGE_DATA_MODEL__
     .const            : {} > FRAM           /* Constant data                     */
@@ -206,7 +244,7 @@ SECTIONS
     .text             : {} >> FRAM2 | FRAM  /* Code                              */
 #endif
 
-    .USS_ramfunc : {} load=FRAM, run=LEARAM, table(BINIT)
+
 
 
     #ifdef __TI_COMPILER_VERSION__
@@ -219,17 +257,6 @@ SECTIONS
         #endif
     #endif
 
-	#ifdef __USS_RUN_ALG_FROM_RAM__
-	    #ifdef __TI_COMPILER_VERSION__
-	        #if __TI_COMPILER_VERSION__ >= 15009000
-				#ifndef __LARGE_DATA_MODEL__
-	                .USS_ramfunc : {} load=FRAM, run=LEARAM, table(BINIT)
-				#else
-	                .USS_ramfunc : {} load=FRAM | FRAM2, run=LEARAM, table(BINIT)
-	        	#endif
-		#endif
-	#endif
-#endif
 
     .log_section 		: {} > FRAM2 (HIGH)
 
@@ -243,15 +270,24 @@ SECTIONS
         .jtagpassword       : {}            /* JTAG Password                     */
     } > IPESIGNATURE
 
-    #ifdef __USS_RUN_ALG_FROM_RAM__ //just in case it doens't all fit on RAM
-        .bss        : {} > RAM | FRAM                 /* Global & static vars              */
-        .data       : {} > RAM | FRAM                 /* Global & static vars              */
-        .TI.noinit  : {} > RAM | FRAM                 /* For #pragma noinit                */
-    #else
-        .bss        : {} > RAM                 /* Global & static vars              */
-        .data       : {} > RAM                 /* Global & static vars              */
-        .TI.noinit  : {} > RAM                 /* For #pragma noinit                */
-    #endif
+	.TI.ramfunc 			: {} load=FRAM | FRAM2, run=RAM, table(BINIT)
+
+
+	start_bss :
+	{
+		* (*:USS_LEA_IFG)
+		* (*:USSSWLIB_USS_measurementPeriod)
+		* (*:USSSWLIB_USS_interrupt_status)
+		USS_SW_CCS_large_code_large_data.lib<*.obj> (.bss)
+		us.obj (.data)
+	} run=0x1C00
+
+
+
+    .bss        : {} > RAM                 /* Global & static vars              */
+    .data       : {} > RAM                 /* Global & static vars              */
+    .TI.noinit  : {} > RAM                 /* For #pragma noinit                */
+
     .stack      : {} > RAM (HIGH)           /* Software system stack             */
 
     .tinyram    : {} > TINYRAM              /* Tiny RAM                          */

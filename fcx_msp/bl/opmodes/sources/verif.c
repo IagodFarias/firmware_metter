@@ -19,7 +19,7 @@
 #include "configmng.h"
 #include "processing.h"
 #include "userint.h"
-#include "batt.h"
+#include "battdate.h"
 #include "power.h"
 #include "optcomm.h"
 #if CONFIG_FRAUD_ENABLED
@@ -32,6 +32,9 @@
 #if DEBUG
 #include "probe.h"
 #endif
+#include "aes_cmac.h"
+#include "batt.h"
+
 
 /*******************************************************************************
  * Defines
@@ -182,7 +185,7 @@ void verif_init(void)
 #else
                                       NULL,
 #endif /* CONFIG_PULSE_ENABLED */
-                                      batt_isLow,
+                                      battdate_isOld,
                                       NULL,
                                       NULL,
                                       NULL,
@@ -200,8 +203,11 @@ void verif_init(void)
     // Enable processing filters
     proc_enableFilters();
 
-    // Enable processing
-    proc_enableProcessing();
+    if(!batt_isLow() && !cmac_isNonVerified()){
+        // Enable processing
+        proc_enableProcessing();
+    }
+
 
 #if DEBUG
     // Reset volume
@@ -239,7 +245,7 @@ void verif_init(void)
     logger_enable(true);
 #endif /* CONFIG_LOGGER_ENABLED */
 
-// TODO: Verificar erro de medidor com saÃ­da pulsada ativada em modo verif.
+// TODO: Verificar erro de medidor com saída pulsada ativada em modo verif.
 #if 0
     // Disable pulse manger on verif mode
     pulsemng_disable();

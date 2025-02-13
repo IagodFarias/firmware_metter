@@ -1,17 +1,17 @@
 /***************************************************************************//**
  * @brief
- * @file    batt.c
+ * @file    battdate.c
  * @author  Robson Cardoso
- * @date    13/04/2017
+ * @date    14/11/2024
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "batt.h"
+#include "battdate.h"
 #include "anasens.h"
 #include "systick.h"
 #include "configmng.h"
@@ -24,20 +24,13 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define BATT_V_SENSE_PORT                       GPIO_PORT_P2
-#define BATT_V_SENSE_PIN                        GPIO_PIN3
-#define BATT_V_ENABLE_PIN                       GPIO_PIN2
-
 #if DEBUG
 /** Battery detection interval. */
 #define BATT_DETECTION_INT_MS                   10000ULL
 #else
 /** Battery detection interval. */
-#define BATT_DETECTION_INT_MS                   3600000ULL
+#define BATT_DATE_DETECTION_INT_MS                   3600000ULL
 #endif
-/** Battery detection threshold. */
-#define BATT_DETECTION_THRESHOLD                3450
-
 /** Battery alarm maximum interval from INMETRO(180 days). */
 #define BATT_MAX_INTERVAL_IN_DAYS               180
 
@@ -69,28 +62,29 @@ typedef enum E_BATT_STATE
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-static void calculateLowBattDate(void);
+static void calculateOldBattDate(void);
 /*******************************************************************************
  * Global variables
  ******************************************************************************/
-static bool gb_isBatteryLow;
+
+static bool gb_isBatteryDateOld;
 static time_t gs_dateAlarm;
 static uint32_t gul_batteryDetectionCounter;
 
 /*******************************************************************************
  * Public functions
  ******************************************************************************/
-void batt_init(void)
+void battdate_init(void)
 {
     // Configure low battery date time
-    calculateLowBattDate();
+    calculateOldBattDate();
 
-    gb_isBatteryLow = false;
+    gb_isBatteryDateOld = false;
 }
 
-void batt_update(void)
+void battdate_update(void)
 {
-    if(gul_batteryDetectionCounter > BATT_DETECTION_INT_MS){
+    if(gul_batteryDetectionCounter > BATT_DATE_DETECTION_INT_MS){
         gul_batteryDetectionCounter = 0;
         struct tm *ps_actualDateTime = systick_getActualDateTime();
 
@@ -102,13 +96,13 @@ void batt_update(void)
                 ps_actualDateTime->tm_year - 100);
     #endif /* DEBUG_BATT */
 
-        gb_isBatteryLow =
+        gb_isBatteryDateOld =
                 difftime(mktime(ps_actualDateTime), gs_dateAlarm) > 0 ? true : false;
 
     #if DEBUG_BATT
         mktime(ps_actualDateTime);
 
-        printf("(BATT): gb_isBatteryLow is %d.\n",(int) gb_isBatteryLow);
+        printf("(BATT): gb_isBatteryDateOld is %d.\n",(int) gb_isBatteryDateOld);
     #endif /* DEBUG_BATT */
     }
     else{
@@ -116,18 +110,18 @@ void batt_update(void)
     }
 }
 
-bool batt_isLow(void)
+bool battdate_isOld(void)
 {
-    return gb_isBatteryLow;
+    return gb_isBatteryDateOld;
 }
 
-void batt_updateConfig(void)
+void battdate_updateConfig(void)
 {
     // Update the low battery date time
-    calculateLowBattDate();
+    calculateOldBattDate();
 }
 
-static void calculateLowBattDate(void)
+static void calculateOldBattDate(void)
 {
     struct tm s_dateAlarm;
     char c_intStr[5];

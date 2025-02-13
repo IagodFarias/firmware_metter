@@ -1,14 +1,14 @@
 /***************************************************************************//**
  * @brief
- * @file    batt.h
- * @author  Robson Cardoso
- * @date    13/04/2017
+ * @file    battdate.h
+ * @author  Eduardo Balbino
+ * @date    14/11/2024
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de MediÃ§Ã£o. All rights reserved.
  ******************************************************************************/
-#ifndef BATT_H_
-#define BATT_H_
+#ifndef BATTDATE_H_
+#define BATTDATE_H_
 
 /*******************************************************************************
  * Includes
@@ -18,17 +18,18 @@
 /*******************************************************************************
  * Public functions
  ******************************************************************************/
+
 /**
  * @brief
  *      Initialize battery monitor.
  */
-void batt_init(void);
+void battdate_init(void);
 
 /**
  * @brief
  *      Verify low battery detection.
  */
-void batt_update(void);
+void battdate_update(void);
 
 /**
  * @brief
@@ -37,12 +38,12 @@ void batt_update(void);
  * @return
  *      Returns 'true' is battery is low and 'false' otherwise.
  */
-bool batt_isLow(void);
+bool battdate_isOld(void);
 
 /**
  * @brief
  *      Update module with the new configuration.
  */
-void batt_updateConfig(void);
+void battdate_updateConfig(void);
 
-#endif /* BATT_H_ */
+#endif /* battdate_H_ */

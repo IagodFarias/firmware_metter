@@ -111,6 +111,7 @@
 }
 
 
+
 /*******************************************************************************
  * Structures
  ******************************************************************************/
@@ -307,6 +308,8 @@ void us_getMeasurement(s_us_meas_t *const ps_measurement,
 void us_setSamplingRate(double_t d_samplingRate);
 bool us_trimGainPGA(void);
 bool us_trimFrequencySwap(void);
+double_t utils_calcSumPositives(int16_t *pi_data, uint16_t ui_size);
+
 
 /*******************************************************************************
  * Inline function

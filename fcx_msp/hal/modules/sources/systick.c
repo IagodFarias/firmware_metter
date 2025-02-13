@@ -5,7 +5,7 @@
  * @date 	13/02/2017
  * @details
  * @section license
- * 			FAE Sistemas de Medição. All rights reserved.
+ * 			FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -44,8 +44,11 @@
 #define SYSTICK_MS_TO_TICK(ms)                      ((ms * LFCLK_FREQ) / 1000L) \
                                                         - 1
 
-/** Convert millisecond to tick */
-//#define SYSTICK_MS_TO_TICK(ms)                      ms << 5
+#ifdef DEBUG_ASSERT
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(__FILE__, __LINE__))
+#else
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(expr))
+#endif /* DEBUG_ASSERT */
 
 /*******************************************************************************
  * Prototypes
