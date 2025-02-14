@@ -5,7 +5,7 @@
  * @date    28/02/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 #ifndef US_H_
@@ -111,6 +111,7 @@
 }
 
 
+
 /*******************************************************************************
  * Structures
  ******************************************************************************/
@@ -212,7 +213,7 @@ typedef struct S_US_TX_CONFIG
     uint16_t ui_txPConfig0;
     /** Set PCONFIG for channel 1. */
     uint16_t ui_txPConfig1;
-    /** Set PCONFIG for channel 2. */
+    /** Set PCONFIG f or channel 2. */
     uint16_t ui_txPConfig2;
     /** Set PCONFIG for channel 3. */
     uint16_t ui_txPConfig3;
@@ -307,6 +308,8 @@ void us_getMeasurement(s_us_meas_t *const ps_measurement,
 void us_setSamplingRate(double_t d_samplingRate);
 bool us_trimGainPGA(void);
 bool us_trimFrequencySwap(void);
+double_t utils_calcSumPositives(int16_t *pi_data, uint16_t ui_size);
+
 
 /*******************************************************************************
  * Inline function

@@ -5,7 +5,7 @@
  * @date    03/04/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 #ifndef COMM_H_
 #define COMM_H_

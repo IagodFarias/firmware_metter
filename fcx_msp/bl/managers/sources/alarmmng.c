@@ -5,7 +5,7 @@
  * @date    10/04/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -21,6 +21,7 @@
 #include "rev_install.h"
 #include "no_usage.h"
 #include "temp.h"
+#include "battdate.h"
 
 #if DEBUG_ALARMMNG
 #include <stdio.h>
@@ -48,7 +49,7 @@
 #define ALARMMNG_REVERSE_FLOW_DETEC_TIMEOUT_MS  600000UL // 10 minutes
 #endif
 
-/** Reverse flow detection threshold in m³. */
+/** Reverse flow detection threshold in mï¿½. */
 #define ALARMMNG_REVERSE_FLOW_TRHESHOLD         -0.010
 
 /*******************************************************************************
@@ -139,6 +140,13 @@ static s_alarm_t gs_temperature = {
     .pf_isAlarm = temp_isOutsideLimit
 };
 
+/** Battery Date alarm structure. */
+static s_alarm_t gs_batteryDate = {
+    .b_isAlarmActived = false,
+    .ull_timeout = 0,
+    .pf_isAlarm = battdate_isOld
+};
+
 /*******************************************************************************
  * Public functions
  ******************************************************************************/
@@ -175,6 +183,7 @@ void alarmmng_update()
     checkAlarm(&gs_revInstall);
     checkAlarm(&gs_noUsage);
     checkAlarm(&gs_temperature);
+    checkAlarm(&gs_batteryDate);
 }
 
 bool alarmmng_isLeakage()
@@ -210,6 +219,11 @@ bool alarmmng_isNoUsage()
 bool alarmmng_isOverTemp()
 {
     return gs_temperature.b_isAlarmActived;
+}
+
+bool alarmmng_isBatteryDateOld(void)
+{
+    return gs_batteryDate.b_isAlarmActived;
 }
 
 /*******************************************************************************

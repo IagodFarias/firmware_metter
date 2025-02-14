@@ -65,3 +65,6 @@ encoding//Release/ussSWLib/source/common/subdir_rules.mk=UTF-8
 encoding//Release/ussSWLib/source/common/subdir_vars.mk=UTF-8
 encoding//Release/ussSWLib/source/subdir_rules.mk=UTF-8
 encoding//Release/ussSWLib/source/subdir_vars.mk=UTF-8
+encoding//hal/modules/sources=UTF-8
+encoding//hal/modules/sources/anasens.c=UTF-8
+encoding//hal/modules/sources/processing.c=UTF-8

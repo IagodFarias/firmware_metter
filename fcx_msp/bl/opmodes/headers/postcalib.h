@@ -5,7 +5,7 @@
  * @date    07/03/2018
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 #ifndef POSTCALIB_H_

@@ -17,22 +17,22 @@
 
 
 USS_message_code USS_testPPGconfiguration(USS_SW_Library_configuration *config,
-		USS_test_channel pPGChannel)
+        USS_test_channel pPGChannel)
 {
-	USS_message_code code;
+    USS_message_code code;
 
-	code = commonConfigurePPGForManualMode(config, pPGChannel);
+    code = commonConfigurePPGForManualMode(config, pPGChannel);
 
 
-	// Unlock SAPH registers
+    // Unlock SAPH registers
     GENERIC_SAPH_KEY = KEY;
 
-	// Trigger PPG
-	GENERIC_SAPH_PPGTRIG |= PPGTRIG;
+    // Trigger PPG
+    GENERIC_SAPH_PPGTRIG |= PPGTRIG;
 
-	// Wait for excitation sequence to be done. Implemented using delay cycles
-	// since PPGDN flag is not set during manual trigger.
-	__delay_cycles(62000);
+    // Wait for excitation sequence to be done. Implemented using delay cycles
+    // since PPGDN flag is not set during manual trigger.
+    __delay_cycles(62000);
 
     commonPowerDownUSS(config);
 
@@ -52,156 +52,156 @@ USS_message_code USS_testPPGconfiguration(USS_SW_Library_configuration *config,
         return code;
     }
 
-	return code;
+    return code;
 }
 
 USS_message_code USS_testSDHSconversion(
-		USS_SW_Library_configuration *config, USS_test_channel SDHSChannel,
-		USS_capture_power_mode_option mode)
+        USS_SW_Library_configuration *config, USS_test_channel SDHSChannel,
+        USS_capture_power_mode_option mode)
 {
 
-	USS_message_code code;
+    USS_message_code code;
 
-	// Update SDHS configuration
-	code = USS_updateSDHSConfiguration(config);
+    // Update SDHS configuration
+    code = USS_updateSDHSConfiguration(config);
 
-	if(USS_message_code_no_error != code)
-	{
-		return	code;
-	}
+    if(USS_message_code_no_error != code)
+    {
+        return  code;
+    }
 
-	//  Disable Acquisition Sequencer
-	UUPSCTL &= ~(ASQEN);
+    //  Disable Acquisition Sequencer
+    UUPSCTL &= ~(ASQEN);
 
-	// Unlock SDHS registers
-	SDHSCTL3 &= ~(TRIGEN);
+    // Unlock SDHS registers
+    SDHSCTL3 &= ~(TRIGEN);
 
-	// Configure SDHS for SDHSON bit to start sampling as well as power up
-	// Sampling Size count and DTC are enabled by USS_updateSDHSConfiguration
-	// API
-	SDHSCTL0 &= ~(AUTOSSDIS | TRGSRC);
+    // Configure SDHS for SDHSON bit to start sampling as well as power up
+    // Sampling Size count and DTC are enabled by USS_updateSDHSConfiguration
+    // API
+    SDHSCTL0 &= ~(AUTOSSDIS | TRGSRC);
 
-	// Unlock SAPH registers
-	GENERIC_SAPH_KEY = KEY;
+    // Unlock SAPH registers
+    GENERIC_SAPH_KEY = KEY;
 
-	// Configure MUX input SAPHICTL0 register
-	// - Channel mulitplexer is controlled by register
-	// - Configure MUX input channel
-	GENERIC_SAPH_ICTL0 = DUMEN + SDHSChannel;
+    // Configure MUX input SAPHICTL0 register
+    // - Channel mulitplexer is controlled by register
+    // - Configure MUX input channel
+    GENERIC_SAPH_ICTL0 = DUMEN + SDHSChannel;
 
-	// Configure SAPH to use nominal PGABIAS and configure BIAS switch to close
-	GENERIC_SAPH_BCTL = PGABIAS_2 + PGABSW;
+    // Configure SAPH to use nominal PGABIAS and configure BIAS switch to close
+    GENERIC_SAPH_BCTL = PGABIAS_2 + PGABSW;
 
-	// Lock SAPH registers
-	GENERIC_SAPH_KEY = 0;
+    // Lock SAPH registers
+    GENERIC_SAPH_KEY = 0;
 
-	
-	// Check the oscillation fault flag if the flag is set then go to LPM3 mode
-	// for 800 ms if there is fault in LFXT crystal then ACLK is being sourced by
-	// LFMODCLK at ~37.5 KHz
-	CSCTL0_H = CSKEY >> 8;
-	CSCTL5 &= ~LFXTOFFG;                // Clear XT1 fault flag
-	SFRIFG1 &= ~OFIFG;
 
-	if(SFRIFG1 & OFIFG)
-	{
-		do
-		{
-			CSCTL5 &= ~LFXTOFFG;                // Clear XT1 fault flag
-			SFRIFG1 &= ~OFIFG;
+    // Check the oscillation fault flag if the flag is set then go to LPM3 mode
+    // for 800 ms if there is fault in LFXT crystal then ACLK is being sourced by
+    // LFMODCLK at ~37.5 KHz
+    CSCTL0_H = CSKEY >> 8;
+    CSCTL5 &= ~LFXTOFFG;                // Clear XT1 fault flag
+    SFRIFG1 &= ~OFIFG;
 
-		}while ((SFRIFG1 & OFIFG));
+    if(SFRIFG1 & OFIFG)
+    {
+        do
+        {
+            CSCTL5 &= ~LFXTOFFG;                // Clear XT1 fault flag
+            SFRIFG1 &= ~OFIFG;
 
-	}
-	CSCTL0_H = 0;
+        }while ((SFRIFG1 & OFIFG));
 
-	// Lock SDHS registers
-	SDHSCTL3 |= (TRIGEN);
+    }
+    CSCTL0_H = 0;
 
-	// Configures HSPLL
-	USS_updateHSPLLConfiguration(config);
+    // Lock SDHS registers
+    SDHSCTL3 |= (TRIGEN);
 
-	// Confirm HSPLL is locked
-	code = commonPrepareForUSSPowerUp(config);
-	if(USS_message_code_no_error != code)
-	{
-		return code;
-	}
+    // Configures HSPLL
+    USS_updateHSPLLConfiguration(config);
 
-	commonPowerUpUSS(config);
+    // Confirm HSPLL is locked
+    code = commonPrepareForUSSPowerUp(config);
+    if(USS_message_code_no_error != code)
+    {
+        return code;
+    }
 
-	// Configure SDHS interrupt and HSPLL interrupts
-	commonClearUSSInterrupts();
+    commonPowerUpUSS(config);
 
-	commonEnableManualSDHSTriggerInterrupts(config);
+    // Configure SDHS interrupt and HSPLL interrupts
+    commonClearUSSInterrupts();
 
-	// Wait until HSPLL is locked
-	while((HSPLLCTL & PLL_LOCK)!= PLL_LOCK);
+    commonEnableManualSDHSTriggerInterrupts(config);
 
-	// Trigger conversion and wait in user selected low power mode until
-	// conversion is done
-	SDHSCTL4 |= SDHSON;
+    // Wait until HSPLL is locked
+    while((HSPLLCTL & PLL_LOCK)!= PLL_LOCK);
 
-	commonWaitForconversion(mode);
+    // Trigger conversion and wait in user selected low power mode until
+    // conversion is done
+    SDHSCTL4 |= SDHSON;
 
-	code = commonIsconversionSuccessfull(config);
+    commonWaitForconversion(mode);
 
-	// Reconfigure SDHSDTCDA
-	commonSDHSRestoreSDHSDTCA(config);
+    code = commonIsconversionSuccessfull(config);
 
-	// Exit SDHS manual mode
+    // Reconfigure SDHSDTCDA
+    commonSDHSRestoreSDHSDTCA(config);
 
-	// Unlock SDHS registers
-	SDHSCTL3 &= ~(TRIGEN);
+    // Exit SDHS manual mode
 
-	// Configure SDHS for SSTART bit to trigger sampling as well as power up
-	// Sampling Size count and DTC are enabled by USS_updateSDHSConfiguration
-	// API
-	SDHSCTL0 &= ~(AUTOSSDIS);
+    // Unlock SDHS registers
+    SDHSCTL3 &= ~(TRIGEN);
 
-	// Lock SDHS registers
-	SDHSCTL3 |= (TRIGEN);
+    // Configure SDHS for SSTART bit to trigger sampling as well as power up
+    // Sampling Size count and DTC are enabled by USS_updateSDHSConfiguration
+    // API
+    SDHSCTL0 &= ~(AUTOSSDIS);
 
-	// Unlock SAPH registers
-	GENERIC_SAPH_KEY = KEY;
+    // Lock SDHS registers
+    SDHSCTL3 |= (TRIGEN);
 
-	// Configure MUX input SAPHICTL0 register
-	// - Channel mulitplexer is controlled by register
-	// - Configure MUX input channel
-	GENERIC_SAPH_ICTL0 = (DUMEN_1 | MUXCTL_1) ;
+    // Unlock SAPH registers
+    GENERIC_SAPH_KEY = KEY;
 
-	// Configure SAPH to be controlled by ASQ
-	// Defaulting excitation bias to 0.4V Nominal
-	GENERIC_SAPH_BCTL = (ASQBSC_1 | EXCBIAS_2) ;
+    // Configure MUX input SAPHICTL0 register
+    // - Channel mulitplexer is controlled by register
+    // - Configure MUX input channel
+    GENERIC_SAPH_ICTL0 = (DUMEN_1 | MUXCTL_1) ;
 
-	// Lock SAPH registers
-	GENERIC_SAPH_KEY = 0;
+    // Configure SAPH to be controlled by ASQ
+    // Defaulting excitation bias to 0.4V Nominal
+    GENERIC_SAPH_BCTL = (ASQBSC_1 | EXCBIAS_2) ;
 
-	// Enable Acquisition Sequencer
-	UUPSCTL |= (ASQEN_1);
+    // Lock SAPH registers
+    GENERIC_SAPH_KEY = 0;
 
-	return code;
+    // Enable Acquisition Sequencer
+    UUPSCTL |= (ASQEN_1);
+
+    return code;
 }
 
 USS_message_code USS_startPPGToneGeneration(
-		USS_SW_Library_configuration *config,
-		USS_test_channel pPGChannel)
+        USS_SW_Library_configuration *config,
+        USS_test_channel pPGChannel)
 {
-	USS_message_code code;
+    USS_message_code code;
 
-	code = USS_updateHSPLLConfiguration(config);
+    code = USS_updateHSPLLConfiguration(config);
 
-	if(USS_message_code_no_error != code)
-	{
-		return code;
-	}
+    if(USS_message_code_no_error != code)
+    {
+        return code;
+    }
 
-	// configure PPG Frequency and duty cycle
-	commonConfigurePPGDutyCyle(config,
+    // configure PPG Frequency and duty cycle
+    commonConfigurePPGDutyCyle(config,
                       config->measurementConfig->pulseConfig->pulseGenMode);
 
-	// Disable ASQ to make sure sequence is not triggered when
-	// powering up the USS module
+    // Disable ASQ to make sure sequence is not triggered when
+    // powering up the USS module
     UUPSCTL &= ~(ASQEN);
 
     // Unlock SAPH registers
@@ -241,19 +241,19 @@ USS_message_code USS_startPPGToneGeneration(
     // Lock SAPH registers
     GENERIC_SAPH_KEY = 0;
 
-	return code;
+    return code;
 }
 
 USS_message_code USS_stopPPGToneGeneration(
-		USS_SW_Library_configuration *config)
+        USS_SW_Library_configuration *config)
 {
-	USS_message_code code;
+    USS_message_code code;
 
-	// Unlock SAPH registers
-	GENERIC_SAPH_KEY = KEY;
+    // Unlock SAPH registers
+    GENERIC_SAPH_KEY = KEY;
 
-	// Stop any active tone generation
-	GENERIC_SAPH_PGCTL &= ~(TONE);
+    // Stop any active tone generation
+    GENERIC_SAPH_PGCTL &= ~(TONE);
 
     // Lock SAPH registers
     GENERIC_SAPH_KEY = 0;
@@ -262,18 +262,18 @@ USS_message_code USS_stopPPGToneGeneration(
 
     commonTurnOffHSPLLXTAL();
 
-	code = USS_updateUUPSConfiguration(config);
+    code = USS_updateUUPSConfiguration(config);
     if(USS_message_code_no_error != code)
     {
         return code;
     }
 
-	// Return to ASQ mode
-	code = USS_updateSAPHConfiguration(config);
+    // Return to ASQ mode
+    code = USS_updateSAPHConfiguration(config);
     if(USS_message_code_no_error != code)
     {
         return code;
     }
 
-	return code;
+    return code;
 }

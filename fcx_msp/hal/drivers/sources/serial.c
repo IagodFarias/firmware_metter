@@ -6,7 +6,7 @@
  * @date    11/08/2014
  * @author  Robson Cardoso
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -40,7 +40,7 @@
 #if DEBUG
 #define SERIAL_RECEIVE_TIMEOUT_MS               2000
 #else
-#define SERIAL_RECEIVE_TIMEOUT_MS               200
+#define SERIAL_RECEIVE_TIMEOUT_MS               10
 #endif
 #define SERIAL_TIMEOUT_RX                       HAL_SYS_MSDELAY_ACLK(SERIAL_RECEIVE_TIMEOUT_MS)
 #define SERIAL_TIMER_MAX_DELAY                  65535

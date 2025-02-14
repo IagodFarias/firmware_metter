@@ -5,7 +5,7 @@
  * @date 	14/02/2017
  * @details
  * @section license
- * 			FAE Tecnologia. All rights reserved.
+ * 			FAE Sistemas de Medi��o. All rights reserved.
  ******************************************************************************/
 
 #ifndef SCREENMNG_H_
@@ -86,8 +86,8 @@ typedef struct S_SCREENMNG
     /** Pointer to a function which indicates a pulse transmission is in
         progress. */
     bool (*pf_isPulseTransmission)(void);
-    /** Pointer to a function which indicates battery's voltage is low. */
-    bool (*pf_isLowBattery)(void);
+    /** Pointer to a function which indicates battery's date is old. */
+    bool (*pf_isBatteryDateOld)(void);
     /** Pointer to a function which indicates brush. */
     bool (*pf_isBrush)(void);
     /** Pointer to a function which indicates reverse meter installation. */
@@ -101,6 +101,7 @@ typedef struct S_SCREENMNG
 /*******************************************************************************
  * Public functions
  ******************************************************************************/
+
 /**
  * @brief
  *      Initialize screen manager.
@@ -131,8 +132,8 @@ void screenmng_init(void);
  *      Pointer to a function which indicates a pulse transmission is in
  *      progress.
  *
- * @param[in]   *pf_isLowBattery
- *      Pointer to a function which indicates battery's voltage is low.
+ * @param[in]   *pf_isBatteryDateOld
+ *      Pointer to a function which indicates battery's date is old.
  *
  * @param[in]   *pf_isBrush
  *      Pointer to a function which indicates Maximum Overflow.
@@ -152,7 +153,7 @@ void screenmng_registerEventIndicators(bool (*pf_isReverseFlow)(void),
                                        bool (*pf_isTampered)(void),
                                        bool (*pf_isRfTransmission)(void),
                                        bool (*pf_isPulseTransmission)(void),
-                                       bool (*pf_isLowBattery)(void),
+                                       bool (*pf_isBatteryDateOld)(void),
                                        bool (*pf_isBrush)(void),
                                        bool (*pf_isRevInstall)(void),
                                        bool (*pf_isNoUsage)(void),

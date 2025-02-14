@@ -5,7 +5,7 @@
  * @date    13/04/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medi��o. All rights reserved.
  ******************************************************************************/
 
 #ifndef GENERAL_SETTINGS_H_
@@ -45,11 +45,6 @@
 #define CONFIG_OPTCOMM_ENABLED                              1
 
 /*
- * Enable Firmware Verification Through optical interface
- */
-#define CONFIG_FW_INTEGRITY                                 1
-
-/*
  * Enable fraud detection.
  */
 #define CONFIG_FRAUD_ENABLED                                0
@@ -62,7 +57,8 @@
 #define CONFIG_RF_RX_ENABLED                                0
 
 /*
- * Fixed Point calculation. Indicates if should use fixed point in all
+ * Fixed Point calculatioormal
+ * n. Indicates if should use fixed point in all
  * math calculation methods
  */
 #define FIXED_POINT_CALC                                    1
@@ -81,9 +77,15 @@
  * Enable change mode by optic interface
  */
 #define CONFIG_OPTCOMM_CHANGE_MODE                          1
-
+/*
+ * Enable ability to change configurations through optic interface *DO NOT ACTIVATE*
+ */
 #define OPTCOMM_CHANGE_CONFIG                               0
 #endif /* CONFIG_OPTCOMM_ENABLED */
+
+#if OPTCOMM_CHANGE_CONFIG
+#error "Build inv�lida. Remover OPTCOMM_CHANGE_CONFIG"
+#endif
 
 #if CONFIG_LOGGER_ENABLED
 /*
@@ -105,7 +107,7 @@
 
 #define LCD_USE_RESISTOR                                    0
 #if LCD_USE_RESISTOR
-#define LCD_USE_RES_LADDER
+#define LCD_USE_RES_LADDER                                  0
 #define LCD_USE_CHARGEPUMP
 #endif
 
@@ -119,10 +121,10 @@
 /**
  * Enable mock flow rate to processing module
  */
-#define DEBUG_PROC_FLOWRATE                                 1
+#define DEBUG_PROC_FLOWRATE                                 0
 #define DEBUG_FLOWRATE                                      0
 
-#define DEBUG_NORMAL                                        1
+#define DEBUG_NORMAL                                        0
 
 #define DEBUG_CHANGE_TO_STANDBY                             0
 
@@ -147,7 +149,7 @@
 #define DEBUG_PRINT_CONST                                   0
 
 /**
- * Enable printf of configuration struct
+ * Enable printf of configuration ,struct
  */
 #define DEBUG_PRINT_CONFIG                                  0
 
@@ -158,6 +160,11 @@
 #define DEBUG_PRINT_ULOOP                                   0
 
 /*
+ * Enable DEBUG integrity verification
+ */
+#define DEBUG_INTEGRITY                                     0
+
+/*
  * Enable DEBUG via serial
  */
 #define DEBUG_PRINT_OPTCOMM                                 0
@@ -166,7 +173,7 @@
 #define DEBUG_COMM                                          0
 
 /*
- * Enable DEBUG anasense
+ * Enable DEBUG analog sense
  */
 #define DEBUG_ANASENS                                       0
 
@@ -225,22 +232,15 @@
  */
 #define DEBUG_FRAUD                                         0
 
-/*
- * DEBUG_FW_INTEGRITY
- */
-#define DEBUG_FW_INTEGRITY                                  0
-
 #if (DEBUG_PROBE_VERIF  || DEBUG_PROBE_NORMAL   || DEBUG_PRINT_CONST    ||   \
     DEBUG_PRINT_CONFIG  || DEBUG_PRINT_ULOOP    || DEBUG_PRINT_OPTCOMM  ||   \
-    DEBUG_OPTINT        || DEBUG_ANASENS        || DEBUG_USERINT        ||   \
+    DEBUG_OPTINT        /*|| DEBUG_ANASENS  */      || DEBUG_USERINT        ||   \
     DEBUG_LOGGER        || DEBUG_SCREENMNG      || DEBUG_PROC_FLOWRATE  ||   \
     DEBUG_ALARMMNG      || DEBUG_BRUSH          || DEBUG_BATT           ||   \
     DEBUG_REV_INSTALL   || DEBUG_NO_USAGE       || DEBUG_TEMP           ||   \
-    DEBUG_FRAUD || DEBUG_NORMAL || DEBUG_FW_INTEGRITY)
+    DEBUG_FRAUD )//)//|| DEBUG_NORMAL)
 #define DEBUG_SERIAL                                        0
-#define DEBUG                                               1
-#else
-#define DEBUG_SERIAL                                        0
+#define DEBUG                                               0
 #endif
 
 /*******************************************************************************

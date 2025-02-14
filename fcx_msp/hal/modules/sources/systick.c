@@ -5,7 +5,7 @@
  * @date 	13/02/2017
  * @details
  * @section license
- * 			FAE Tecnologia. All rights reserved.
+ * 			FAE Sistemas de Medi��o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -44,10 +44,15 @@
 #define SYSTICK_MS_TO_TICK(ms)                      ((ms * LFCLK_FREQ) / 1000L) \
                                                         - 1
 
+#ifdef DEBUG_ASSERT
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(__FILE__, __LINE__))
+#else
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(expr))
+#endif /* DEBUG_ASSERT */
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-static bool setAsyncWakeUp(void);
 static bool isValidDateTime(struct tm *ps_date);
 
 /*******************************************************************************
@@ -63,8 +68,6 @@ STATIC NO_INIT uint64_t gull_sysTickMs = 0;
 
 /** System wake up interval in milliseconds. */
 STATIC uint16_t gui_wakeUpIntMs = 0;
-STATIC uint16_t gui_asyncWakeUp = 0;
-STATIC uint16_t gui_syncWakeUp = 0;
 
 /*******************************************************************************
  * Public functions
@@ -75,15 +78,15 @@ void systick_init(void)
     systick_setWakeUpIntMs(SYSTICK_WAKE_UP_INT_MS_DEFAULT_INT);
 }
 
-void systick_setWakeUpIntMs(uint16_t ui_wakeUpIntMs)
+void systick_setWakeUpIntMs(uint16_t ui_syncWakeUp)
 {
-    if (ui_wakeUpIntMs > 0)
+    if (ui_syncWakeUp > 0)
     {
         // Update module's internal wake up time interval
-        gui_syncWakeUp = ui_wakeUpIntMs;
+        gui_wakeUpIntMs = ui_syncWakeUp;
 
         // Check if the required wake up interval has been correctly set
-        ASSERT(ui_wakeUpIntMs == gui_syncWakeUp);
+        ASSERT(gui_wakeUpIntMs == ui_syncWakeUp);
     }
 }
 
@@ -101,12 +104,6 @@ void systick_updateSysTickMs(void)
 {
     // Increment system tick
     gull_sysTickMs += (uint64_t) gui_wakeUpIntMs;
-
-    // Check asynchronous wake up request
-    if(!setAsyncWakeUp())
-    {
-        gui_wakeUpIntMs = gui_syncWakeUp;
-    }
 
     // Set the background timer period
     USS_configAppTimerPeriod(&gUssSWConfig,
@@ -139,32 +136,6 @@ bool systick_setActualDateTime(struct tm *ps_calendar)
 /*******************************************************************************
  * Private Functions
  ******************************************************************************/
-static bool setAsyncWakeUp(void)
-{
-    bool b_asyncWakeUp = true;
-
-    // check asynchronous wake already done
-    if(gui_asyncWakeUp == gui_wakeUpIntMs)
-    {
-        gui_wakeUpIntMs = gui_syncWakeUp - gui_asyncWakeUp;
-
-        // Clear asynchronous wake up request
-        gui_asyncWakeUp = 0;
-    }
-    // Check new asynchronous wake
-    else if(gui_asyncWakeUp)
-    {
-        // Update the next wakeUp
-        gui_wakeUpIntMs = gui_asyncWakeUp;
-    }
-    else
-    {
-        b_asyncWakeUp = false;
-    }
-
-    return b_asyncWakeUp;
-}
-
 static bool isValidDateTime(struct tm *ps_date)
 {
     bool b_ret = true;
@@ -188,12 +159,6 @@ static bool isValidDateTime(struct tm *ps_date)
 /*******************************************************************************
  * Events
  ******************************************************************************/
-#if CONFIG_PULSE_ENABLED
-void pulsemng_evt_pulseReq(uint16_t ui_wakeUpIntMs)
-{
-    gui_asyncWakeUp = ui_wakeUpIntMs;
-}
-#endif
 
 __time64_t (__time64)(__time64_t *t)
 {

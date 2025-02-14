@@ -5,7 +5,7 @@
  * @date    01/11/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 #if CONFIG_OPTCOMM_ENABLED
 
@@ -70,7 +70,7 @@
                                                 OPTCOMM_CRC_LEN
 
 /** Maximum logs transmitted per meter's cycle. */
-#define OPTCOMM_MAX_LOGS_PER_CYCLE              2
+#define OPTCOMM_MAX_LOGS_PER_CYCLE              10
 
 /** Length of log register. */
 #define OPTCOMM_LOG_LEN                         34
@@ -107,15 +107,16 @@
 #define OPTCOMM_MSG_LEN_ENABLE_WMBUS_TX         (OPTCOMM_DEFAULT_FRAME_LEN)
 #define OPTCOMM_MSG_LEN_DISABLE_WMBUS_TX        (OPTCOMM_DEFAULT_FRAME_LEN)
 #define OPTCOMM_MSG_LEN_READ_CODE_CRC           (OPTCOMM_DEFAULT_FRAME_LEN + 8)
+#define OPTCOMM_MSG_LEN_READ_CODE_CMAC          (OPTCOMM_DEFAULT_FRAME_LEN + 4 + 4 + 16) // 30 bytes
 
 #define OPTCOMM_MSG_LEN_UPDATE_METER_CONFIG     (OPTCOMM_DEFAULT_FRAME_LEN +    \
                                                     CONFIG_CONSTS_MAX_SIZE)
 
 /** Division of pages on the configuration. */
-#define OPTCOMM_MSG_CONFIG_MAX_PAYLOAD           40
+#define OPTCOMM_MSG_CONFIG_MAX_PAYLOAD           34
 
 /** Division of pages on the configuration. */
-#define OPTCOMM_MSG_CONFIG_NUM_PAGES             12
+#define OPTCOMM_MSG_CONFIG_NUM_PAGES             21
 
 /*******************************************************************************
  * Enumerations

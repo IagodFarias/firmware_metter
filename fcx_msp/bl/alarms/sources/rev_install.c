@@ -5,7 +5,7 @@
  * @date    03/11/2021
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -62,7 +62,7 @@ void rev_install_init(void)
 void rev_install_update(void)
 {
     // Check if alarm is enabled
-    if(gps_alarmConfig->uc_revInstallParam)
+    if(gps_alarmConfig->ui_revInstallParam)
     {
         switch(ge_state)
         {
@@ -133,7 +133,7 @@ void rev_install_updateConfig(void)
 static void setParamAlarm(void)
 {
     // Calculate the param of alarm
-    gd_volThreshold = (double_t) gps_alarmConfig->uc_revInstallParam / 1000.0;
+    gd_volThreshold = (double_t) gps_alarmConfig->ui_revInstallParam / 1000.0;
 
     // Get negative parameter
     gd_negVolThreshold = -gd_volThreshold;

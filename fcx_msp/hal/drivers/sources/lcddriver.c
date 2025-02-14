@@ -5,7 +5,7 @@
  * @date    16/02/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -17,6 +17,12 @@
 #include "driverlib.h"
 #include "hal_lcd.h"
 #include <string.h>
+
+#ifdef DEBUG_ASSERT
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(__FILE__, __LINE__))
+#else
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(expr))
+#endif /* DEBUG_ASSERT */
 
 /*******************************************************************************
  * Structures

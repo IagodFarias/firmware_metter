@@ -274,6 +274,7 @@ as USSSWLIB_TIMER_BASE_ADDRESS"
 #define USS_HAL_LEA_DATA(var,align)
 #endif
 
+
 extern volatile uint16_t USS_LEA_IFG;
 
 //! \brief Contains function callback pointer for USS SAPH DATAERR

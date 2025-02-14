@@ -5,7 +5,7 @@
  * @date    27/03/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 #ifndef CMDMNG_H_
 #define CMDMNG_H_
@@ -76,11 +76,6 @@ typedef enum E_CMDMNG_CMD
     /** Test wM-Bus transmission */
     E_CMDMNG_CMD_TEST_WMBUS_TX                  = 0xD5,
 #endif /* CONFIG_WMBUS_ENABLED */
-
-#if CONFIG_FW_INTEGRITY
-    /** Read firmware integrity */
-    E_CMDMNG_CMD_READ_FW_INTEGRITY              = 0xDC,
-#endif
 
 } E_CMDMNG_CMD_t;
 

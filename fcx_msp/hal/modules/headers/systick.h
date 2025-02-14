@@ -5,7 +5,7 @@
  * @date 	13/02/2017
  * @details
  * @section license
- * 			FAE Tecnologia. All rights reserved.
+ * 			FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 #ifndef SYSTICK_H_
@@ -24,7 +24,7 @@
 #define SYSTICK_WAKE_UP_INT_MS_MAX_INT          65535U
 
 /** Default wake up interval. */
-#define SYSTICK_WAKE_UP_INT_MS_DEFAULT_INT      500U
+#define SYSTICK_WAKE_UP_INT_MS_DEFAULT_INT      1000U
 
 /** Code for invalid tick code.*/
 #define SYSTICK_INVALID_TICK                    0xFFFFFFFFFFFFFFFFUL

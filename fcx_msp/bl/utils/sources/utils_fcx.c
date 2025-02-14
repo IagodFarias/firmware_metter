@@ -5,7 +5,7 @@
  * @date 	14/02/2017
  * @details 
  * @section license
- * 			FAE Tecnologia. All rights reserved.
+ * 			FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -27,7 +27,7 @@ uint8_t utils_lutSearchIQ(uint32_t d_X, const s_lut_coordinate_iq_t *ps_lut,
 #endif
 double_t utils_calcStd(int16_t *pi_data, uint16_t ui_size);
 double_t utils_calcSum(int16_t *pi_data, uint16_t ui_size);
-double_t utils_calcSumPositives(int16_t *pi_data, uint16_t ui_size);
+
 #if FIXED_POINT_CALC
 int32_t utils_doubleToFixed(double_t input, uint8_t uc_fixedPoint);
 double_t utils_fixedToDouble(int32_t input, uint8_t uc_fixedPoint);
@@ -128,21 +128,6 @@ double_t utils_calcSum(int16_t *pi_data, uint16_t ui_size)
     return d_sum;
 }
 
-double_t utils_calcSumPositives(int16_t *pi_data, uint16_t ui_size)
-{
-    int i;
-    double_t d_sum = 0;
-
-    for (i = 0; i < ui_size; ++i)
-    {
-        if (pi_data[i] > 0)
-        {
-            d_sum += pi_data[i];
-        }
-    }
-
-    return d_sum;
-}
 
 #if FIXED_POINT_CALC
 int32_t utils_doubleToFixed(double_t input, uint8_t uc_fixedPoint)

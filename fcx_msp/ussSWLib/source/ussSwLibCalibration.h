@@ -119,7 +119,7 @@ extern "C" {
 //*****************************************************************************
 // the function prototypes
 //*****************************************************************************
-static float USS_findAGCIndex(int8_t leftIndex, int8_t rightIndex, float tempGain);
+float USS_findAGCIndex(int8_t leftIndex, int8_t rightIndex, float tempGain);
 
 #ifdef __cplusplus
 }

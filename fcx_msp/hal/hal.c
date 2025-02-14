@@ -5,7 +5,7 @@
  * @date    17/05/2016
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -29,7 +29,7 @@
 #include "clk.h"
 #include "systick.h"
 #include "power.h"
-#include "batt.h"
+#include "battdate.h"
 
 #include "comm.h"
 
@@ -88,7 +88,7 @@ void hal_init(void)
     optint_init();
 
     // Initialize battery monitor
-    batt_init();
+    battdate_init();
 
     // Initialize processing module
     proc_init();

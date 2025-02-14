@@ -5,7 +5,7 @@
  * @date    27/07/2021
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -15,7 +15,7 @@
 #include "configmng.h"
 #include "processing.h"
 #include "general_settings.h"
-#include "batt.h"
+#include "battdate.h"
 #include "crc.h"
 #include "logger.h"
 
@@ -163,7 +163,7 @@ void configmng_updateSysConfig(void)
     proc_updateConfig();
 
     // Battery update date of low battery
-    batt_updateConfig();
+    battdate_updateConfig();
 }
 
 s_app_config_t * configmng_getAppConfig(void)
@@ -201,19 +201,6 @@ uint8_t * configmng_getReplacementDateCharArray(void)
 s_alarms_config_t * configmng_getAlarmConfig(void)
 {
     return &gs_editableConfig.s_sysConfig.s_alarms;
-}
-
-uint16_t configmng_calcCrcFromMem(uint32_t ul_offset, uint32_t ul_length)
-{
-    uint8_t* puc_addrMem = (uint8_t*) ul_offset;
-
-    // Clear CRC before calculate
-    crc_init();
-
-    // Calculate
-    crc_calc(puc_addrMem, ul_length);
-
-    return crc_result();
 }
 
 /*******************************************************************************

@@ -4,7 +4,7 @@
  * @author  Robson Cardoso
  * @date    23/03/2017
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 #ifndef USERINT_H

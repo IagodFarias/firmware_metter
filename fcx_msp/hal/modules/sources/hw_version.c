@@ -4,7 +4,7 @@
  * @date    05/10/2021
  * @author  Eric Costa Hall
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************

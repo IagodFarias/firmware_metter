@@ -5,7 +5,7 @@
  * @date    03/04/2018
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 #ifndef ALARMMNG_H_
 #define ALARMMNG_H_
@@ -98,5 +98,16 @@ bool alarmmng_isNoUsage();
  *      'false'.
  */
 bool alarmmng_isOverTemp();
+
+/**
+ * @brief
+ *      Check if an alarm of old battery date was detected.
+ *
+ * @return
+ *      Returns 'true' if alarmed. Otherwise, it returns
+ *      'false'.
+ */
+bool alarmmng_isBatteryDateOld(void);
+
 
 #endif /* ALARMMNG_H_ */

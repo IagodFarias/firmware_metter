@@ -5,7 +5,7 @@
  * @date    11/10/2021
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 #ifndef WDOG_H
 #define WDOG_H

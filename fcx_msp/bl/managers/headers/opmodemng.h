@@ -5,7 +5,7 @@
  * @date    27/03/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 #ifndef OPMODEMNG_H_

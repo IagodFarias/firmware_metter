@@ -5,7 +5,7 @@
  * @date    04/08/2021
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 /*******************************************************************************
  * Includes
@@ -37,6 +37,12 @@
 #include "processing.h"
 #endif
 
+#ifdef DEBUG_ASSERT
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(__FILE__, __LINE__))
+#else
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(expr))
+#endif /* DEBUG_ASSERT */
+
 #define PROBE_CMD_START_OF_PKG                  0xFFFFFFFFFFFFFFFFULL
 
 /*******************************************************************************
@@ -65,21 +71,11 @@ typedef struct S_CALENDAR
     uint8_t uc_year;        // Years since 1900
 } s_calendar_t;
 
-#if CONFIG_FW_INTEGRITY
-typedef struct S_FW_INTEGRITY_CMD
-{
-    uint32_t ul_offset;         // Firmware offset
-    uint32_t ul_lenght;         // Firmware test length
-} s_fw_integrity_cmd_t;
-#endif
 
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
 static bool receiveCalibrationParameters();
-#if CONFIG_FW_INTEGRITY
-static bool isFwValidParam(s_fw_integrity_cmd_t *ps_params);
-#endif
 
 /*******************************************************************************
  * Global variables
@@ -108,9 +104,6 @@ void cmdmng_init(void)
     uint8_t length = 0;
     uint16_t *dev_id = NULL;
     TLV_getInfo(TLV_TAG_DIERECORD, 0, &length, &dev_id);
-
-    /*struct s_TLV_Die_Record {uint32_t wafer_id uint16_t die_x_position;
-                               uint16_t die_y_position uint16_t test_results;*/
 
     // fcxId = waferid + die_x + die_y.
     gs_packet.ul_fcxId =  (((uint32_t) dev_id[1] << 16) | dev_id[0]) + ((uint32_t)(dev_id[2] << 8)) + ((uint32_t) dev_id[3] << 16);
@@ -380,6 +373,12 @@ void cmdmng_dispatch(void)
                 if(opmodemng_getCurrentOpMode() != E_OPMODE_NORMAL)
                 {
                     normal_init();
+
+                    // Set active flag
+                    ASSERT(opmodemng_setActivationFlag(true));
+                    // Set calibration flag
+                    ASSERT(opmodemng_setCalibrationFlag(true));
+
                     opmodemng_setCurrentOpMode(E_OPMODE_NORMAL);
                 }
 
@@ -393,6 +392,12 @@ void cmdmng_dispatch(void)
                 if (opmodemng_getCurrentOpMode() != E_OPMODE_VERIFICATION)
                 {
                     verif_init();
+
+                    // Set active flag
+                    ASSERT(opmodemng_setActivationFlag(true));
+                    // Set calibration flag
+                    ASSERT(opmodemng_setCalibrationFlag(true));
+
                     opmodemng_setCurrentOpMode (E_OPMODE_VERIFICATION);
                 }
 
@@ -430,6 +435,11 @@ void cmdmng_dispatch(void)
                 // Send system configuration structure
                 serial_transmitBytes((uint8_t*) gps_sysConfig, 
                     sizeof(s_sys_config_t));
+
+                gs_packet.uc_resp = CMDMNG_CMD_ACK;
+
+                serial_transmitBytes((uint8_t*) &gs_packet, sizeof(gs_packet));
+
             break;
 
             /** Write the whole system configuration */
@@ -443,9 +453,17 @@ void cmdmng_dispatch(void)
                 serial_receiveBytes((uint8_t *) gps_sysConfig, 
                     sizeof(s_sys_config_t));
 
-                // Publish system configuration
-                configmng_updateSysConfig();
-                gs_packet.uc_resp = CMDMNG_CMD_ACK;
+                // Set system configuration
+                if(configmng_setSysConfig(gps_sysConfig))
+                {
+                    // Respond with ACK
+                    gs_packet.uc_resp = CMDMNG_CMD_ACK;
+                }
+                else
+                {
+                    // Respond with NACK in case of failure
+                    gs_packet.uc_resp = CMDMNG_CMD_NACK;
+                }
 
                 serial_transmitBytes((uint8_t*) &gs_packet, sizeof(gs_packet));
             break;
@@ -472,8 +490,35 @@ void cmdmng_dispatch(void)
                 s_actualDateTime.tm_year = s_calendar.uc_year;
                 s_actualDateTime.tm_isdst = 0;
 
+                // Encode Year (4 digits)
+                gps_sysConfig->s_production.auc_calibrationDate[7] = 48 + (int)((1900 + s_calendar.uc_year) / 1000);
+                gps_sysConfig->s_production.auc_calibrationDate[6] = 48 + (int)(((1900 + s_calendar.uc_year) / 100) % 10);
+                gps_sysConfig->s_production.auc_calibrationDate[5] = 48 + (int)(((1900 + s_calendar.uc_year) / 10) % 10);
+                gps_sysConfig->s_production.auc_calibrationDate[4] = 48 + (int)((1900 + s_calendar.uc_year) % 10);
+
+                // Encode Month (2 digits)
+                gps_sysConfig->s_production.auc_calibrationDate[3] = 48 + (int)((s_calendar.uc_month + 1) / 10);
+                gps_sysConfig->s_production.auc_calibrationDate[2] = 48 + (int)((s_calendar.uc_month + 1) % 10);
+
+                // Encode Day (2 digits)
+                gps_sysConfig->s_production.auc_calibrationDate[1] = 48 + (int)(s_calendar.uc_day / 10);
+                gps_sysConfig->s_production.auc_calibrationDate[0] = 48 + (int)(s_calendar.uc_day % 10);
+
+                // Encode Hour (2 digits)
+                gps_sysConfig->s_production.auc_calibrationDate[11] = 48 + (int)(s_calendar.uc_hour / 10);
+                gps_sysConfig->s_production.auc_calibrationDate[10] = 48 + (int)(s_calendar.uc_hour % 10);
+
+                // Encode Minute (2 digits)
+                gps_sysConfig->s_production.auc_calibrationDate[9] = 48 + (int)(s_calendar.uc_min / 10);
+                gps_sysConfig->s_production.auc_calibrationDate[8] = 48 + (int)(s_calendar.uc_min % 10);
+
+                // Encode Second (2 digits)
+                gps_sysConfig->s_production.auc_calibrationDate[13] = 48 + (int)(s_calendar.uc_sec / 10);
+                gps_sysConfig->s_production.auc_calibrationDate[12] = 48 + (int)(s_calendar.uc_sec % 10);
+
+
                 // Set new date and time
-                if(systick_setActualDateTime(&s_actualDateTime))
+                if(systick_setActualDateTime(&s_actualDateTime) && configmng_setSysConfig(gps_sysConfig))
                 {
                     // Respond with ACK
                     gs_packet.uc_resp = CMDMNG_CMD_ACK;
@@ -514,42 +559,7 @@ void cmdmng_dispatch(void)
             }
             break;
 
-#if CONFIG_FW_INTEGRITY
-            /** Read Firmware integrity */
-            case E_CMDMNG_CMD_READ_FW_INTEGRITY:
-            {
-                s_fw_integrity_cmd_t s_cmdParams;
 
-                // Send an ACK for synchronization purpose
-                gs_packet.uc_resp = CMDMNG_CMD_ACK;
-                serial_transmitBytes((uint8_t*) &gs_packet, sizeof(gs_packet));
-
-                // Receive the calendar
-                serial_receiveBytes((uint8_t *) &s_cmdParams,
-                    sizeof(s_cmdParams));
-
-                if(isFwValidParam(&s_cmdParams))
-                {
-                    uint16_t ui_crc =
-                            configmng_calcCrcFromMem(s_cmdParams.ul_offset,
-                                    s_cmdParams.ul_lenght);
-
-                    // Send an ACK for synchronization purpose
-                    gs_packet.uc_resp = CMDMNG_CMD_ACK;
-                    serial_transmitBytes((uint8_t*) &gs_packet, sizeof(gs_packet));
-
-                    // Send tm structure
-                    serial_transmitBytes((uint8_t*) &ui_crc, sizeof(uint16_t));
-                }
-                else
-                {
-                    // Send an NACK for invalid parameters
-                    gs_packet.uc_resp = CMDMNG_CMD_NACK;
-                    serial_transmitBytes((uint8_t*) &gs_packet, sizeof(gs_packet));
-                }
-            }
-            break;
-#endif
 
 #if CONFIG_WMBUS_ENABLED
             /** Write wM-Bus configuration */
@@ -748,19 +758,3 @@ static bool receiveCalibrationParameters()
 
     return false;
 }
-
-#if CONFIG_FW_INTEGRITY
-static bool isFwValidParam(s_fw_integrity_cmd_t *ps_params)
-{
-    if(ps_params->ul_offset < FRAM_START)
-    {
-        return false;
-    }
-    else if((ps_params->ul_offset + ps_params->ul_lenght) > FRAM_LENGTH)
-    {
-        return false;
-    }
-
-    return true;
-}
-#endif

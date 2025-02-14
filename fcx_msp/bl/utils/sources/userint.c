@@ -5,7 +5,7 @@
  * @date    23/03/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -126,7 +126,7 @@ void userint_update(void)
                     ge_userCmd = E_USERINT_CMD_CHANGE_OP_MODE;
 
 #if DEBUG_USERINT
-                    printf("%u (USERINT): Change operating mode command.\n",
+                    printf("%llu (USERINT): Change operating mode command.\n",
                         systick_getSysTickMs());
 #endif
                     // Alert the timeout event

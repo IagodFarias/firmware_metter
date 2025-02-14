@@ -5,7 +5,7 @@
  * @date    01/10/2017
  * @details Module which implements the communication by optical interface.
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medi��o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -22,6 +22,7 @@
 #include "screenmng.h"
 #include "crc.h"
 #include "systick.h"
+#include "aes_cmac.h"
 
 #if DEBUG_OPTCOMM
 #include <gpio.h>
@@ -30,7 +31,7 @@
 
 #if CONFIG_OPTCOMM_ENABLED
 /** Interval in milliseconds to open the synchronization request. */
-#define OPTCOMM_SYNC_REQ_INTERVAL                       200UL
+#define OPTCOMM_SYNC_REQ_INTERVAL                       50UL
 
 /** Number of tries to receive the first ACK before it's connected. */
 #define OPTCOMM_CONN_TRIES                              6
@@ -74,12 +75,12 @@ typedef enum E_OPTCOMM_STATE
     /** Reading logs state */
     E_OPTCOMM_STATE_READING_LOGS,
 
-#if OPTCOMM_CHANGE_CONFIG
+#if CONFIG_OPTCOMM_ENABLED
     /** Reading sys config page */
     E_OPTCOMM_STATE_READING_CONFIG_PAGE,
+#endif
     /** Updateing sys config page */
     E_OPTCOMM_STATE_UPDATING_CONFIG_PAGE,
-#endif
 
 #if OPTCOMM_CHANGE_MODE
     /** Changing operating mode state */
@@ -118,12 +119,10 @@ static void processRxMessage(s_optcomm_msg_t *ps_msg);
 //static uint16_t finishMessage(void);
 static inline bool receiveSyncRequest(void);
 static bool receiveMessage(s_optcomm_msg_t *ps_msg);
-#if OPTCOMM_CHANGE_CONFIG
 static inline bool readConfigPage(void);
+#if OPTCOMM_CHANGE_CONFIG
 static bool receivedSysConfig(s_sys_config_t *ps_sysConfig, s_optcomm_msg_t *gs_msg);
 #endif
-
-static inline bool calcCrcFromMemory(void);
 
 #if CONFIG_LOGGER_ENABLED
 static inline bool readLogs();
@@ -164,7 +163,7 @@ static uint8_t guc_syncReqSkipCnt;
 static s_logger_reg_t gs_logger;
 
 /** Index of log to read. */
-static uint8_t guc_logIdx;
+static uint32_t guc_logIdx;
 /** Structure of logger configuration. */
 static s_logger_config_t gs_logerConfig;
 #endif /* CONFIG_LOGGER_ENABLED */
@@ -175,14 +174,14 @@ static s_code_verif_params_t gs_readMemParam;
 /** Pointer to system configuration. */
 static s_sys_config_t *gps_sysConfig;
 
-#if OPTCOMM_CHANGE_MODE
 /** Operation mode. */
 static E_OPMODE_t ge_opmode;
 
 /** Device key. */
 static uint32_t gul_key;
-#endif /* OPTCOMM_CHANGE_MODE */
 
+/** Current config page being sent. */
+static uint8_t guc_configPage;
 
 
 /** Callback to be called whenever an activity occurs in the OPTCOMM. */
@@ -225,7 +224,7 @@ void optcomm_update()
         case E_OPTCOMM_STATE_WAITING_SYNC_REQ:
             if(!guc_syncReqSkipCnt)
             {
-#if 0 //DEBUG_OPTCOMM
+#if DEBUG_OPTCOMM
                 printf("(OPTCOMM): Waiting sync request.\n");
 #endif /* DEBUG_OPTCOMM */
 
@@ -348,7 +347,7 @@ void optcomm_update()
             }
             break;
 #endif /* CONFIG_LOGGER_ENABLED */
-#if OPTCOMM_CHANGE_CONFIG
+#if CONFIG_OPTCOMM_ENABLED
         case E_OPTCOMM_STATE_READING_CONFIG_PAGE:
             if(!readConfigPage())
             {
@@ -556,16 +555,24 @@ void optcomm_update()
 #endif /* CONFIG_WMBUS_ENABLE*/
 
         case E_OPTCOMM_STATE_CHECK_CHECKSUM_CODE:
-            if(!calcCrcFromMemory())
+        {
+            if(calcCmacFromMemory())
             {
-                // Finished sending the checksum, so change state to wait command
+                // Finished sending the CMAC, so change state to wait command
                 ge_state = E_OPTCOMM_STATE_WAITING_CMD;
             }
+            else
+            {
+                // Failed to calculate CMAC, already handled in calcCmacFromMemory
+                ge_state = E_OPTCOMM_STATE_WAITING_CMD;
+            }
+
             if(gfp_activityCallback)
             {
                 // If there is an activity callback, so call it
                 gfp_activityCallback();
             }
+        }
         break;
     }
 }
@@ -783,7 +790,7 @@ static void processRxMessage(s_optcomm_msg_t *ps_msg)
             break;
 #endif /* OPTCOMM_ERASE_LOGS */
 
-#if OPTCOMM_CHANGE_CONFIG
+#if CONFIG_OPTCOMM_ENABLED
         case E_OPTCOMM_CMD_READ_CONFIG_PAGE:
 
             if(OPTCOMM_MSG_LEN_READ_CONFIG_PAGE == ps_msg->ui_len)
@@ -797,7 +804,10 @@ static void processRxMessage(s_optcomm_msg_t *ps_msg)
                 ge_state = E_OPTCOMM_STATE_RESPONDING_NACK;
             }
             break;
+#endif
 
+
+#if OPTCOMM_CHANGE_CONFIG
         case E_OPTCOMM_CMD_WRITE_CONFIG_PAGE:
 
             if(OPTCOMM_MSG_LEN_UPDATE_METER_CONFIG == ps_msg->ui_len)
@@ -841,32 +851,53 @@ static void processRxMessage(s_optcomm_msg_t *ps_msg)
         
         case E_OPTCOMM_CMD_READ_MEMORY_CHECKSUM:
         {
-            s_code_verif_params_t s_rxParam;
+            s_code_verif_params_t s_rxParam = {0};
+            s_optcomm_msg_t temp_ps_msg;
 
-            if (OPTCOMM_MSG_LEN_READ_CODE_CRC == ps_msg->ui_len)
+            memcpy(&temp_ps_msg, &ps_msg, sizeof(s_optcomm_msg_t));
+
+            memcpy(&gs_readMemParam, &s_rxParam, sizeof(s_code_verif_params_t)); //this zeroes out
+
+            if (OPTCOMM_MSG_LEN_READ_CODE_CMAC == ps_msg->ui_len)
             {
-            // Parse offset
-            s_rxParam.ul_offset = ps_msg->auc_payload[0];
-            s_rxParam.ul_offset |= ((uint32_t) ps_msg->auc_payload[1]) << 8;
-            s_rxParam.ul_offset |= ((uint32_t) ps_msg->auc_payload[2]) << 16;
-            s_rxParam.ul_offset |= ((uint32_t) ps_msg->auc_payload[3]) << 24;
+                // Parse offset
+                s_rxParam.ul_offset = ps_msg->auc_payload[0];
+                s_rxParam.ul_offset |= ((uint32_t) ps_msg->auc_payload[1]) << 8;
+                s_rxParam.ul_offset |= ((uint32_t) ps_msg->auc_payload[2]) << 16;
+                s_rxParam.ul_offset |= ((uint32_t) ps_msg->auc_payload[3]) << 24;
 
-            // Parse length
-            s_rxParam.ul_length = ps_msg->auc_payload[4];
-            s_rxParam.ul_length |= ((uint32_t) ps_msg->auc_payload[5]) << 8;
-            s_rxParam.ul_length |= ((uint32_t) ps_msg->auc_payload[6]) << 16;
-            s_rxParam.ul_length |= ((uint32_t) ps_msg->auc_payload[7]) << 24;
+                // Parse length
+                s_rxParam.ul_length = ps_msg->auc_payload[4];
+                s_rxParam.ul_length |= ((uint32_t) ps_msg->auc_payload[5]) << 8;
+                s_rxParam.ul_length |= ((uint32_t) ps_msg->auc_payload[6]) << 16;
+                s_rxParam.ul_length |= ((uint32_t) ps_msg->auc_payload[7]) << 24;
+
+                // Parse AES-128 key (16 bytes)
+                memcpy(s_rxParam.aes_key, &ps_msg->auc_payload[8], 16);
+
+        #if DEBUG_INTEGRITY
+                printf("(OPTCOMM): Payload: ");
+                for(int i = 0; i < OPTCOMM_MSG_LEN_READ_CODE_CMAC; i++) {
+                    printf("%02X ", ps_msg->auc_payload[i]);
+                }
+                printf("\n");
+                printf("(OPTCOMM): Checksum Offset: %.02f\n", (float) s_rxParam.ul_offset);
+                printf("(OPTCOMM): Checksum Length: %.02f\n", (float) s_rxParam.ul_length);
+                printf("(OPTCOMM): AES Key: ");
+                for(int i = 0; i < 16; i++) {
+                    printf("%02X ", s_rxParam.aes_key[i]);
+                }
+                printf("\n");
+        #endif
 
                 if(isValidParamReadMem(&s_rxParam))
                 {
-                    memcpy(&gs_readMemParam, &s_rxParam,
-                            sizeof(s_code_verif_params_t));
-
+                    memcpy(&gs_readMemParam, &s_rxParam, sizeof(s_code_verif_params_t));
                     ge_state = E_OPTCOMM_STATE_CHECK_CHECKSUM_CODE;
                 }
                 else
                 {
-                    ge_state = E_OPTCOMM_STATE_RESPONDING_NACK;
+                    ge_state = E_OPTCOMM_STATE_RESPONDING_INVALID_CMD;
                 }
             }
             else
@@ -905,10 +936,15 @@ static void processRxMessage(s_optcomm_msg_t *ps_msg)
             printf("(OPTCOMM): Received invalid COMMAND %d \n", ps_msg->e_cmd);
 #endif /* DEBUG_OPTCOMM */
 
-            // Change the OPTCOMM's state to respond invalid
-            // command in next meter's cycle
-            ge_state = E_OPTCOMM_STATE_RESPONDING_INVALID_CMD;
-            break;
+            if(ps_msg->e_cmd == E_OPTCOMM_CMD_SYNC_REQ){ //re-send missed sync to ease comms
+                ge_state = E_OPTCOMM_STATE_WAITING_CMD;
+            }else{
+                // Change the OPTCOMM's state to respond invalid
+                // command in next meter's cycle
+                ge_state = E_OPTCOMM_STATE_RESPONDING_INVALID_CMD;
+                break;
+            }
+
     }
 
     if(b_isValidCmd && gfp_activityCallback)
@@ -1053,7 +1089,7 @@ static bool receiveMessage(s_optcomm_msg_t *ps_msg)
 {
     uint16_t ui_rxLen = 0;
     uint16_t ui_msgLen = 0;
-    uint16_t ui_bytesToReceive = 20;
+    uint16_t ui_bytesToReceive = 40;
     bool b_isOnlyHeader = false;
     bool b_isValidCmd = false;
     bool b_isReception = false;
@@ -1131,10 +1167,11 @@ static bool receiveMessage(s_optcomm_msg_t *ps_msg)
             case E_OPTCOMM_CMD_CHANGE_OPMODE:
             case E_OPTCOMM_CMD_READ_SERIAL_NUMBER:
             case E_OPTCOMM_CMD_READ_FIRMWARE_VERSION:
-#if OPTCOMM_CHANGE_CONFIG
             case E_OPTCOMM_CMD_READ_CONFIG_PAGE:
+#if DEBUG && OPTCOMM_CHANGE_CONFIG
             case E_OPTCOMM_CMD_WRITE_CONFIG_PAGE:
 #endif
+            case E_OPTCOMM_CMD_READ_MEMORY_CHECKSUM:
             case E_OPTCOMM_CMD_SYNC_REQ:
             case E_OPTCOMM_CMD_SYNC:
             case E_OPTCOMM_CMD_SYNC_CONN:
@@ -1152,7 +1189,6 @@ static bool receiveMessage(s_optcomm_msg_t *ps_msg)
             case E_OPTCOMM_CMD_ENABLE_WMBUS_TX:
             case E_OPTCOMM_CMD_DISABLE_WMBUS_TX:
 #endif
-            case E_OPTCOMM_CMD_READ_MEMORY_CHECKSUM:
 
             b_isValidCmd = true;
             break;
@@ -1165,6 +1201,7 @@ static bool receiveMessage(s_optcomm_msg_t *ps_msg)
 
         if(b_isValidCmd)
         {
+
             // Copy the valid message to the message structure
             ps_msg->uc_version = gauc_buffer[1];
 
@@ -1183,12 +1220,11 @@ static bool receiveMessage(s_optcomm_msg_t *ps_msg)
                     crc_init();
                     crc_calc(gauc_buffer, ui_rxLen - OPTCOMM_CRC_LEN);
 
-
                     // Check with the received CRC matches with the calculated CRC
-                    if(crc_result() == ps_msg->ui_crc || ps_msg->e_cmd == E_OPTCOMM_CMD_CHANGE_OPMODE)
+                    if(crc_result() == ps_msg->ui_crc || ps_msg->e_cmd == E_OPTCOMM_CMD_CHANGE_OPMODE)// || ps_msg->e_cmd == E_OPTCOMM_CMD_READ_MEMORY_CHECKSUM)
                     {
                         memcpy(&ps_msg->ui_len, &gauc_buffer[2], OPTCOMM_MSG_SIZE_LEN);
-                        memcpy(ps_msg->auc_payload,
+                        memcpy(&ps_msg->auc_payload,
                             &gauc_buffer[OPTCOMM_MSG_HEADER_LEN],
                             ui_rxLen - OPTCOMM_MSG_HEADER_LEN - OPTCOMM_CRC_LEN);
 
@@ -1236,41 +1272,40 @@ static bool receiveMessage(s_optcomm_msg_t *ps_msg)
  *      returns 'false'.
  */
 
-#if OPTCOMM_CHANGE_CONFIG
+#if CONFIG_OPTCOMM_ENABLED
 static inline bool readConfigPage(void)
 {
-    static uint8_t page = 0;
     bool b_pendingBytesToSend = true;
     uint16_t ui_remainingBytes;
     static uint16_t crc16 = 0;
 
-    if(page == 0)
+    if(guc_configPage == 0)
     {
         // Start a message to send the serial number
         crc16 = startMessage(E_OPTCOMM_CMD_READ_CONFIG_PAGE,
-                             sizeof(gps_sysConfig->s_calibration.as_calibLut));
+                             sizeof(s_sys_config_t));
     }
 
-    if(page < OPTCOMM_MSG_CONFIG_NUM_PAGES)
+    if(guc_configPage <= OPTCOMM_MSG_CONFIG_NUM_PAGES)
     {
-        ui_remainingBytes = (480-(page*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD));
+        ui_remainingBytes = (sizeof(s_sys_config_t)-(guc_configPage*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD));
 
         if(ui_remainingBytes > OPTCOMM_MSG_CONFIG_MAX_PAYLOAD)
         {
             // This changes the number of bytes to send in case that the remaining
-            // bytes are less then the max payload
+            // bytes are bigger than the max payload
             ui_remainingBytes = OPTCOMM_MSG_CONFIG_MAX_PAYLOAD;
         }
 
 #if DEBUG_OPTCOMM
-        printf("(OPTCOMM): page  %d ----\n", page);
+        printf("(OPTCOMM): page  %d ----\n", guc_configPage);
         printf("(OPTCOMM): ui_remainingBytes  %d\n", ui_remainingBytes);
-        printf("(OPTCOMM): page*ui_maxPayLoad %d\n", page*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD);
+        printf("(OPTCOMM): page*ui_maxPayLoad %d\n", guc_configPage*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD);
         printf("(OPTCOMM): crc %04x\n", crc16);
 #endif /* DEBUG_OPTCOMM */
 
         memcpy(&gauc_buffer,
-               (uint8_t *) gps_sysConfig->s_calibration.as_calibLut+(page*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD),
+               (uint8_t *) gps_sysConfig + (guc_configPage*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD),
                 ui_remainingBytes);
 
         // Add config page to CRC calculation
@@ -1280,297 +1315,21 @@ static inline bool readConfigPage(void)
         // stores crc16 to increment next round
         crc16 = crc_result();
 
-
-        if(page != 0)
-        {
-            // if page 0 TX is enabled by the startMessage()
-            //optint_enableTx(true);
-        }
-
         // Send page
         optint_send(gauc_buffer, ui_remainingBytes);
-        page++;
-        if(page < OPTCOMM_MSG_CONFIG_NUM_PAGES)
-        {
-            // disable transmition to save power between cycles
-            // Keep 'on' for the last cicle
-            //optint_enableTx(false);
-        }
+        guc_configPage++;
         b_pendingBytesToSend = true;
     }
-    if(page == OPTCOMM_MSG_CONFIG_NUM_PAGES)
+    if(guc_configPage == OPTCOMM_MSG_CONFIG_NUM_PAGES)
     {
         finishMessage();
-        page = 0;
+        guc_configPage = 0;
         b_pendingBytesToSend = false;
     }
 
     return b_pendingBytesToSend;
 }
 #endif
-/**
- * @brief
- *      Calculate checksum from code memory using CRC16 algorithm.
- *
- * @details
- *      This function calculates the CRC16 from memory code
- *
- * @return
- *      Returns 'true' if there is any pending log to send. Otherwise it
- *      returns 'false'.
- */
-static inline bool calcCrcFromMemory(void)
-{
-    static uint16_t ui_crc16 = 0;
-    bool b_pendingBytesToCheck = true;
-
-    crc_init();
-
-    // Calculate crc16
-    crc_calc((uint8_t*) gs_readMemParam.ul_offset, gs_readMemParam.ul_length);
-
-    // Clear remaining
-    gs_readMemParam.ul_length = 0;
-
-    // Prepare response to send
-    if(gs_readMemParam.ul_length == 0)
-    {
-
-        ui_crc16 = crc_result();
-        // Start a message to send and set length of message
-        startMessage(E_OPTCOMM_CMD_READ_MEMORY_CHECKSUM, 
-            sizeof(uint16_t));
-        
-        // Build response
-        gauc_buffer[0] = ui_crc16 >> 8;
-        gauc_buffer[1] = ui_crc16;
-
-        // Calculate CRC from PAYLOAD
-        crc_calc(gauc_buffer, sizeof(uint16_t));
-
-        // Send CRC result from memory
-        optint_send(gauc_buffer, sizeof(uint16_t));
-
-        // Send the crc16 from message
-        finishMessage();
-
-        // Reset flag
-        b_pendingBytesToCheck = false;
-    }
-
-    return b_pendingBytesToCheck;
-}
-
-/**
- * @brief
- *      Updates the system configuration
- *
- * @param[in]   ps_config
- *      Logger configuration to be saved.
- */
-#if OPTCOMM_CHANGE_CONFIG
-static bool receivedSysConfig(s_sys_config_t *ps_sysConfig, s_optcomm_msg_t *gs_msg)
-{
-    static uint8_t page = 0;
-    // Starts with true to send ack command
-    static bool b_successSentData = true;
-
-    static bool b_finished = false;
-    static uint8_t  ui_tries = 0;
-    bool b_pendingReception = true;
-    static bool b_firstAck = true;
-    static uint16_t crc16 = 0;
-    uint16_t receivedCrc16 = 0;
-
-    uint16_t ui_numBytesToReceive = 40;
-
-    if(b_successSentData)
-    {
-        // Send ACK before opening window
-        startMessage(E_OPTCOMM_CMD_ACK, 0);
-        finishMessage();
-#if DEBUG_OPTCOMM
-        printf("****ACK****\n\n");
-#endif
-    }
-    else
-    {
-        // Send NACK before opening window
-        startMessage(E_OPTCOMM_CMD_NACK, 0);
-        finishMessage();
-#if DEBUG_OPTCOMM
-        printf("****NACK****\n\n");
-#endif
-    }
-
-    // Ends reception and resets all flags
-    if(b_finished)
-    {
-        // Check if crc message was successfull
-        if(b_successSentData){
-            // Save new configuration
-            configmng_setSysConfig(ps_sysConfig);
-
-            // Update all modules with new configuration
-            configmng_updateSysConfig();
-        }
-
-        // Resets all flags
-        b_successSentData = true;
-        b_finished = false; // resets flag
-        ui_tries = 0;
-        page = 0;
-        b_firstAck = true;
-        b_pendingReception = false;
-        return b_pendingReception;
-    }
-
-    if(!b_firstAck)
-    {
-
-
-        // Calculate the remaining packages to receive 480 bytes of calibLut and 2
-        // bytes for CRC16
-        ui_numBytesToReceive = (482-(page*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD));
-
-        if(ui_numBytesToReceive > OPTCOMM_MSG_CONFIG_MAX_PAYLOAD)
-        {
-            // This changes the number of bytes to send in case that the remaining
-            // bytes are less then the max payload
-            ui_numBytesToReceive = OPTCOMM_MSG_CONFIG_MAX_PAYLOAD;
-        }
-
-
-        if(page <= OPTCOMM_MSG_CONFIG_NUM_PAGES/*=12*/)
-        {
-
-            uint8_t *p_result;
-
-            // Initializes the crc16 with previous calculated value
-            // First initialization happens on first ack where the crc16 for the
-            // header is calculated and stored in the static crc16 variable
-            crc_initWithPrevious(crc16);
-
-            // Enable reception
-            optint_enableRx(true);
-
-            // Receive a specific number of bytes
-            if(optint_receive(gauc_buffer, ui_numBytesToReceive))
-            {
-                if(OPTCOMM_CRC_LEN < ui_numBytesToReceive)
-                {
-                    // Copy received bytes to sysConfig
-                    p_result = (uint8_t *) ps_sysConfig->s_calibration.as_calibLut+(page*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD);
-                    p_result = memcpy(p_result, gauc_buffer, ui_numBytesToReceive);
-
-                    // Calculates the current crc16 accumulated from previous
-                    // packs
-                    crc_calc(gauc_buffer, ui_numBytesToReceive);
-
-                    // updates crc16
-                    crc16 = crc_result();
-#if DEBUG_OPTCOMM
-                    printf("(OPTCOMM): %d\n", gauc_buffer[0]);
-                    printf("(OPTCOMM): %d\n", gauc_buffer[ui_numBytesToReceive-1]);
-#endif
-                }
-                else
-                {
-                    if(OPTCOMM_CRC_LEN == ui_numBytesToReceive)
-                    {
-
-
-                        // copy data to crc16 variable
-                        p_result = memcpy(&receivedCrc16, &gauc_buffer[0], ui_numBytesToReceive);
-
-                        // indicates the end of reception
-                        b_finished = true;
-
-                        crc16 = crc_result();
-
-#if DEBUG_OPTCOMM
-                        printf("(OPTCOMM): CRC rece %08x calc %08x\n", receivedCrc16, crc16);
-#endif
-                        if(receivedCrc16 == crc16)
-                        {
-
-                        }
-
-                    }
-                }
-
-                // Checks if memory was successfully
-                if(NULL != p_result)
-                {
-                    // Increments the next page
-                    page++;
-
-                    // Zeros timeout counter
-                    ui_tries = 0;
-
-                    // Sets successfull data. Next cycle stars with ACK
-                    b_successSentData = true;
-                }
-                else
-                {
-                    // Sets successfull data. Next cycle stars with NACK
-                    b_successSentData = false;
-                }
-            }
-            else
-            {
-                // Sets unsuccessfull flag so next cycle nack is sent
-                b_successSentData = false;
-
-                //increments timeout counter
-                ui_tries++;
-
-            }
-
-            // Sets a pending reception to continue in the next cycle
-            b_pendingReception = true;
-
-            optint_enableRx(false);
-        }
-
-    }
-    else
-    {
-       b_firstAck = false;
-       crc16 = 0;
-       crc_init();
-       // Calculates the header crc
-       crc_calc((uint8_t *)gs_msg, 4);
-       crc16 = crc_result();
-    }
-
-
-
-    if(ui_tries == OPTCOMM_MSG_CONFIG_NUM_PAGES + 5)
-    {
-        // sets flag to send NACK
-        b_successSentData = false;
-        b_finished = true;
-        // sets pending reception to
-        b_pendingReception = true;
-        page = 0;
-        ui_tries = 0;
-    }
-
-#if DEBUG_OPTCOMM
-        printf("(OPTCOMM): num to receive  %d \n", ui_numBytesToReceive);
-        printf("(OPTCOMM): ui_tries %d \n", ui_tries);
-        printf("(OPTCOMM): pending  %d \n", b_pendingReception);
-        printf("(OPTCOMM): IF success sent  %d \n", b_successSentData);
-        printf("(OPTCOMM): NEXT page  %d -------------\n", page);
-        printf("(OPTCOMM): NEXT LIMIT page*ui_maxPayLoad %d \n", page*OPTCOMM_MSG_CONFIG_MAX_PAYLOAD);
-#endif /* DEBUG_OPTCOMM */
-
-    return b_pendingReception;
-}
-#endif
-
-
 
 #if CONFIG_LOGGER_ENABLED
 /**
@@ -2024,11 +1783,57 @@ static inline bool isValidParamReadMem(s_code_verif_params_t *ps_param)
     {
         return false;
     }
-    else if((ps_param->ul_length > OPTCOMM_CRC_CHECK_MAX_BYTES_PER_CYCLE))
-    {
-        return false;
-    }
     return true;
+}
+
+bool calcCmacFromMemory()
+{
+    uint8_t cmac_result[16]; // CMAC is 16 bytes for AES-128
+    uint32_t offset = gs_readMemParam.ul_offset;
+    uint32_t length = gs_readMemParam.ul_length;
+    const uint8_t *aes_key = gs_readMemParam.aes_key; // Ensure gs_readMemParam includes aes_key
+
+
+#if DEBUG_OPTCOMM
+    printf("(OPTCOMM): Checksum Offset: %u\n", offset);
+    printf("(OPTCOMM): Checksum Length: %u\n", length);
+#endif
+
+    // Calculate CMAC
+    bool success = calcCmacFromMem(offset, length, aes_key, cmac_result);
+
+
+#if DEBUG_OPTCOMM
+        printf("(OPTCOMM): Final CMAC: ");
+            for (size_t i = 0; i < 16; i++)
+                printf("%02X%c", cmac_result[i], i < 15 ? ' ' : '\n');
+#endif
+
+
+    if(success)
+    {
+        // Start a CMAC response message
+        startMessage(E_OPTCOMM_CMD_READ_MEMORY_CHECKSUM, sizeof(cmac_result));
+
+        // Add CMAC result to CRC calculation
+        crc_calc(cmac_result, sizeof(cmac_result));
+
+        // Send CMAC result
+        optint_send(cmac_result, sizeof(cmac_result));
+
+        // Finish the message
+        finishMessage();
+    }
+    else
+    {
+        // Start a NACK message
+        startMessage(E_OPTCOMM_CMD_NACK, 0);
+
+        // Finish the message
+        finishMessage();
+    }
+
+    return success;
 }
 
 #endif /* CONFIG_OPTCOMM_ENABLED */

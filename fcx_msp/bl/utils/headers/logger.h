@@ -5,7 +5,7 @@
  * @date    03/10/2023
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 #ifndef BL_HEADERS_LOGGER_H_
@@ -36,6 +36,7 @@
  ******************************************************************************/
 
 /** Log register. */
+#pragma pack(push, 1)
 typedef struct S_LOGGER_REG
 {
     /** Timestamp. */
@@ -51,6 +52,7 @@ typedef struct S_LOGGER_REG
     /** Alarm flags. */
     uint16_t ui_alarms;
 } s_logger_reg_t;
+#pragma pack(pop)
 
 /*******************************************************************************
  * Public functions
@@ -65,5 +67,5 @@ void logger_erase();
 
 void logger_updateConfig();
 void logger_update();
-uint8_t logger_size();
-bool logger_read(s_logger_reg_t * const ps_reg, uint8_t uc_idx);
+uint16_t logger_size();
+bool logger_read(s_logger_reg_t * const ps_reg, uint16_t uc_idx);

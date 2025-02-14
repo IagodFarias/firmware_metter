@@ -5,7 +5,7 @@
  * @date    09/10/2023
  * @details Module which manages (create, save and read) all meter logs.
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -29,7 +29,7 @@
 #include "leak.h"
 #include "processing.h"
 #include "configmng.h"
-#include "batt.h"
+#include "battdate.h"
 #include "brush.h"
 
 #if DEBUG_LOGGER
@@ -73,7 +73,7 @@
 ///** Number of log registers per FLASH page. (25 logs) */
 //#define LOGGER_REG_PER_PAGE             (FLASH_PAGE_SIZE / LOGGER_REG_SIZE)
 //
-///** Number of valid registers stored in log memory. (20 logs) */
+///** Number of valid registers stored in log memory. */
 #define LOGGER_NUM_VALID_REGS                       1500 // max ~= 2700. Totalling 8100 logs
 //
 ///** Default value of the memory. */
@@ -85,19 +85,21 @@
  ******************************************************************************/
 
 /** Structure to hold timestamp in the log register. */
+#pragma pack(push, 1)
 typedef struct S_LOGGER_TIMESTAMP
 {
-    /** Hour (0 - 23) */
-    uint16_t ui_hour     : 5;
-    /** Day (1 - 31) */
-    uint16_t ui_day      : 5;
-    /** Month (0 - 11) */
-    uint16_t ui_month    : 4;
-    /** Minutes in slices of 15 min each */
-    uint16_t ui_minutes  : 2;
     /** Year (from 1900) */
     uint16_t ui_year     : 8;
+    /** Month (0 - 11) */
+    uint16_t ui_month    : 4;
+    /** Day (1 - 31) */
+    uint16_t ui_day      : 5;
+    /** Hour (0 - 23) */
+    uint16_t ui_hour     : 5;
+    /** Minutes in slices of 15 min each */
+    uint16_t ui_minutes  : 2;
 } s_logger_timestamp_t;
+#pragma pack(pop)
 
 /*******************************************************************************
  * Prototypes
@@ -171,7 +173,7 @@ static s_sys_config_t *gps_sysConfig;
 static bool gb_configChanged = false;
 
 /** Logs counter. */
-static uint8_t guc_numLogs;
+static uint16_t guc_numLogs;
 
 /** Timestamp structure pointer. */
 static struct tm *gps_timestamp;
@@ -180,10 +182,10 @@ static struct tm *gps_timestamp;
 static s_logger_timestamp_t gs_logTimestamp;
 
 /** Meter's volume. */
-static int32_t gl_volume;
+static int64_t gl_volume;
 
 /** Meter's flow rate. */
-static int32_t gl_flowRate;
+static int64_t gl_flowRate;
 
 // static double_t fpu_helper;
 
@@ -254,7 +256,7 @@ void logger_init()
     logger_updateConfig();
 
 #if DEBUG_LOGGER
-    printf("(LOGGER): Module init. Found %u logs.\n", guc_numLogs);
+    printf("(LOGGER): Module init. Found %ul logs.\n", guc_numLogs);
 #endif /* DEBUG_LOGGER */
 }
 
@@ -377,7 +379,7 @@ void logger_update()
                 gull_tickToLog = calculateTickOfNextLog(
                     &gps_sysConfig->s_logger);
 
-#if 0 //DEBUG_LOGGER
+#if DEBUG_LOGGER
                 // Print all logs stored in the memory
                 printLogs();
 #endif /* DEBUG_LOGGER */
@@ -393,7 +395,7 @@ void logger_update()
  *  @return
  *      Number of log stored in the memory.
  */
-uint8_t logger_size()
+uint16_t logger_size()
 {
     return guc_numLogs;
 }
@@ -413,7 +415,7 @@ uint8_t logger_size()
  *  @return
  *      Returns TRUE if the log has been read with success or FALSE otherwise.
  */
-bool logger_read(s_logger_reg_t * const ps_reg, uint8_t uc_idx)
+bool logger_read(s_logger_reg_t * const ps_reg, uint16_t uc_idx)
 {
     bool b_status = false;
 
@@ -490,7 +492,7 @@ bool logger_read(s_logger_reg_t * const ps_reg, uint8_t uc_idx)
  */
 static inline bool isIdxOutOfLogMemory(uint16_t ui_idx)
 {
-    return (ui_idx > (3*LOGGER_BUFFER_SIZE - 1))? true : false;
+    return (ui_idx == (3*LOGGER_BUFFER_SIZE));
 }
 
 /**
@@ -516,14 +518,8 @@ static uint64_t calculateTickOfNextLog(s_logger_config_t *ps_config)
     gps_timestamp = systick_getActualDateTime();
 
 #if DEBUG_LOGGER
-    //systick_setActualDateTime(gps_timestamp);
-    // If @ref DEBUG_LOGGER is defined, the meter shall
-    // register a log every minute (used for debugging)
-
-
     gps_timestamp->tm_sec = 0;
-    gps_timestamp->tm_min += 2;
-
+    gps_timestamp->tm_min += 1;
 #else
     // Apart of the logger configuration, the meter shall register a log in
     // minute and second zero
@@ -616,13 +612,11 @@ static uint64_t calculateTickOfNextLog(s_logger_config_t *ps_config)
             // Update next day logger
             gps_timestamp->tm_mday = ps_config->uc_param;
 
-            // Check the day parameter is less or equal than today
-            if(ps_config->uc_param <= uc_todayDay)
-            {
-                // Add 1 month to current datetime
-                //utils_addMonthToDate(gps_timestamp, 1);
+            // If the day to register the log is later in the current month, or today is the log day
+            if (ps_config->uc_param <= uc_todayDay) {
+                // Increase the month by one
+                gps_timestamp->tm_mon += 1;
             }
-
 #if DEBUG_LOGGER
             printf("(LOGGER): Log every month.\n");
 #endif /* DEBUG_LOGGER */
@@ -631,7 +625,7 @@ static uint64_t calculateTickOfNextLog(s_logger_config_t *ps_config)
 
         case E_LOGGER_CONFIG_INTERVAL_15MIN:
 
-            gps_timestamp->tm_min += 2;
+            gps_timestamp->tm_min += 15;
 
 #if DEBUG_LOGGER
             printf("(LOGGER): Log every 15 minutes.\n");
@@ -718,7 +712,7 @@ static inline void updateAlarmsStatus()
     }
 
     // Check battery
-    if(batt_isLow())
+    if(battdate_isOld())
     {
         guc_alarmFlags |= LOGGER_ALARM_FLAG_LOW_BATTERY;
     }
@@ -785,11 +779,7 @@ static inline void createLog(uint8_t *puc_buffer, uint8_t uc_alarmFlags)
 
     puc_buffer += LOGGER_REG_FIELD_TIMESTAMP_SIZE;
 
-    gl_volume = proc_getForwardVolume(); // get integer part (m^3)
-
-    gl_volume += _IQ21mpyI32int(        \
-                        _IQ21frac(_IQ21(proc_getForwardVolume())),      \
-                         1000); // m^3 to liters of fractional part
+    gl_volume = (uint32_t) (proc_getForwardVolume() * 1000);
 
     // Pack forward volumes in m³
     memcpy(puc_buffer, (uint8_t *) &gl_volume, LOGGER_REG_FIELD_VOL_SIZE);
@@ -797,11 +787,7 @@ static inline void createLog(uint8_t *puc_buffer, uint8_t uc_alarmFlags)
     puc_buffer += LOGGER_REG_FIELD_VOL_SIZE;
 
     // Convert reverse volume from m³ to liters (L)
-    gl_volume = proc_getReverseVolume(); // get integer part (m^3)
-
-    gl_volume += _IQ21mpyI32int(                                        \
-                        _IQ21frac(_IQ21(proc_getReverseVolume())),      \
-                         1000); // m^3 to liters of fractional part
+    gl_volume = (uint32_t) (proc_getReverseVolume()* 1000); // get integer part (m^3)
 
     // Pack reverse volumes in m³
     memcpy(puc_buffer, (uint8_t *) &gl_volume, LOGGER_REG_FIELD_VOL_SIZE);
@@ -810,13 +796,7 @@ static inline void createLog(uint8_t *puc_buffer, uint8_t uc_alarmFlags)
 
     // Convert minimum flow rate from m³/h to mL/h
 
-    gl_flowRate = proc_getMinFlowRate();
-    gl_flowRate = _IQ14mpyIQX(proc_getMinFlowRate(), 20, _IQ14(100.0), 14);
-    gl_flowRate = _IQ10mpyIQX(gl_flowRate, 14, _IQ14(50.0), 14);
-
-    gl_flowRate = gl_flowRate >> 3; // it is iq14 rn, 2012.3456*50 = 100617.28, letting us go to iq7
-    gl_flowRate = _IQ7rsmpy(gl_flowRate, _IQ7(200.0)); // finally we are at 20123456.
-    gl_flowRate = _IQ7int(gl_flowRate);     //m^3 to liters of fractional part
+    gl_flowRate = (uint32_t) (proc_getMinFlowRate() * 1000000);
 
     // Pack the minimum flow rate
     memcpy(puc_buffer, (uint8_t *) &gl_flowRate, LOGGER_REG_FLOWRATE_SIZE);
@@ -825,13 +805,7 @@ static inline void createLog(uint8_t *puc_buffer, uint8_t uc_alarmFlags)
 
     // Convert maximum flow rate from m^3/h to mL/h
 
-    gl_flowRate = proc_getMaxFlowRate();
-    gl_flowRate = _IQ14mpyIQX(proc_getMaxFlowRate(), 20, _IQ14(100.0), 14);
-    gl_flowRate = _IQ10mpyIQX(gl_flowRate, 14, _IQ14(50.0), 14);
-
-    gl_flowRate = gl_flowRate >> 3; // it is iq14 rn, 2012.3456*50 = 100617.28, letting us go to iq7
-    gl_flowRate = _IQ7rsmpy(gl_flowRate, _IQ7(200.0)); // finally we are at 20123456.
-    gl_flowRate = _IQ7int(gl_flowRate);     //m^3 to liters of fractional part
+    gl_flowRate = (uint32_t) (proc_getMaxFlowRate() * 1000000);
 
     // Pack the maximum flow rate
     memcpy(puc_buffer, (uint8_t *) &gl_flowRate, LOGGER_REG_FLOWRATE_SIZE);
@@ -925,7 +899,7 @@ static bool unpack(s_logger_reg_t * const ps_reg, uint16_t uc_idx)
     // Read the log memory in a specific index
     if(readLog(gauc_logReg, uc_idx))
     {
-        uint8_t uc_logIdx = 0;
+        uint16_t uc_logIdx = 0;
         s_logger_timestamp_t *ps_timestamp;
 
         // Clear log register
@@ -940,6 +914,7 @@ static bool unpack(s_logger_reg_t * const ps_reg, uint16_t uc_idx)
         ps_reg->s_timestamp.tm_mday = ps_timestamp->ui_day;
         ps_reg->s_timestamp.tm_mon = ps_timestamp->ui_month;
         ps_reg->s_timestamp.tm_year = ps_timestamp->ui_year;
+
 
         uc_logIdx += LOGGER_REG_FIELD_TIMESTAMP_SIZE;
 
@@ -1009,15 +984,15 @@ static inline bool readLog(uint8_t * const puc_buffer, uint16_t uc_idx)
     // Set default value of log memory in buffer
     memset((void *) puc_buffer, LOGGER_DEFAULT_VALUE, LOGGER_REG_SIZE);
 
-    switch(uc_idx / (LOGGER_BUFFER_SIZE))
+    switch(uc_idx / (LOGGER_NUM_VALID_REGS))
     {
         case 0:
             // Check if the log memory has content
-            if(memcmp((void *) puc_buffer, (void *) &gauc_logBuffer1[uc_idx],
+            if(memcmp((void *) puc_buffer, (void *) &gauc_logBuffer1[LOGGER_REG_SIZE*uc_idx],
                 LOGGER_REG_SIZE))
             {
                 // Copy the log content to log buffer
-                memcpy((uint8_t *) puc_buffer, (void *) &gauc_logBuffer1[uc_idx],
+                memcpy((uint8_t *) puc_buffer, (void *) &gauc_logBuffer1[LOGGER_REG_SIZE*uc_idx],
                         LOGGER_REG_SIZE);
 
                 b_status = true;
@@ -1025,11 +1000,11 @@ static inline bool readLog(uint8_t * const puc_buffer, uint16_t uc_idx)
             break;
         case 1:
             // Check if the log memory has content
-            if(memcmp((void *) puc_buffer, (void *) &gauc_logBuffer2[uc_idx - LOGGER_BUFFER_SIZE],
+            if(memcmp((void *) puc_buffer, (void *) &gauc_logBuffer2[LOGGER_REG_SIZE*(uc_idx - LOGGER_NUM_VALID_REGS)],
                 LOGGER_REG_SIZE))
             {
                 // Copy the log content to log buffer
-                memcpy((uint8_t *) puc_buffer, (void *) &gauc_logBuffer2[uc_idx - LOGGER_BUFFER_SIZE],
+                memcpy((uint8_t *) puc_buffer, (void *) &gauc_logBuffer2[LOGGER_REG_SIZE*(uc_idx - LOGGER_NUM_VALID_REGS)],
                         LOGGER_REG_SIZE);
 
                 b_status = true;
@@ -1037,11 +1012,11 @@ static inline bool readLog(uint8_t * const puc_buffer, uint16_t uc_idx)
             break;
         case 2:
             // Check if the log memory has content
-            if(memcmp((void *) puc_buffer, (void *) &gauc_logBuffer3[uc_idx - 2*LOGGER_BUFFER_SIZE],
+            if(memcmp((void *) puc_buffer, (void *) &gauc_logBuffer3[LOGGER_REG_SIZE*(uc_idx - 2*LOGGER_NUM_VALID_REGS)],
                 LOGGER_REG_SIZE))
             {
                 // Copy the log content to log buffer
-                memcpy((uint8_t *) puc_buffer, (void *) &gauc_logBuffer3[uc_idx - 2*LOGGER_BUFFER_SIZE],
+                memcpy((uint8_t *) puc_buffer, (void *) &gauc_logBuffer3[LOGGER_REG_SIZE*(uc_idx - 2*LOGGER_NUM_VALID_REGS)],
                         LOGGER_REG_SIZE);
 
                 b_status = true;
@@ -1072,14 +1047,14 @@ static inline void printLogs()
         printf("(LOGGER): %02d/%02d/%02d", gs_reg.s_timestamp.tm_mday,
             gs_reg.s_timestamp.tm_mon + 1, gs_reg.s_timestamp.tm_year - 100);
 
-        printf(" - %02d:00:00", gs_reg.s_timestamp.tm_hour);
+        printf(" - %02d:%02d:00", gs_reg.s_timestamp.tm_hour, gs_reg.s_timestamp.tm_min);
 
         printf(" - %u L - %u L",  gs_reg.ll_forwardVol,
             gs_reg.ll_reverseVol);
 
         printf(" - %.1f L/h - %.1f L/h - %d",
-            ((float) gs_reg.l_minFlowRate)/10,
-            ((float) gs_reg.l_maxFlowRate)/10,
+            ((float) gs_reg.l_minFlowRate)/1000000,
+            ((float) gs_reg.l_maxFlowRate)/1000000,
             gs_reg.ui_alarms);
 
         printf("\n");

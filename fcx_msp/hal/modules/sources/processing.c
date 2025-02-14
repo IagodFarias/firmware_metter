@@ -6,7 +6,7 @@
  * @date    02/03/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -62,9 +62,9 @@
     .iq12Reynolds                          = 0,                               \
     .iq29CalibConst                        = 0,                               \
     .iq26CalibVel                          = 0,                               \
-    .iq20FlowRate                          = 0,                               \
-    .iq20minFlowRate                       = _IQ20(2000.0),                   \
-    .iq20maxFlowRate                       = 0,                               \
+    .iq18FlowRate                          = 0,                               \
+    .iq18minFlowRate                       = _IQ18(2000.0),                   \
+    .iq18maxFlowRate                       = 0,                               \
     .iq30PathArea                          = 0,                               \
     .iq30Volume                            = 0,                               \
     .iq28SamplingRate                      = 0,                               \
@@ -100,9 +100,9 @@ typedef struct S_IQ_RESULT
     int32_t iq12Reynolds;
     int32_t iq29CalibConst;
     int32_t iq26CalibVel;
-    int32_t iq20FlowRate;
-    int32_t iq20minFlowRate;
-    int32_t iq20maxFlowRate;
+    int32_t iq18FlowRate;
+    int32_t iq18minFlowRate;
+    int32_t iq18maxFlowRate;
     int32_t iq30PathArea;
     int32_t iq30Volume;
     int32_t iq28SamplingRate;
@@ -178,7 +178,7 @@ STATIC void updateMaxFlowRate();
 __persistent static s_processing_t gs_processing = PROC_PROCESSING_DEFAULT;
 
 /** Show the relationship between the speed of sound in meters per second and
-    the water temperature in �C. */
+    the water temperature in °C. */
 static const s_lut_coordinate_t gas_lutSosToTemperature[PROC_SOS_TO_TEMP_LUT_SIZE] =
 {
     {1.40238743999999997e+03, 0.0},
@@ -194,7 +194,7 @@ static const s_lut_coordinate_t gas_lutSosToTemperature[PROC_SOS_TO_TEMP_LUT_SIZ
     {1.55515184104860759e+03, 74.0}
 };
 
-/** Show the relationship between the media temperature in ºC and the kinematic
+/** Show the relationship between the media temperature in ÂºC and the kinematic
     viscosity of the water in squared meters per second. */
 static const s_lut_coordinate_t gas_lutTemperatureToViscosity[PROC_TEMP_TO_VISC_LUT_SIZE] =
 {
@@ -221,9 +221,6 @@ static bool gb_isReverseFlow;
 
 /** Air in pipe flag. */
 static bool gb_isAirInPipe;
-
-/** Flags if processing is enabled. */
-static bool gb_enableProcessing;
 
 /** Flags if filters are enabled. */
 static bool gb_enableFilters;
@@ -470,7 +467,7 @@ void proc_update()
 #endif
             {
 #if FIXED_POINT_CALC
-            gs_iqVariables.iq20FlowRate = calcFlowRate(
+            gs_iqVariables.iq18FlowRate = calcFlowRate(
                     gs_iqVariables.iq26CalibVel,
                     gs_iqVariables.iq30PathArea);
 #else
@@ -478,13 +475,6 @@ void proc_update()
                     gs_processing.d_calibVel,
                     gps_sysConfig->s_mechanical.d_flowPathArea);
 #endif
-
-#if CONFIG_LOGGER_ENABLED
-            // Update the minimum and maximum flow rates
-            updateMinFlowRate();
-            updateMaxFlowRate();
-#endif
-
 #if FIXED_POINT_CALC
             gs_iqVariables.iq30Volume = calcVolume(
                     gs_iqVariables.iq26CalibVel,
@@ -499,7 +489,7 @@ void proc_update()
 
 #if FIXED_POINT_CALC
                 // Detect reverse flow and update totalizers
-                if (gs_iqVariables.iq20FlowRate < 0)
+                if (gs_iqVariables.iq18FlowRate < 0)
 #else
             if (gs_processing.d_currentFlowRate < 0)
 #endif
@@ -527,7 +517,7 @@ void proc_update()
             {
 #if FIXED_POINT_CALC
                 // Clear flow rate
-                gs_iqVariables.iq20FlowRate = 0;
+                gs_iqVariables.iq18FlowRate = 0;
 
                 // Clear volume
                 gs_iqVariables.iq30Volume = 0;
@@ -558,7 +548,7 @@ void proc_update()
             gs_iqVariables.iq24Temperature = 0;
 
             // Clear flow rate
-            gs_iqVariables.iq20FlowRate = 0;
+            gs_iqVariables.iq18FlowRate = 0;
 #else
         // Clear temperature
         gs_processing.d_temperature = 0.0;
@@ -568,6 +558,11 @@ void proc_update()
 #endif
         }
     }
+#if CONFIG_LOGGER_ENABLED
+            // Update the minimum and maximum flow rates
+            updateMinFlowRate();
+            updateMaxFlowRate();
+#endif
 }
 
 /**
@@ -598,22 +593,24 @@ s_processing_t* proc_getResults(void)
 
     gs_processing.d_uncalibVel = _IQ26toF(gs_iqVariables.iq26uncalibVel);
     gs_processing.d_calibVel = _IQ26toF(gs_iqVariables.iq26CalibVel);
-    gs_processing.d_currentFlowRate = _IQ20toF(gs_iqVariables.iq20FlowRate);
+    gs_processing.d_currentFlowRate = _IQ18toF(gs_iqVariables.iq18FlowRate);
     gs_processing.d_volume = _IQ30toF(gs_iqVariables.iq30Volume);
 #endif
 
     return &gs_processing;
 }
 
+
 double_t proc_getNetVolume(void)
 {
     return (gs_processing.d_forwardVolume + gs_processing.d_reverseVolume);
 }
 
+
 double_t proc_getCurrentFlowRate(void)
 {
 #if FIXED_POINT_CALC
-    return gs_processing.d_currentFlowRate = _IQ20toF(gs_iqVariables.iq20FlowRate);
+    return gs_processing.d_currentFlowRate = _IQ18toF(gs_iqVariables.iq18FlowRate);
 #else
     return gs_processing.d_currentFlowRate;
 #endif
@@ -640,31 +637,18 @@ double_t proc_getForwardVolume(void)
 
 double_t proc_getMaxFlowRate(void)
 {
-#if FIXED_POINT_CALC
-    return gs_iqVariables.iq20maxFlowRate;
-#else
     return gs_processing.d_maxFlowRate;
-#endif
 }
 
 double_t proc_getMinFlowRate(void)
 {
-#if FIXED_POINT_CALC
-    return gs_iqVariables.iq20minFlowRate;
-#else
     return gs_processing.d_minFlowRate;
-#endif
 }
 
 void proc_resetFlowRates(void)
 {
-#if FIXED_POINT_CALC
-    gs_iqVariables.iq20minFlowRate = _IQ20(2000.0);
-    gs_iqVariables.iq20maxFlowRate = 0;
-#else
-    return gs_processing.d_minFlowRate = 20.0;
-    return gs_processing.d_maxFlowRate = 0.0;
-#endif
+    gs_processing.d_minFlowRate = 0.0;
+    gs_processing.d_maxFlowRate = 0.0;
 }
 
 bool proc_isReverseFlow(void)
@@ -842,14 +826,13 @@ static int32_t calcCalibVelocity(int32_t const iq26uncalibVel,
     return _IQ29mpy(iq26uncalibVel, iq29CalibConst);
 }
 
+
 static int32_t calcFlowRate(int32_t const iq26CalibVel,
                              int32_t const iq30PathArea)
 {
-    int32_t iq20FlowRate;
-
-    iq20FlowRate = _IQ26mpyIQX(iq26CalibVel, 26, iq30PathArea, 30);
-    iq20FlowRate = _IQ20mpyIQX(iq20FlowRate, 26, _IQ14(3600.0), 14);
-    return iq20FlowRate;
+    int32_t iq18FlowRate;
+    iq18FlowRate = _IQ26mpy(iq26CalibVel, iq30PathArea);
+    return _IQ30mpy(iq18FlowRate, _IQ18(3600.0));
 }
 
 static int32_t calcVolume(int32_t const iq26CalibVel,
@@ -882,33 +865,15 @@ static void updateFixedPointers(void)
 }
 
 #if CONFIG_LOGGER_ENABLED
+/**
+ * @brief
+ *      Update minimum flow rate.
+ */
 STATIC void updateMinFlowRate()
 {
-
-    int32_t iq20_currentFlowRate = gs_iqVariables.iq20FlowRate;
-    int32_t iq20_lastMinFlowRate = gs_iqVariables.iq20minFlowRate;
-
-    // If current flow rate is negative, change it to positive for easier
-    // comparison
-    if(iq20_currentFlowRate < 0)
+    if(gs_processing.d_currentFlowRate < gs_processing.d_minFlowRate || gs_processing.d_minFlowRate == 0.0)
     {
-        iq20_currentFlowRate *= -1;
-    }
-
-    // If last minimum flow rate is negative, change it to positive for easily
-    // comparison
-    if(iq20_lastMinFlowRate < 0)
-    {
-        iq20_lastMinFlowRate *= -1;
-    }
-
-    // Update minimum flow rate if the current flow rate is different of zero
-    // and, the minimum flow rate is different of zero too or the current flow
-    // rate is lower than the last minimum flow rate
-    if((gs_iqVariables.iq20FlowRate) && (!gs_iqVariables.iq20minFlowRate ||
-        (iq20_currentFlowRate < iq20_lastMinFlowRate)))
-    {
-        gs_iqVariables.iq20minFlowRate = gs_iqVariables.iq20FlowRate;
+        gs_processing.d_minFlowRate = gs_processing.d_currentFlowRate;
     }
 }
 
@@ -918,33 +883,12 @@ STATIC void updateMinFlowRate()
  */
 STATIC void updateMaxFlowRate()
 {
-
-    int32_t iq20_currentFlowRate = gs_iqVariables.iq20FlowRate;
-    int32_t iq20_lastMaxFlowRate = gs_iqVariables.iq20maxFlowRate;
-
-    // If current flow rate is negative, change it to positive for easier
-    // comparison
-    if(iq20_currentFlowRate < 0)
+    if(gs_processing.d_currentFlowRate > gs_processing.d_maxFlowRate || gs_processing.d_maxFlowRate == 0.0)
     {
-        iq20_currentFlowRate *= -1;
-    }
-
-    // If last maximum flow rate is negative, change it to positive for easily
-    // comparison
-    if(iq20_lastMaxFlowRate < 0)
-    {
-        iq20_lastMaxFlowRate *= -1;
-    }
-
-    // Update maximum flow rate if the current flow rate is different of zero
-    // and, the maximum flow rate is different of zero too or the current flow
-    // rate is lower than the last maximum flow rate
-    if((gs_iqVariables.iq20FlowRate) && (!gs_iqVariables.iq20maxFlowRate ||
-        (iq20_lastMaxFlowRate < iq20_currentFlowRate)))
-    {
-        gs_iqVariables.iq20maxFlowRate = gs_iqVariables.iq20FlowRate;
+        gs_processing.d_maxFlowRate = gs_processing.d_currentFlowRate;
     }
 }
+
 #endif
 
 #else

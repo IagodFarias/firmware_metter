@@ -446,6 +446,7 @@ USS_message_code USS_calibrateSignalGain(USS_SW_Library_configuration *config)
         // Get peak-to-peak amplitude /2 instead of absolute max/min to remove DC offset
         maxMeasurementValue = (maxMeasurementValue + minMeasurementValue)/2;
 
+
 #ifdef USS_CALIBRATE_SIGNAL_GAIN_TEST
 		maxMeasurementValue = ussMaxSignal[maxSigIdx++];
 #endif
@@ -471,7 +472,8 @@ USS_message_code USS_calibrateSignalGain(USS_SW_Library_configuration *config)
 
 			if(agcSettlingCount == agcLoopSetting)
 			{
-				USS_updateSAPHConfiguration(config);
+			    USS_updateSAPHConfiguration(config);
+
 				return USS_message_code_Signal_Gain_Calibration_successful;
 			}
 		}else

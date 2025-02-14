@@ -5,7 +5,7 @@
  * @date    20/02/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 #ifndef DISPLAY_H_

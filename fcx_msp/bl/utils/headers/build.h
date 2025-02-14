@@ -5,7 +5,7 @@
  * @date    12/03/2018
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -80,7 +80,7 @@
 /** Build: WM-Bus=N ; Pulse=Y ; Logger=Y ; Optcomm=Y ; Fraud=Y */
 #define CONFIG_VERSION_BUILD                        7
 
-#elif CONFIG_WMBUS_ENABLED && !CONFIG_PULSE_ENABLED &&                         \
+#elif 1 || CONFIG_WMBUS_ENABLED && !CONFIG_PULSE_ENABLED &&                         \
     CONFIG_LOGGER_ENABLED && CONFIG_OPTCOMM_ENABLED &&                         \
     CONFIG_FRAUD_ENABLED
 

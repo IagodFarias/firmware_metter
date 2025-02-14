@@ -5,7 +5,7 @@
  * @date    28/02/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medi��o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -21,12 +21,40 @@
 #include "USS_intrplCorrLUT.h"
 #include "USS_meterVFRCalibFlow.h"
 #include "USS_temperatureLUT.h"
-#include "utils_fcx.h"
 #include "assert.h"
+#include "gpio.h"
 
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+
+#ifdef DEBUG_ASSERT
+#define ASSERT(expr) \
+    do { \
+        if (!(expr)) { \
+            /* Optional: You can add logging here using __FILE__ and __LINE__ */ \
+            /* Example: log_assert_failure(__FILE__, __LINE__, #expr); */ \
+            while (1) { \
+                __disable_interrupt(); \
+                /* Enter into LPM4 to save energy and wait for WTD Reset */ \
+                __bis_SR_register(LPM4_bits); \
+            } \
+        } \
+    } while (0)
+#else
+#define ASSERT(expr) \
+    do { \
+        if (!(expr)) { \
+            while (1) { \
+                __disable_interrupt(); \
+                /* Enter into LPM4 to save energy and wait for WTD Reset */ \
+                __bis_SR_register(LPM4_bits); \
+            } \
+        } \
+    } while (0)
+#endif /* DEBUG_ASSERT */
+
+
 #define US_FREQ_TRANSD_IN_HZ                                    2000
 #define US_FREQ_SWAP_RANGE_IN_HZ                                10
 #define US_FREQ_SWAP_STEP_IN_HZ                                 1
@@ -65,6 +93,7 @@
  * Prototypes
  ******************************************************************************/
 static void trimRatioLobe(void);
+double_t utils_calcSumPositives(int16_t *pi_data, uint16_t ui_size);
 
 /*******************************************************************************
  * Global variables
@@ -394,16 +423,19 @@ __persistent USS_SW_Library_configuration gUssSWConfig = {
 
 // Flag to enable/disable measurement
 bool gb_enableMeasure = false;
+bool gb_p8interruptFlag = false;
 
 /*******************************************************************************
  * Public functions
  ******************************************************************************/
+
 /**
  * @brief
  *      Initialize ultrasonic module.
  */
 void us_init(void)
 {
+
     // Initialization of Library with default parameters
         USS_message_code code =
                 USS_configureUltrasonicMeasurement(&gUssSWConfig);
@@ -424,6 +456,8 @@ void us_init(void)
 
         // Disable measure
         gb_enableMeasure = false;
+
+
 }
 
 /**
@@ -440,6 +474,8 @@ void us_startMeasurements(void)
 {
     if(gb_enableMeasure)
     {
+
+
 #ifdef __ENABLE_LPM__
         // Perform a low power measurement, going to LPM3 in between UPS and DNS
         USS_message_code code = USS_startLowPowerUltrasonicCapture(&gUssSWConfig);
@@ -466,6 +502,9 @@ void us_disableMeasurements(void)
     gb_enableMeasure = false;
 }
 
+
+
+
 #if FIXED_POINT_CALC
 void us_getMeasurement(USS_Algorithms_Results_fixed_point *const ps_algResFixed)
 {
@@ -484,6 +523,7 @@ void us_getMeasurement(USS_Algorithms_Results_fixed_point *const ps_algResFixed)
         ps_algResFixed->iq44DeltaTOF = 0;
     }
 }
+
 #else
 void us_getMeasurement(s_us_meas_t *const ps_measurement, 
     float *const pf_deltaTOF)
@@ -654,10 +694,27 @@ static void trimRatioLobe(void)
 
     if (f_ratio)
     {
+
         // Update with a new ratio
         ps_config->algorithmsConfig->ratioOfTrackLobeToPeak = f_ratio;
 
         USS_updateSDHSConfiguration(ps_config);
         USS_updateSAPHConfiguration(ps_config);
     }
+}
+
+double_t utils_calcSumPositives(int16_t *pi_data, uint16_t ui_size)
+{
+    int i;
+    double_t d_sum = 0;
+
+    for (i = 0; i < ui_size; ++i)
+    {
+        if (pi_data[i] > 0)
+        {
+            d_sum += pi_data[i];
+        }
+    }
+
+    return d_sum;
 }

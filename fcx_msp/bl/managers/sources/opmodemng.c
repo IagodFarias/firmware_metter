@@ -5,7 +5,7 @@
  * @date    01/03/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medi��o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -29,6 +29,12 @@
 // Post-calibration operating mode update interval in milliseconds
 #define OPMODE_POST_CALIBRATION_UPDATE_INT_MS       1000ULL
 #define OPMODE_POST_CALIBRATION_US_SAMPLING_RATE_HZ 0.0
+
+#ifdef DEBUG_ASSERT
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(__FILE__, __LINE__))
+#else
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(expr))
+#endif /* DEBUG_ASSERT */
 
 /*******************************************************************************
  * Global variables
@@ -60,7 +66,17 @@ static E_OPMODE_t ge_previousOpMode;
  */
 void opmodemng_init(void)
 {
+
+#if DEBUG_NORMAL
+    ge_currentOpMode = E_OPMODE_STANDBY;
+    ge_previousOpMode = E_OPMODE_STANDBY;
+    opmodemng_setActivationFlag(true);
+    opmodemng_setCalibrationFlag(true);
+    standby_init();
+#endif
+
     s_app_config_t *ps_config = configmng_getAppConfig();
+
 
     if(ps_config->b_isCalibrated)
     {
@@ -90,20 +106,19 @@ void opmodemng_init(void)
         ge_previousOpMode = E_OPMODE_PRE_CALIBRATION;
 
 
-#if DEBUG_NORMAL
-            ge_currentOpMode = E_OPMODE_NORMAL;
-            ge_previousOpMode = E_OPMODE_NORMAL;
-            normal_init();
+#if 1//DEBUG_NORMAL
+            opmodemng_setCalibrationFlag(true);
+            opmodemng_setActivationFlag(true);
+            opmodemng_setPreviousOpMode(E_OPMODE_STANDBY);
+            opmodemng_setCurrentOpMode(E_OPMODE_STANDBY);
+            ge_currentOpMode = E_OPMODE_STANDBY;
+            ge_previousOpMode = E_OPMODE_STANDBY;
+            standby_init();
 #else
             // Initialize pre-calibration operating mode
             precalib_init();
 #endif
-
-
-
-
     }
-    //normal_init();
 }
 
 /**
@@ -172,11 +187,7 @@ void opmodemng_update(void)
         case E_OPMODE_PRE_CALIBRATION:
 
             // Run pre-calibration operating mode
-#if DEBUG_NORMAL
-            normal_run();
-#else
             precalib_run();
-#endif
         break;
 
         case E_OPMODE_CALIBRATION:
@@ -201,7 +212,7 @@ void opmodemng_update(void)
                     opmodemng_setCurrentOpMode(E_OPMODE_STANDBY);
                 }
             }
-            break;
+        break;
 
         case E_OPMODE_STANDBY:
 
@@ -229,9 +240,8 @@ void opmodemng_update(void)
                 opmodemng_setCurrentOpMode(E_OPMODE_COMMUNICATION);
             }
 #endif /* CONFIG_OPTCOMM_ENABLED */
-            break;
+        break;
 
-        default:
         case E_OPMODE_NORMAL:
             // Run normal operating mode
             normal_run();
@@ -264,7 +274,7 @@ void opmodemng_update(void)
             if(verif_testChangeToNormalOpmode())
             {
                 // Initialize normal operating mode
-                normal_init();
+            normal_init();
 
                 // Update FSM state
                 opmodemng_setCurrentOpMode(E_OPMODE_NORMAL);
@@ -272,7 +282,7 @@ void opmodemng_update(void)
 #if CONFIG_OPTCOMM_ENABLED
             else if(verif_testChangeToCommOpmode())
             {
-                // Initialize communication operating mode
+            // Initialize communication operating mode
                 comm_init();
 
                 // Update FSM state
@@ -316,6 +326,9 @@ void opmodemng_update(void)
                 // Update FSM state
                 opmodemng_setCurrentOpMode(ge_previousOpMode);
             }
+            break;
+
+        default:
             break;
 #endif /* CONFIG_OPTCOMM_ENABLED */
     }

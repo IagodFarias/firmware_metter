@@ -5,7 +5,7 @@
  * @date    17/02/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -21,6 +21,12 @@
 #if UNIT_TEST
 #include <stdio.h>
 #endif /* UNIT_TEST */
+
+#ifdef DEBUG_ASSERT
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(__FILE__, __LINE__))
+#else
+#define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(expr))
+#endif /* DEBUG_ASSERT */
 
 /*******************************************************************************
  * Definitions

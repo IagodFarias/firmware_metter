@@ -5,7 +5,7 @@
  * @date    04/04/2017
  * @details
  * @section license
- *          FAE Tecnologia. All rights reserved.
+ *          FAE Sistemas de Medição. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -19,7 +19,7 @@
 #include "configmng.h"
 #include "processing.h"
 #include "userint.h"
-#include "batt.h"
+#include "battdate.h"
 #include "power.h"
 #include "optcomm.h"
 #if CONFIG_FRAUD_ENABLED
@@ -32,6 +32,9 @@
 #if DEBUG
 #include "probe.h"
 #endif
+#include "aes_cmac.h"
+#include "batt.h"
+
 
 /*******************************************************************************
  * Defines
@@ -98,7 +101,7 @@ static const s_screen_t gs_screens[] =
     {
         .e_screenType = E_SCREEN_TYPE_FLOWRATE,
         .pf_getData = (void (*)(void)) proc_getCurrentFlowRate,
-        .uc_doubleResolution = 6 // 4, normally TODO CHANGE
+        .uc_doubleResolution = 4
     },
     /** Reverse volume screen */
     {
@@ -182,7 +185,7 @@ void verif_init(void)
 #else
                                       NULL,
 #endif /* CONFIG_PULSE_ENABLED */
-                                      batt_isLow,
+                                      battdate_isOld,
                                       NULL,
                                       NULL,
                                       NULL,
@@ -200,8 +203,11 @@ void verif_init(void)
     // Enable processing filters
     proc_enableFilters();
 
-    // Enable processing
-    proc_enableProcessing();
+    if(!batt_isLow() && !cmac_isNonVerified()){
+        // Enable processing
+        proc_enableProcessing();
+    }
+
 
 #if DEBUG
     // Reset volume
@@ -239,7 +245,7 @@ void verif_init(void)
     logger_enable(true);
 #endif /* CONFIG_LOGGER_ENABLED */
 
-// TODO: Verificar erro de medidor com saÃ­da pulsada ativada em modo verif.
+// TODO: Verificar erro de medidor com saída pulsada ativada em modo verif.
 #if 0
     // Disable pulse manger on verif mode
     pulsemng_disable();
@@ -276,16 +282,16 @@ void verif_run(void)
         systick_setWakeUpIntMs(VERIF_UPDATE_INT_MS);
     }
 
+#if CONFIG_OPTCOMM_ENABLED
+    // Update optcomm
+    optcomm_update();
+#endif
+
     // Switch screen in case user has pressed optical interface
     if(E_USERINT_CMD_CHANGE_SCREEN == userint_getState())
     {
         screenmng_nextScreen();
     }
-
-#if CONFIG_OPTCOMM_ENABLED
-    // Update optcomm
-    optcomm_update();
-#endif
 
 #if CONFIG_FRAUD_ENABLED
     // Update fraud detection
