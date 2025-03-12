@@ -106,7 +106,7 @@ void opmodemng_init(void)
         ge_previousOpMode = E_OPMODE_PRE_CALIBRATION;
 
 
-#if 1//DEBUG_NORMAL
+#if DEBUG_NORMAL
             opmodemng_setCalibrationFlag(true);
             opmodemng_setActivationFlag(true);
             opmodemng_setPreviousOpMode(E_OPMODE_STANDBY);

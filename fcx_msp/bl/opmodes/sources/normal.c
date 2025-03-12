@@ -221,7 +221,7 @@ void normal_init(void)
 {
     uint8_t uc_screenId;
 
-#if 1//DEBUG_NORMAL
+#if DEBUG_NORMAL
     opmodemng_setActivationFlag(true);
     opmodemng_setCalibrationFlag(true);
 #endif

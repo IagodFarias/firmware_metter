@@ -73,7 +73,7 @@
 
 #define OPTINT_QUEUE_SIZE                       5
 
-#define     Bit_time    833     // 9600 Baud, SMCLK=8MHz (8MHz/9600)=833
+#define     Bit_time    840                 // 9600 Baud, SMCLK=8MHz (8MHz/9600)=833
 
 /*******************************************************************************
  * Prototypes

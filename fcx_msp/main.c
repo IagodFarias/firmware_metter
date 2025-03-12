@@ -4,7 +4,7 @@
  * @author  Eduardo Balbino
  * @date    14/11/2024
  * @section license
- *          FAE Sistemas de Medição. All rights reserved
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved
  ******************************************************************************/
 #include <stdint.h>
 
@@ -53,7 +53,7 @@
 
 #ifdef DEBUG_ASSERT
 #define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(__FILE__, __LINE__)
-#else
+#else 
 #define ASSERT(expr)    ((expr) ? ((void)0) : utils_assert(expr))
 #endif /* DEBUG_ASSERT */
 
@@ -68,7 +68,7 @@
 uint8_t aes_key_main[16] = {0xFF, 0xFF, 0xAA, 0xAA, 0xFF, 0xFF, 0xAA, 0xAA, 0xFF, 0xFF, 0xAA, 0xAA, 0xFF, 0xFF, 0xAA, 0xAA};
 uint8_t cmac_out[16] = {0};
 
-uint8_t cmac_test[16] = {0xEF, 0xBA, 0x19, 0xEB, 0x49, 0x3B, 0x29, 0xEA, 0x4B, 0x2F, 0x20, 0x87, 0xF1, 0x0E, 0x1F, 0x20};
+uint8_t cmac_test[16] = {0x51, 0xE7, 0x06, 0x2D, 0xA5, 0x20, 0xFB, 0xA6, 0x6D, 0x8C, 0x56, 0xF8, 0xCC, 0xCA, 0x46, 0x0C};
 
 /*******************************************************************************
  * Public Functions
