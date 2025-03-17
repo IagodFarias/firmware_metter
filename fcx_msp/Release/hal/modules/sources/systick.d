@@ -1,8 +1,8 @@
 # FIXED
 
 hal/modules/sources/systick.obj: ../hal/modules/sources/systick.c
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/defs/general_settings.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/types.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/defs/general_settings.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/types.h
 hal/modules/sources/systick.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdint.h
 hal/modules/sources/systick.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_ti_config.h
 hal/modules/sources/systick.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/linkage.h
@@ -22,39 +22,39 @@ hal/modules/sources/systick.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_
 hal/modules/sources/systick.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/timespec.h
 hal/modules/sources/systick.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_timespec.h
 hal/modules/sources/systick.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/xlocale/_time.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/systick.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/rtc_c.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/systick.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/rtc_c.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h
 hal/modules/sources/systick.obj: C:/ti/ccs1260/ccs/ccs_base/msp430/include/msp430fr6047.h
 hal/modules/sources/systick.obj: C:/ti/ccs1260/ccs/ccs_base/msp430/include/in430.h
 hal/modules/sources/systick.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics.h
 hal/modules/sources/systick.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics_legacy_undefs.h
 hal/modules/sources/systick.obj: C:/ti/ccs1260/ccs/ccs_base/msp430/include/legacy.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/bl/utils/headers/utils_fcx.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/us.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/ussSwLib.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/QMathLib/QmathLib.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/bl/utils/headers/utils_fcx.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/us.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/ussSwLib.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/QMathLib/QmathLib.h
 hal/modules/sources/systick.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/limits.h
 hal/modules/sources/systick.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h
 hal/modules/sources/systick.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/USS_Config/USS_userConfig.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/USS_HAL/USS_Lib_HAL.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/ussSwLibCalibration.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonInterrupts.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/common/USSGenericRegDef.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonSDHS.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonUSS.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonHSPLL.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonTimer.h
-hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/bl/managers/headers/pulsemng.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/USS_Config/USS_userConfig.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/USS_HAL/USS_Lib_HAL.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/ussSwLibCalibration.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonInterrupts.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/common/USSGenericRegDef.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonSDHS.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonUSS.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonHSPLL.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonTimer.h
+hal/modules/sources/systick.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/bl/managers/headers/pulsemng.h
 
 ../hal/modules/sources/systick.c:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/defs/general_settings.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/defs/general_settings.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/types.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/types.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdint.h:
 
@@ -94,13 +94,13 @@ C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_timespec.
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/xlocale/_time.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/systick.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/systick.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/rtc_c.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/rtc_c.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h:
 
 C:/ti/ccs1260/ccs/ccs_base/msp430/include/msp430fr6047.h:
 
@@ -112,39 +112,39 @@ C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics_leg
 
 C:/ti/ccs1260/ccs/ccs_base/msp430/include/legacy.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/bl/utils/headers/utils_fcx.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/bl/utils/headers/utils_fcx.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/us.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/us.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/ussSwLib.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/ussSwLib.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/QMathLib/QmathLib.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/QMathLib/QmathLib.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/limits.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/USS_Config/USS_userConfig.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/USS_Config/USS_userConfig.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/USS_HAL/USS_Lib_HAL.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/USS_HAL/USS_Lib_HAL.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/ussSwLibCalibration.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/ussSwLibCalibration.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonInterrupts.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonInterrupts.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/common/USSGenericRegDef.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/common/USSGenericRegDef.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonSDHS.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonSDHS.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonUSS.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonUSS.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonHSPLL.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonHSPLL.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonTimer.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/common/ussSwLibCommonTimer.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/bl/managers/headers/pulsemng.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/bl/managers/headers/pulsemng.h:
 

@@ -1,9 +1,9 @@
 # FIXED
 
 hal/modules/sources/mov_avg.obj: ../hal/modules/sources/mov_avg.c
-hal/modules/sources/mov_avg.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/mov_avg.h
-hal/modules/sources/mov_avg.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/defs/general_settings.h
-hal/modules/sources/mov_avg.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/types.h
+hal/modules/sources/mov_avg.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/mov_avg.h
+hal/modules/sources/mov_avg.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/defs/general_settings.h
+hal/modules/sources/mov_avg.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/types.h
 hal/modules/sources/mov_avg.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdint.h
 hal/modules/sources/mov_avg.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_ti_config.h
 hal/modules/sources/mov_avg.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/linkage.h
@@ -23,17 +23,17 @@ hal/modules/sources/mov_avg.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_
 hal/modules/sources/mov_avg.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/timespec.h
 hal/modules/sources/mov_avg.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_timespec.h
 hal/modules/sources/mov_avg.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/xlocale/_time.h
-hal/modules/sources/mov_avg.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h
+hal/modules/sources/mov_avg.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h
 hal/modules/sources/mov_avg.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/limits.h
 hal/modules/sources/mov_avg.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h
 
 ../hal/modules/sources/mov_avg.c:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/mov_avg.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/mov_avg.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/defs/general_settings.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/defs/general_settings.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/types.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/types.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdint.h:
 
@@ -73,7 +73,7 @@ C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_timespec.
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/xlocale/_time.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/limits.h:
 

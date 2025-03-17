@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v21.6.1                     
 ******************************************************************************
->> Linked Fri Mar 14 10:04:19 2025
+>> Linked Sat Mar 15 10:06:04 2025
 
 OUTPUT FILE NAME:   <fcx_msp.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 0000e5f2
@@ -20,7 +20,7 @@ MEMORY CONFIGURATION
   LEARAM                00002c00   00000ec8  00000e34  00000094  RWIX
   LEASTACK              00003ac8   00000138  00000000  00000138  RWIX
   METROLOGY             00004000   00009800  00009800  00000000  RWIX  ffff 
-  FRAM                  0000d800   00002200  00001fd2  0000022e  RWIX
+  FRAM                  0000d800   00002200  00001ee6  0000031a  RWIX
   SYS_CONFIG            0000fa00   000002ff  000002b2  0000004d  RWIX
   JTAGSIGNATURE         0000ff80   00000004  00000000  00000004  RWIX
   BSLSIGNATURE          0000ff84   00000004  00000000  00000004  RWIX
@@ -418,19 +418,19 @@ EABI_Library
                   0000e43e    00000002     us.obj (.TI.persistent:ussInterruptConfig)
                   0000e440    00000002     us.obj (.TI.persistent:ussTriggerConfig)
 
-.cinit     0    0000f4d8    000002ec     
-                  0000f4d8    0000028e     (.cinit..data.load) [load image, compression = lzss]
-                  0000f766    00000011     (.cinit..log_section.load) [load image, compression = lzss]
-                  0000f777    00000001     --HOLE-- [fill = ffffffff]
-                  0000f778    0000000c     (__TI_handler_table)
-                  0000f784    0000000b     (.cinit.start_bss.load) [load image, compression = lzss]
-                  0000f78f    00000001     --HOLE-- [fill = ffffffff]
-                  0000f790    00000006     (.cinit..bss.load) [load image, compression = zero_init]
-                  0000f796    00000006     (.cinit..leaRAM.load) [load image, compression = zero_init]
-                  0000f79c    00000028     (__TI_cinit_table)
+.cinit     0    0000f4d8    00000200     
+                  0000f4d8    000001a2     (.cinit..data.load) [load image, compression = lzss]
+                  0000f67a    00000011     (.cinit..log_section.load) [load image, compression = lzss]
+                  0000f68b    00000001     --HOLE-- [fill = ffffffff]
+                  0000f68c    0000000c     (__TI_handler_table)
+                  0000f698    0000000b     (.cinit.start_bss.load) [load image, compression = lzss]
+                  0000f6a3    00000001     --HOLE-- [fill = ffffffff]
+                  0000f6a4    00000006     (.cinit..bss.load) [load image, compression = zero_init]
+                  0000f6aa    00000006     (.cinit..leaRAM.load) [load image, compression = zero_init]
+                  0000f6b0    00000028     (__TI_cinit_table)
 
-.binit     0    0000f7c4    00000010     
-                  0000f7c4    00000010     (.binit)
+.binit     0    0000f6d8    00000010     
+                  0000f6d8    00000010     (.binit)
 
 .libVersion 
 *          0    00043ff8    00000008     
@@ -1477,7 +1477,7 @@ MODULE SUMMARY
     +--+-------------------------------------+-------+---------+---------+
        Total:                                2868    0         0      
                                                                       
-    C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib
+    C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib
        _IQNdiv.o                             2328    0         0      
        _IQNtoF.o                             798     0         0      
        __IQNmpy.o                            490     0         0      
@@ -1487,14 +1487,14 @@ MODULE SUMMARY
     +--+-------------------------------------+-------+---------+---------+
        Total:                                4080    65        0      
                                                                       
-    C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/QMathLib/QmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib
+    C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/QMathLib/QmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib
        _QNtables.o                           0       256       0      
        _QNdiv.o                              190     0         0      
        __QNrmpy.o                            78      0         0      
     +--+-------------------------------------+-------+---------+---------+
        Total:                                268     256       0      
                                                                       
-    C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/lib/USS_SW_CCS_large_code_large_data.lib
+    C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/lib/USS_SW_CCS_large_code_large_data.lib
        ussSwLibAlgorithms.obj                1964    0         324    
        USS_computeDeltaTOF_estimate.obj      2184    0         0      
        USS_math.obj                          2152    0         8      
@@ -1639,26 +1639,26 @@ MODULE SUMMARY
        Total:                                21304   592       34     
                                                                       
        Stack:                                0       0         1024   
-       Linker Generated:                     0       762       0      
+       Linker Generated:                     0       526       0      
     +--+-------------------------------------+-------+---------+---------+
-       Grand Total:                          75966   5003      98711  
+       Grand Total:                          75966   4767      98711  
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 0000f79c records: 5, size/record: 8, table size: 40
-	.data: load addr=0000f4d8, load size=0000028e bytes, run addr=00001d0e, run size=000004a4 bytes, compression=lzss
-	.log_section: load addr=0000f766, load size=00000011 bytes, run addr=0002e050, run size=00015f90 bytes, compression=lzss
-	start_bss: load addr=0000f784, load size=0000000b bytes, run addr=00001c00, run size=0000010e bytes, compression=lzss
-	.bss: load addr=0000f790, load size=00000006 bytes, run addr=000021b2, run size=00000366 bytes, compression=zero_init
-	.leaRAM: load addr=0000f796, load size=00000006 bytes, run addr=00003438, run size=000005fc bytes, compression=zero_init
-binit @ 0000f7c4 records: 1, size/record: 12, table size: 16
+__TI_cinit_table @ 0000f6b0 records: 5, size/record: 8, table size: 40
+	.data: load addr=0000f4d8, load size=000001a2 bytes, run addr=00001d0e, run size=000004a4 bytes, compression=lzss
+	.log_section: load addr=0000f67a, load size=00000011 bytes, run addr=0002e050, run size=00015f90 bytes, compression=lzss
+	start_bss: load addr=0000f698, load size=0000000b bytes, run addr=00001c00, run size=0000010e bytes, compression=lzss
+	.bss: load addr=0000f6a4, load size=00000006 bytes, run addr=000021b2, run size=00000366 bytes, compression=zero_init
+	.leaRAM: load addr=0000f6aa, load size=00000006 bytes, run addr=00003438, run size=000005fc bytes, compression=zero_init
+binit @ 0000f6d8 records: 1, size/record: 12, table size: 16
 	.USS_ramfunc: load addr=00008f48, load size=00000838, run addr=00002c00, run size=00000838, compression=none
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 0000f778 records: 3, size/record: 4, table size: 12
+__TI_handler_table @ 0000f68c records: 3, size/record: 4, table size: 12
 	index: 0, handler: __TI_decompress_lzss
 	index: 1, handler: __TI_decompress_none
 	index: 2, handler: __TI_zero_init
@@ -3625,13 +3625,13 @@ address   name
 0000ed18  _Q16div_coeffs                             
 00002c00  __STACK_END                                
 00000400  __STACK_SIZE                               
-0000f7c4  __TI_BINIT_Base                            
-0000f7d4  __TI_BINIT_Limit                           
-0000f79c  __TI_CINIT_Base                            
-0000f7c4  __TI_CINIT_Limit                           
-0000f7c4  __TI_CINIT_Warm                            
-0000f778  __TI_Handler_Table_Base                    
-0000f784  __TI_Handler_Table_Limit                   
+0000f6d8  __TI_BINIT_Base                            
+0000f6e8  __TI_BINIT_Limit                           
+0000f6b0  __TI_CINIT_Base                            
+0000f6d8  __TI_CINIT_Limit                           
+0000f6d8  __TI_CINIT_Warm                            
+0000f68c  __TI_Handler_Table_Base                    
+0000f698  __TI_Handler_Table_Limit                   
 0000e60e  __TI_ISR_TRAP                              
 00016250  __TI_auto_init_nopinit_hold_wdt            
 0001685a  __TI_decompress_lzss                       
@@ -3683,7 +3683,7 @@ ffffffff  __TI_pprof_out_hndl
 ffffffff  __TI_prof_data_size                        
 ffffffff  __TI_prof_data_start                       
 00011202  __TI_scanfi                                
-0000f7c4  __TI_table_binit                           
+0000f6d8  __TI_table_binit                           
 00017fb4  __TI_zero_init                             
 ffffffff  __c_args__                                 
 0001509c  __difftime64                               
@@ -6233,14 +6233,14 @@ address   name
 0000ec16  _ctypes_                                   
 0000ed18  _Q16div_coeffs                             
 0000f228  _IQ6div_lookup                             
-0000f778  __TI_Handler_Table_Base                    
-0000f784  __TI_Handler_Table_Limit                   
-0000f79c  __TI_CINIT_Base                            
-0000f7c4  __TI_BINIT_Base                            
-0000f7c4  __TI_CINIT_Limit                           
-0000f7c4  __TI_CINIT_Warm                            
-0000f7c4  __TI_table_binit                           
-0000f7d4  __TI_BINIT_Limit                           
+0000f68c  __TI_Handler_Table_Base                    
+0000f698  __TI_Handler_Table_Limit                   
+0000f6b0  __TI_CINIT_Base                            
+0000f6d8  __TI_BINIT_Base                            
+0000f6d8  __TI_CINIT_Limit                           
+0000f6d8  __TI_CINIT_Warm                            
+0000f6d8  __TI_table_binit                           
+0000f6e8  __TI_BINIT_Limit                           
 0000ffac  __TI_int14                                 
 0000ffae  __TI_int15                                 
 0000ffb0  __TI_int16                                 

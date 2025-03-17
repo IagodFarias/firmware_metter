@@ -6,9 +6,9 @@ hal/modules/sources/queue.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21
 hal/modules/sources/queue.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/linkage.h
 hal/modules/sources/queue.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/cdefs.h
 hal/modules/sources/queue.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/xlocale/_string.h
-hal/modules/sources/queue.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/queue.h
-hal/modules/sources/queue.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/defs/general_settings.h
-hal/modules/sources/queue.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/types.h
+hal/modules/sources/queue.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/queue.h
+hal/modules/sources/queue.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/defs/general_settings.h
+hal/modules/sources/queue.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/types.h
 hal/modules/sources/queue.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdint.h
 hal/modules/sources/queue.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_stdint40.h
 hal/modules/sources/queue.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/stdint.h
@@ -38,11 +38,11 @@ C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/cdefs.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/xlocale/_string.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/queue.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/queue.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/defs/general_settings.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/defs/general_settings.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/types.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/types.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdint.h:
 

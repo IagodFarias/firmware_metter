@@ -1,7 +1,7 @@
 # FIXED
 
 ussSWLib/source/ussSwLibConfiguration.obj: ../ussSWLib/source/ussSwLibConfiguration.c
-ussSWLib/source/ussSwLibConfiguration.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h
+ussSWLib/source/ussSwLibConfiguration.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h
 ussSWLib/source/ussSwLibConfiguration.obj: C:/ti/ccs1260/ccs/ccs_base/msp430/include/msp430fr6047.h
 ussSWLib/source/ussSwLibConfiguration.obj: C:/ti/ccs1260/ccs/ccs_base/msp430/include/in430.h
 ussSWLib/source/ussSwLibConfiguration.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics.h
@@ -18,13 +18,13 @@ ussSWLib/source/ussSwLibConfiguration.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-c
 ussSWLib/source/ussSwLibConfiguration.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_stdint.h
 ussSWLib/source/ussSwLibConfiguration.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_stdint.h
 ussSWLib/source/ussSwLibConfiguration.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h
-ussSWLib/source/ussSwLibConfiguration.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/ussSwLib.h
-ussSWLib/source/ussSwLibConfiguration.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/QMathLib/QmathLib.h
+ussSWLib/source/ussSwLibConfiguration.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/ussSwLib.h
+ussSWLib/source/ussSwLibConfiguration.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/QMathLib/QmathLib.h
 ussSWLib/source/ussSwLibConfiguration.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/limits.h
 ussSWLib/source/ussSwLibConfiguration.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h
-ussSWLib/source/ussSwLibConfiguration.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h
+ussSWLib/source/ussSwLibConfiguration.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h
 ussSWLib/source/ussSwLibConfiguration.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h
-ussSWLib/source/ussSwLibConfiguration.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/USS_HAL/USS_Lib_HAL.h
+ussSWLib/source/ussSwLibConfiguration.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/USS_HAL/USS_Lib_HAL.h
 ussSWLib/source/ussSwLibConfiguration.obj: ../ussSWLib/source/common/ussSwLibCommonSAPH.h
 ussSWLib/source/ussSwLibConfiguration.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/math.h
 ussSWLib/source/ussSwLibConfiguration.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_defs.h
@@ -35,12 +35,12 @@ ussSWLib/source/ussSwLibConfiguration.obj: ../ussSWLib/source/common/USSGenericR
 ussSWLib/source/ussSwLibConfiguration.obj: ../ussSWLib/source/common/ussSwLibCommonHSPLL.h
 ussSWLib/source/ussSwLibConfiguration.obj: ../ussSWLib/source/common/ussSwLibCommonTimer.h
 ussSWLib/source/ussSwLibConfiguration.obj: ../ussSWLib/source/common/ussSwLibCommonSDHS.h
-ussSWLib/source/ussSwLibConfiguration.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/USS_Config/USS_userConfig.h
-ussSWLib/source/ussSwLibConfiguration.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/ussSwLibCalibration.h
+ussSWLib/source/ussSwLibConfiguration.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/USS_Config/USS_userConfig.h
+ussSWLib/source/ussSwLibConfiguration.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/ussSwLibCalibration.h
 
 ../ussSWLib/source/ussSwLibConfiguration.c:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h:
 
 C:/ti/ccs1260/ccs/ccs_base/msp430/include/msp430fr6047.h:
 
@@ -74,19 +74,19 @@ C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_stdint.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/ussSwLib.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/ussSwLib.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/QMathLib/QmathLib.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/QMathLib/QmathLib.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/limits.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/USS_HAL/USS_Lib_HAL.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/USS_HAL/USS_Lib_HAL.h:
 
 ../ussSWLib/source/common/ussSwLibCommonSAPH.h:
 
@@ -108,7 +108,7 @@ C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_limit
 
 ../ussSWLib/source/common/ussSwLibCommonSDHS.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/USS_Config/USS_userConfig.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/USS_Config/USS_userConfig.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/source/ussSwLibCalibration.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/source/ussSwLibCalibration.h:
 

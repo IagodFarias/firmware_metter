@@ -1,8 +1,8 @@
 # FIXED
 
 hal/drivers/sources/dma.obj: ../hal/drivers/sources/dma.c
-hal/drivers/sources/dma.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h
-hal/drivers/sources/dma.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h
+hal/drivers/sources/dma.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h
+hal/drivers/sources/dma.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h
 hal/drivers/sources/dma.obj: C:/ti/ccs1260/ccs/ccs_base/msp430/include/msp430fr6047.h
 hal/drivers/sources/dma.obj: C:/ti/ccs1260/ccs/ccs_base/msp430/include/in430.h
 hal/drivers/sources/dma.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics.h
@@ -19,14 +19,14 @@ hal/drivers/sources/dma.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6
 hal/drivers/sources/dma.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_stdint.h
 hal/drivers/sources/dma.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_stdint.h
 hal/drivers/sources/dma.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h
-hal/drivers/sources/dma.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/dma.h
+hal/drivers/sources/dma.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/dma.h
 hal/drivers/sources/dma.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/assert.h
 
 ../hal/drivers/sources/dma.c:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h:
 
 C:/ti/ccs1260/ccs/ccs_base/msp430/include/msp430fr6047.h:
 
@@ -60,7 +60,7 @@ C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_stdint.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/dma.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/dma.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/assert.h:
 

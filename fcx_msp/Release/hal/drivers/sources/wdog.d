@@ -1,10 +1,10 @@
 # FIXED
 
 hal/drivers/sources/wdog.obj: ../hal/drivers/sources/wdog.c
-hal/drivers/sources/wdog.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/wdog.h
-hal/drivers/sources/wdog.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/wdt_a.h
-hal/drivers/sources/wdog.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h
-hal/drivers/sources/wdog.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h
+hal/drivers/sources/wdog.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/wdog.h
+hal/drivers/sources/wdog.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/wdt_a.h
+hal/drivers/sources/wdog.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h
+hal/drivers/sources/wdog.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h
 hal/drivers/sources/wdog.obj: C:/ti/ccs1260/ccs/ccs_base/msp430/include/msp430fr6047.h
 hal/drivers/sources/wdog.obj: C:/ti/ccs1260/ccs/ccs_base/msp430/include/in430.h
 hal/drivers/sources/wdog.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics.h
@@ -21,17 +21,17 @@ hal/drivers/sources/wdog.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.
 hal/drivers/sources/wdog.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_stdint.h
 hal/drivers/sources/wdog.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_stdint.h
 hal/drivers/sources/wdog.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h
-hal/drivers/sources/wdog.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/gpio.h
+hal/drivers/sources/wdog.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/gpio.h
 
 ../hal/drivers/sources/wdog.c:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/wdog.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/wdog.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/wdt_a.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/wdt_a.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h:
 
 C:/ti/ccs1260/ccs/ccs_base/msp430/include/msp430fr6047.h:
 
@@ -65,5 +65,5 @@ C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_stdint.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/gpio.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/gpio.h:
 

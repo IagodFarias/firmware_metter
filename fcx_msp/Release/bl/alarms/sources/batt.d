@@ -1,8 +1,8 @@
 # FIXED
 
 bl/alarms/sources/batt.obj: ../bl/alarms/sources/batt.c
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/bl/alarms/headers/batt.h
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/types.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/bl/alarms/headers/batt.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/types.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdint.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_ti_config.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/linkage.h
@@ -17,39 +17,39 @@ bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/math.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_defs.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_limits.h
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/anasens.h
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/gpio.h
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/anasens.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/gpio.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/ccs_base/msp430/include/msp430fr6047.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/ccs_base/msp430/include/in430.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics_legacy_undefs.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/ccs_base/msp430/include/legacy.h
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/systick.h
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/defs/general_settings.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/systick.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/defs/general_settings.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/time.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/abi_prefix.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/timespec.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_timespec.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/xlocale/_time.h
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/processing.h
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/ussSwLib.h
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/QMathLib/QmathLib.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/processing.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/ussSwLib.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/QMathLib/QmathLib.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/limits.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h
 bl/alarms/sources/batt.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/bl/utils/headers/utils_fcx.h
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/us.h
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/bl/utils/headers/aes_cmac.h
-bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/aes256.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/bl/utils/headers/utils_fcx.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/us.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/bl/utils/headers/aes_cmac.h
+bl/alarms/sources/batt.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/aes256.h
 
 ../bl/alarms/sources/batt.c:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/bl/alarms/headers/batt.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/bl/alarms/headers/batt.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/types.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/types.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdint.h:
 
@@ -79,13 +79,13 @@ C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_defs.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_limits.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/anasens.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/anasens.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/gpio.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/gpio.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h:
 
 C:/ti/ccs1260/ccs/ccs_base/msp430/include/msp430fr6047.h:
 
@@ -97,9 +97,9 @@ C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics_leg
 
 C:/ti/ccs1260/ccs/ccs_base/msp430/include/legacy.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/systick.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/systick.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/defs/general_settings.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/defs/general_settings.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/time.h:
 
@@ -111,25 +111,25 @@ C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_timespec.
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/xlocale/_time.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/processing.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/processing.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/ussSWLib/ussSwLib.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/ussSWLib/ussSwLib.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/QMathLib/QmathLib.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/QMathLib/QmathLib.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/limits.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/IQMathLib/IQmathLib.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/bl/utils/headers/utils_fcx.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/bl/utils/headers/utils_fcx.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/us.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/us.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/bl/utils/headers/aes_cmac.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/bl/utils/headers/aes_cmac.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/aes256.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/aes256.h:
 

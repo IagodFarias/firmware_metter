@@ -113,4 +113,4 @@
 "../lib/rts430x_lc_ld_eabi.lib"
 "../ussSWLib/lib/USS_SW_CCS_large_code_large_data.lib"
 -llibmath.a
--l"C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/lib/rts430x_lc_ld_eabi.lib"
+-lrts430x_lc_ld_eabi.lib

@@ -1,8 +1,8 @@
 # FIXED
 
 bl/utils/sources/ring_buffer.obj: ../bl/utils/sources/ring_buffer.c
-bl/utils/sources/ring_buffer.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/bl/utils/headers/ring_buffer.h
-bl/utils/sources/ring_buffer.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/types.h
+bl/utils/sources/ring_buffer.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/bl/utils/headers/ring_buffer.h
+bl/utils/sources/ring_buffer.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/types.h
 bl/utils/sources/ring_buffer.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdint.h
 bl/utils/sources/ring_buffer.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_ti_config.h
 bl/utils/sources/ring_buffer.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/linkage.h
@@ -17,8 +17,8 @@ bl/utils/sources/ring_buffer.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430
 bl/utils/sources/ring_buffer.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/math.h
 bl/utils/sources/ring_buffer.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_defs.h
 bl/utils/sources/ring_buffer.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_limits.h
-bl/utils/sources/ring_buffer.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/bl/utils/headers/utils_fcx.h
-bl/utils/sources/ring_buffer.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/defs/general_settings.h
+bl/utils/sources/ring_buffer.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/bl/utils/headers/utils_fcx.h
+bl/utils/sources/ring_buffer.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/defs/general_settings.h
 bl/utils/sources/ring_buffer.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/time.h
 bl/utils/sources/ring_buffer.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/abi_prefix.h
 bl/utils/sources/ring_buffer.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/timespec.h
@@ -27,9 +27,9 @@ bl/utils/sources/ring_buffer.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430
 
 ../bl/utils/sources/ring_buffer.c:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/bl/utils/headers/ring_buffer.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/bl/utils/headers/ring_buffer.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/types.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/types.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdint.h:
 
@@ -59,9 +59,9 @@ C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_defs.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_limits.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/bl/utils/headers/utils_fcx.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/bl/utils/headers/utils_fcx.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/defs/general_settings.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/defs/general_settings.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/time.h:
 

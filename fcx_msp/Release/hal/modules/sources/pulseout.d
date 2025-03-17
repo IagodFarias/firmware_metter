@@ -1,10 +1,10 @@
 # FIXED
 
 hal/modules/sources/pulseout.obj: ../hal/modules/sources/pulseout.c
-hal/modules/sources/pulseout.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/pulseout.h
-hal/modules/sources/pulseout.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/gpio.h
-hal/modules/sources/pulseout.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h
-hal/modules/sources/pulseout.obj: C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h
+hal/modules/sources/pulseout.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/pulseout.h
+hal/modules/sources/pulseout.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/gpio.h
+hal/modules/sources/pulseout.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h
+hal/modules/sources/pulseout.obj: C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h
 hal/modules/sources/pulseout.obj: C:/ti/ccs1260/ccs/ccs_base/msp430/include/msp430fr6047.h
 hal/modules/sources/pulseout.obj: C:/ti/ccs1260/ccs/ccs_base/msp430/include/in430.h
 hal/modules/sources/pulseout.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics.h
@@ -24,13 +24,13 @@ hal/modules/sources/pulseout.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430
 
 ../hal/modules/sources/pulseout.c:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/modules/headers/pulseout.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/modules/headers/pulseout.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/gpio.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/gpio.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/hw_memmap.h:
 
-C:/Users/eduardo.andrade/Documents/Tests/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h:
+C:/Users/eduardo.andrade/Documents/fcx_msp/fcx_msp/hal/drivers/headers/msp430.h:
 
 C:/ti/ccs1260/ccs/ccs_base/msp430/include/msp430fr6047.h:
 
