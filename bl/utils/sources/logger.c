@@ -5,7 +5,7 @@
  * @date    09/10/2023
  * @details Module which manages (create, save and read) all meter logs.
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -781,20 +781,20 @@ static inline void createLog(uint8_t *puc_buffer, uint8_t uc_alarmFlags)
 
     gl_volume = (uint32_t) (proc_getForwardVolume() * 1000);
 
-    // Pack forward volumes in m³
+    // Pack forward volumes in mï¿½
     memcpy(puc_buffer, (uint8_t *) &gl_volume, LOGGER_REG_FIELD_VOL_SIZE);
 
     puc_buffer += LOGGER_REG_FIELD_VOL_SIZE;
 
-    // Convert reverse volume from m³ to liters (L)
+    // Convert reverse volume from mï¿½ to liters (L)
     gl_volume = (uint32_t) (proc_getReverseVolume()* 1000); // get integer part (m^3)
 
-    // Pack reverse volumes in m³
+    // Pack reverse volumes in mï¿½
     memcpy(puc_buffer, (uint8_t *) &gl_volume, LOGGER_REG_FIELD_VOL_SIZE);
 
     puc_buffer += LOGGER_REG_FIELD_VOL_SIZE;
 
-    // Convert minimum flow rate from m³/h to mL/h
+    // Convert minimum flow rate from mï¿½/h to mL/h
 
     gl_flowRate = (uint32_t) (proc_getMinFlowRate() * 1000000);
 

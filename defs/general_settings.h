@@ -124,7 +124,7 @@
 #define DEBUG_PROC_FLOWRATE                                 0
 #define DEBUG_FLOWRATE                                      0
 
-#define DEBUG_NORMAL                                        0
+#define DEBUG_NORMAL                                        1
 
 #define DEBUG_CHANGE_TO_STANDBY                             0
 

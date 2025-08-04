@@ -113,4 +113,4 @@
 "../lib/rts430x_lc_ld_eabi.lib"
 "../ussSWLib/lib/USS_SW_CCS_large_code_large_data.lib"
 -llibmath.a
--lrts430x_lc_ld_eabi.lib
+-l"C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/lib/rts430x_lc_ld_eabi.lib"
