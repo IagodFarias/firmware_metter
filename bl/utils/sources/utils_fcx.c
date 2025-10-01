@@ -5,7 +5,7 @@
  * @date 	14/02/2017
  * @details 
  * @section license
- * 			FAE Sistemas de Medição. All rights reserved.
+ * 			FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -45,7 +45,7 @@ double_t utils_linearInterp(double_t d_X, const s_lut_coordinate_t *ps_lut,
     double_t d_nom;
     double_t d_ratio;
     uint8_t uc_idx;
-
+    
     if(d_X <= ps_lut[0].d_abscissa)
     {
         d_Y = ps_lut[0].d_ordinate;

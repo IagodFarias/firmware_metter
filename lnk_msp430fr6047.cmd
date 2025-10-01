@@ -63,8 +63,8 @@ MEMORY
     TLVMEM                  : origin = 0x1A00, length = 0x0100
     BOOTROM                 : origin = 0x1B00, length = 0x0100
     RAM                     : origin = 0x1C00, length = 0x1000
-    METROLOGY               : origin = 0x4000, length = 0x9C00, f = 0xffff
-    FRAM                    : origin = 0xDC00, length = 0x1600
+    METROLOGY               : origin = 0x4000, length = 0x9800, f = 0xffff
+    FRAM                    : origin = 0xD800, length = 0x2200
     SYS_CONFIG				: origin = 0xFA00, length = 0x02FF
     FRAM2                   : origin = 0x10000,length = 0x33FE0
     VERSION                 : origin = 0x43FF0,length = 0x0008
@@ -215,17 +215,17 @@ SECTIONS
     } > FRAM
 
 
-    .TI.persistent    : {} > FRAM2           /* Constant data                     */
+    .TI.persistent    : {} > FRAM           /* Constant data                     */
 
     .version          : {}  > VERSION
     .libVersion       : {}  > LIB_VERSION
 
-    .cinit            : {}  > FRAM2          /* Initialization tables             */
-    .binit            : {}  > FRAM2          /* Boot-time Initialization tables   */
-    .pinit            : {}  > FRAM2          /* C++ Constructor tables            */
-    .init_array       : {}  > FRAM2          /* C++ Constructor tables            */
-    .mspabi.exidx     : {}  > FRAM2          /* C++ Constructor tables            */
-    .mspabi.extab     : {}  > FRAM2          /* C++ Constructor tables            */
+    .cinit            : {}  > FRAM          /* Initialization tables             */
+    .binit            : {}  > FRAM          /* Boot-time Initialization tables   */
+    .pinit            : {}  > FRAM          /* C++ Constructor tables            */
+    .init_array       : {}  > FRAM          /* C++ Constructor tables            */
+    .mspabi.exidx     : {}  > FRAM          /* C++ Constructor tables            */
+    .mspabi.extab     : {}  > FRAM          /* C++ Constructor tables            */
     .text:_isr        : {}  > FRAM          /* Code ISRs                         */
 
 

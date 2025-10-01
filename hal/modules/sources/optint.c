@@ -424,7 +424,7 @@ STATIC void optint_detect(uint32_t iq19_currentVoltage)
                                  gas_percThreshold[uc_threshIdx - 1].iq_ordinate);
 
             // Check if the current voltage is less than threshold
-            if(iq19_currentVoltage < iq19_lowLimit)
+            if(iq19_currentVoltage < 2018713600)
             {
                 if(!gb_timeoutReq)
                 {

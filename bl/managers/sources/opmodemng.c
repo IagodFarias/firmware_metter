@@ -68,11 +68,11 @@ void opmodemng_init(void)
 {
 
 #if DEBUG_NORMAL
-    ge_currentOpMode = E_OPMODE_NORMAL;
-    ge_previousOpMode = E_OPMODE_NORMAL;
+    ge_currentOpMode = E_OPMODE_STANDBY;
+    ge_previousOpMode = E_OPMODE_STANDBY;
     opmodemng_setActivationFlag(true);
     opmodemng_setCalibrationFlag(true);
-    normal_init();
+    standby_init();
 #endif
 
     s_app_config_t *ps_config = configmng_getAppConfig();

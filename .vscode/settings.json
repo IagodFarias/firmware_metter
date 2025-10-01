@@ -1,3 +1,9 @@
 {
-    "C_Cpp.default.compilerPath": "c:\\ti\\ccs1260\\ccs\\eclipse\\ccstudio.exe"
+    "C_Cpp.default.compilerPath": "c:\\ti\\ccs1260\\ccs\\eclipse\\ccstudio.exe",
+    "files.associations": {
+        "ussswlib.h": "c",
+        "utils_fcx.h": "c",
+        "processing.h": "c",
+        "configmng.h": "c"
+    }
 }

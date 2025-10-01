@@ -473,7 +473,6 @@ USS_message_code USS_calibrateSignalGain(USS_SW_Library_configuration *config)
 			if(agcSettlingCount == agcLoopSetting)
 			{
 			    USS_updateSAPHConfiguration(config);
-
 				return USS_message_code_Signal_Gain_Calibration_successful;
 			}
 		}else

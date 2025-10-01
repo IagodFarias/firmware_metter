@@ -562,8 +562,7 @@ bool us_trimGainPGA(void)
 
     if(USS_message_code_Signal_Gain_Calibration_successful == e_code)
     {
-         trimRatioLobe();
-
+        trimRatioLobe();
         b_ret = true;
     }
 

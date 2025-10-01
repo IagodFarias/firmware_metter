@@ -131,7 +131,7 @@ void anasens_init(void)
      * Vref- = AVss
      */
     configureMemoryParam.memoryBufferControlIndex = ANASENSE_VCC_SENSE_MEM_MAP;
-    configureMemoryParam.inputSourceSelect = ADC12_B_INPUT_BATMAP;
+    configureMemoryParam.inputSourceSelect = ADC12_B_INPUT_A15;
     configureMemoryParam.refVoltageSourceSelect =
                                             ADC12_B_VREFPOS_INTBUF_VREFNEG_VSS;
     configureMemoryParam.endOfSequence = ADC12_B_ENDOFSEQUENCE;
