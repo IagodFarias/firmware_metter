@@ -134,7 +134,7 @@ void main(void)
     logger_init();
 #endif /* CONFIG_OPTCOMM_ENABLED */
 
-    cmac_init();
+    //cmac_init();
 
     // Initialize operating mode manager
     opmodemng_init();
@@ -145,7 +145,7 @@ void main(void)
         // Update system tick
         systick_updateSysTickMs();
 
-        cmac_update(cmac_test);
+        //cmac_update(cmac_test);
 
         // Update processing
         proc_update();

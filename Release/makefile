@@ -269,10 +269,10 @@ EXE_OUTPUTS__QUOTED += \
 "fcx_msp.out" 
 
 BIN_OUTPUTS += \
-fcx_msp_20250930_1716.txt 
+fcx_msp_20260113_1705.txt 
 
 BIN_OUTPUTS__QUOTED += \
-"fcx_msp_20250930_1716.txt" 
+"fcx_msp_20260113_1705.txt" 
 
 
 # All Target
@@ -287,10 +287,10 @@ fcx_msp.out: $(OBJS) $(CMD_SRCS) $(A_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
-fcx_msp_20250930_1716.txt: $(EXE_OUTPUTS)
+fcx_msp_20260113_1705.txt: $(EXE_OUTPUTS)
 	@echo 'Building secondary target: "$@"'
 	@echo 'Invoking: MSP430 Hex Utility'
-	"C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/bin/hex430" --fill=0xFFFF --memwidth=8 --romwidth=8 --diag_wrap=off --ti_txt -o "fcx_msp_20250930_1716.txt" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/bin/hex430" --fill=0xFFFF --memwidth=8 --romwidth=8 --diag_wrap=off --ti_txt -o "fcx_msp_20260113_1705.txt" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building secondary target: "$@"'
 	@echo ' '
 
