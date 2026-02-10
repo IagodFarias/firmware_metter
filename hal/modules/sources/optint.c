@@ -73,7 +73,7 @@
 
 #define OPTINT_QUEUE_SIZE                       5
 
-#define     Bit_time    838               // 9600 Baud, SMCLK=8MHz (8MHz/9600)=833
+//#define     Bit_time    838               // 9600 Baud, SMCLK=8MHz (8MHz/9600)=833
 
 /*******************************************************************************
  * Prototypes
@@ -91,6 +91,9 @@ static bool timeoutOptIntCallback(void);
 /*******************************************************************************
  * Global variables
  ******************************************************************************/
+
+static volatile uint16_t g_us_bit_time = 825;
+
 /** Low threshold lookup table. */
 static const s_lut_coordinate_iq_t gas_percThreshold[OPTINT_PERC_THRES_LUT_SIZE] =
 {
@@ -144,6 +147,17 @@ static volatile uint64_t gull_timeoutTime = (uint64_t) OPTINT_TIMEOUT_RX;
 /*******************************************************************************
  * Public functions
  ******************************************************************************/
+
+ void optint_setBitTime(uint16_t us_bit_time)
+{
+    g_us_bit_time = us_bit_time;
+}
+
+uint16_t optint_getBitTime(void)
+{
+    return g_us_bit_time;
+}
+
 
 /**
  * @brief
@@ -424,7 +438,7 @@ STATIC void optint_detect(uint32_t iq19_currentVoltage)
                                  gas_percThreshold[uc_threshIdx - 1].iq_ordinate);
 
             // Check if the current voltage is less than threshold
-            if(iq19_currentVoltage < 2018713600)
+            if(iq19_currentVoltage < iq19_lowLimit)
             {
                 if(!gb_timeoutReq)
                 {
@@ -614,7 +628,7 @@ __interrupt void Timer4_A0 (void)
 {
     uint16_t compVal = Timer_A_getCaptureCompareCount(TIMER_A4_BASE,
             TIMER_A_CAPTURECOMPARE_REGISTER_0)
-            + Bit_time;
+            + g_us_bit_time;
 
     if (gb_optint_isReceiving) {
 

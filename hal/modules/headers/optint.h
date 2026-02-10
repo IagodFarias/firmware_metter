@@ -4,7 +4,7 @@
  * @author  Robson Cardoso
  * @date    17/02/2017
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 #ifndef OPTINT_H_
@@ -40,8 +40,10 @@ bool optint_receive(uint8_t *puc_msg, uint8_t uc_len);
 void optint_send(uint8_t *puc_msg, uint8_t len);
 bool optint_isTransmitting();
 void optint_reset();
+void optint_setBitTime(uint16_t us_bit_time);
+uint16_t optint_getBitTime(void);
+
 volatile bool gb_optint_isReceiving;
 volatile uint16_t guc_optint_bit_count;       // Bit count, used when transmitting data
-
 
 #endif /* OPTINT_H_ */

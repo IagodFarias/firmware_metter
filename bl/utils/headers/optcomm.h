@@ -5,7 +5,7 @@
  * @date    01/11/2017
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 #if CONFIG_OPTCOMM_ENABLED
 
@@ -198,6 +198,9 @@ void optcomm_init();
 void optcomm_update();
 bool optcomm_isConnected();
 void optcomm_disconnect();
+uint16_t optcomm_getCurrentBitTime(void);
+bool optcomm_getLastSyncOk(void);
+uint8_t optcomm_getLastSyncGoodCount(void);
 bool optcomm_receiveByte(uint8_t *puc_data);
 void optcomm_setActivityCallback(void (*fp_callback)(void));
 uint16_t startMessage(E_OPTCOMM_CMD_t e_cmd, uint16_t ui_payloadLen);

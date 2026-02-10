@@ -187,6 +187,14 @@ static uint8_t guc_configPage;
 /** Callback to be called whenever an activity occurs in the OPTCOMM. */
 static void (*gfp_activityCallback)(void) = NULL;
 
+
+static uint16_t gs_opt_bt_current = 825;
+static bool gs_last_sync_ok = false;
+static uint8_t gs_last_sync_good_count = 0; // number of good syncs in last validation window
+static uint8_t gs_sync_window_samples = 0;   // how many update windows sampled (0..6)
+static uint8_t gs_last_sync_display_count = 0; // latched count for UI after 6-window decision
+
+
 #if DEBUG_FLOWRATE
 static int32_t gl_flowrate;
 #endif /* DEBUG_FLOWRATE */
@@ -203,8 +211,19 @@ void optcomm_init()
     // Get a pointer to system configuration
     gps_sysConfig = configmng_getSysConfig();
 
-    // Calculate the initial skip count
-    guc_syncReqSkipCnt = OPTCOMM_SYNC_REQ_SKIP_CNT;
+    // REMOVIDO: guc_syncReqSkipCnt = OPTCOMM_SYNC_REQ_SKIP_CNT; 
+    // Na lógica de tuning, removemos o skip gating inicial para testar sync a cada ciclo de update.
+    guc_syncReqSkipCnt = 0;
+
+    // Initialize Bit_time tuning state
+    gs_opt_bt_current = 825;
+    gs_sync_window_samples = 0;
+    gs_last_sync_good_count = 0;
+    gs_last_sync_ok = false;
+    gs_last_sync_display_count = 0;
+    
+    // Configura o optint com o valor inicial
+    optint_setBitTime(gs_opt_bt_current);
 
 #if DEBUG_OPTCOMM
     printf("(OPTCOMM): Module init.\n");
@@ -221,38 +240,57 @@ void optcomm_update()
     switch(ge_state)
     {
         default:
-        case E_OPTCOMM_STATE_WAITING_SYNC_REQ:
-            if(!guc_syncReqSkipCnt)
-            {
-#if DEBUG_OPTCOMM
-                printf("(OPTCOMM): Waiting sync request.\n");
-#endif /* DEBUG_OPTCOMM */
+// Dentro de optcomm_update()
 
-                if(receiveSyncRequest())
+        case E_OPTCOMM_STATE_WAITING_SYNC_REQ:
+        {
+#if DEBUG_OPTCOMM
+            // printf("(OPTCOMM): Waiting sync request (Tuning). Val: %d\n", gs_opt_bt_current);
+#endif 
+            // One attempt per update window
+            if (receiveSyncRequest())
+            {
+                // Se recebeu um sync request válido, incrementa contador de "bons syncs"
+                if (gs_sync_window_samples < 6) { gs_last_sync_good_count++; }
+                
+                // Envia resposta (opcional, dependendo se o hardware precisa responder imediatamente ao ping)
+                /* Sync request was received, so send a SYNC */
+                // startMessage(E_OPTCOMM_CMD_SYNC, 0);
+                // finishMessage();
+            }
+            
+            if (gs_sync_window_samples < 6) { gs_sync_window_samples++; }
+
+            // Só toma decisão após 6 janelas de amostragem
+            if (gs_sync_window_samples >= 6)
+            {
+                gs_last_sync_ok = (gs_last_sync_good_count > 0);
+                gs_last_sync_display_count = gs_last_sync_good_count; // latch para UI
+                
+                if (gs_last_sync_ok)
                 {
-                    /* Sync request was received, so send a SYNC */
+#if DEBUG_OPTCOMM
+                    printf("(OPTCOMM): Sync OK (%u/6). BitTime: %u. Going to WAITING_CMD.\n", gs_last_sync_good_count, gs_opt_bt_current);
+#endif 
+                    // Envia o SYNC final para firmar conexão
                     startMessage(E_OPTCOMM_CMD_SYNC, 0);
                     finishMessage();
 
-#if DEBUG_OPTCOMM
-                    printf("(OPTCOMM): Received sync request.\n");
-#endif /* DEBUG_OPTCOMM */
-
-                    // Reset connection tries
-                    guc_connTries = OPTCOMM_CONN_TRIES;
-
-                    // Set OPTCOMM state
                     ge_state = E_OPTCOMM_STATE_WAITING_CMD;
+                    guc_connTries = OPTCOMM_CONN_TRIES;
                 }
-
-                guc_syncReqSkipCnt = OPTCOMM_SYNC_REQ_SKIP_CNT;
-            }
-            else
-            {
-                guc_syncReqSkipCnt--;
+                
+                // Change bit time only now (after 6 tries), then reset for the next batch
+                // Lógica de varredura: incrementa de 825 até 842, depois volta para 825
+                gs_opt_bt_current = gs_opt_bt_current < 842 ? (uint16_t)(gs_opt_bt_current + 1) : 825;
+                optint_setBitTime(gs_opt_bt_current);
+                
+                // Reset window for next validation batch
+                gs_sync_window_samples = 0;
+                gs_last_sync_good_count = 0;
             }
             break;
-
+        }
         case E_OPTCOMM_STATE_WAITING_CMD:
 
             // Send a SYNC_CONN command, if it's connected or send SYNC command
@@ -597,10 +635,15 @@ void optcomm_disconnect()
 {
     gb_connected = false;
     ge_state = E_OPTCOMM_STATE_WAITING_SYNC_REQ;
-    guc_syncReqSkipCnt = OPTCOMM_SYNC_REQ_SKIP_CNT;
+    
+    // Reset tuning vars
+    guc_syncReqSkipCnt = 0; // always try to sync
     guc_connTries = OPTCOMM_CONN_TRIES;
+    gs_sync_window_samples = 0;
+    gs_last_sync_good_count = 0;
+    gs_last_sync_ok = false;
+    gs_last_sync_display_count = 0;
 }
-
 /**
  * @brief
  *      Set an activity callback.
@@ -1835,5 +1878,24 @@ bool calcCmacFromMemory()
 
     return success;
 }
+
+
+// No final de optcomm.c
+
+uint16_t optcomm_getCurrentBitTime(void)
+{
+    return gs_opt_bt_current;
+}
+
+bool optcomm_getLastSyncOk(void)
+{
+    return gs_last_sync_ok;
+}
+
+uint8_t optcomm_getLastSyncGoodCount(void)
+{
+    return gs_last_sync_display_count;
+}
+
 
 #endif /* CONFIG_OPTCOMM_ENABLED */
