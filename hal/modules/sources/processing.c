@@ -20,6 +20,12 @@
 #include "configmng.h"
 #include "mov_avg.h"
 
+#include <string.h>
+
+/* --------------------------------------------------------------------------
+ * FACTORY RESET SIMPLES – LIMPA VARIÁVEIS PERSISTENTES
+ * -------------------------------------------------------------------------- */
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -245,6 +251,14 @@ static double_t gd_fakeFlowRate;
 __persistent static s_iq_result_t gs_iqVariables = FIXED_POINT_PROC_PROCESSING_DEFAULT;
 #endif
 
+static void proc_forceClearPersistent(void)
+{
+#if FIXED_POINT_CALC
+    memset(&gs_iqVariables, 0, sizeof(gs_iqVariables));
+#endif
+    memset(&gs_processing, 0, sizeof(gs_processing));
+}
+
 #if DEBUG_PROC_FLOWRATE
 static int8_t gc_fakeFlow = 1;
 #endif
@@ -256,6 +270,8 @@ void proc_init(void)
 {
     // Get system configuration pointer
     gps_sysConfig = configmng_getSysConfig();
+
+    proc_forceClearPersistent();
 
     // Clear reverse flow flag
     gb_isReverseFlow = false;
@@ -305,8 +321,8 @@ void proc_update()
         us_getMeasurement(&algResFixed);
 
 #if DEBUG_PROC_FLOWRATE
-        algResFixed.iq40TotalTOF_DNS = 65970698;
-        algResFixed.iq40TotalTOF_UPS = 66080649;
+        algResFixed.iq40TotalTOF_DNS = 0;
+        algResFixed.iq40TotalTOF_UPS = 0;
         
         switch (gc_fakeFlow)
         {
@@ -314,14 +330,14 @@ void proc_update()
                algResFixed.iq44DeltaTOF = 0;
             break;
             case 1:
-               algResFixed.iq44DeltaTOF = +10055531;
+               algResFixed.iq44DeltaTOF = 0;
             break;
             case 2:
                algResFixed.iq44DeltaTOF = 0;
             break;
             case 3:
             default:
-               algResFixed.iq44DeltaTOF = -10055531;
+               algResFixed.iq44DeltaTOF = 0;
             break;
         }
 #endif
