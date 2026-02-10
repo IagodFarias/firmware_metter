@@ -5,7 +5,7 @@
  * @date    04/04/2017
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -47,7 +47,7 @@
 #define VERIF_MANUAL_DETECT_TIMEOUT_MS          10000ULL
 
 /* Auto operating mode change detection timeout in milliseconds. */
-#define VERIF_AUTO_DETECT_TIMEOUT_MS            43200000ULL // 12 hours
+#define VERIF_AUTO_DETECT_TIMEOUT_MS            86400000ULL // 24 hours
 
 /* Number of screens. */
 #define VERIF_NUM_OF_SCREENS                    7
@@ -245,7 +245,7 @@ void verif_init(void)
     logger_enable(true);
 #endif /* CONFIG_LOGGER_ENABLED */
 
-// TODO: Verificar erro de medidor com saída pulsada ativada em modo verif.
+// TODO: Verificar erro de medidor com saï¿½da pulsada ativada em modo verif.
 #if 0
     // Disable pulse manger on verif mode
     pulsemng_disable();

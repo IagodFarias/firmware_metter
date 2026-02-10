@@ -5,7 +5,7 @@
  * @date    01/03/2017
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -210,7 +210,7 @@ void standby_run(void)
  * @return
  *      Returns 'true' if this is the case. Otherwise, returns 'false'.
  */
-bool standby_testChangeToNormalOpMode(void)
+bool standby_testChangeToVerifOpMode(void)
 {
     bool b_status = false;
     double_t d_netVolume = proc_getNetVolume();

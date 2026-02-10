@@ -5,7 +5,7 @@
  * @date    03/04/2017
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 #ifndef STANDBY_H_
 #define STANDBY_H_
@@ -20,7 +20,7 @@
  ******************************************************************************/
 void standby_init(void);
 void standby_run(void);
-bool standby_testChangeToNormalOpMode(void);
+bool standby_testChangeToVerifOpMode(void);
 bool standby_testChangeToCommOpmode(void);
 
 #endif /* STANDBY_H_ */

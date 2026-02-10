@@ -446,8 +446,8 @@ extern "C"
  *
  ******************************************************************************/
 #define USS_AGC_CONSTANT                                                      56
-#define USS_ALG_CALIBRATED_UPS_DC_OFFSET                                       0
-#define USS_ALG_CALIBRATED_DNS_DC_OFFSET                                       0
+#define USS_ALG_CALIBRATED_UPS_DC_OFFSET                                       -50
+#define USS_ALG_CALIBRATED_DNS_DC_OFFSET                                       -50
 
 
 /*******************************************************************************

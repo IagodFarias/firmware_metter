@@ -219,16 +219,16 @@ void opmodemng_update(void)
             // Run stand-by operating mode
             standby_run();
 
-            if(standby_testChangeToNormalOpMode())
+            if(standby_testChangeToVerifOpMode())
             {
                 // Initialize normal operating mode
-                normal_init();
+                verif_init();
 
                 // Set active flag
                 ASSERT(opmodemng_setActivationFlag(true));
 
                 // Update FSM state
-                opmodemng_setCurrentOpMode(E_OPMODE_NORMAL);
+                opmodemng_setCurrentOpMode(E_OPMODE_VERIFICATION);
             }
 #if CONFIG_OPTCOMM_ENABLED
             else if(standby_testChangeToCommOpmode())
