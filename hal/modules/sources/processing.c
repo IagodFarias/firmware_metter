@@ -251,14 +251,6 @@ static double_t gd_fakeFlowRate;
 __persistent static s_iq_result_t gs_iqVariables = FIXED_POINT_PROC_PROCESSING_DEFAULT;
 #endif
 
-static void proc_forceClearPersistent(void)
-{
-#if FIXED_POINT_CALC
-    memset(&gs_iqVariables, 0, sizeof(gs_iqVariables));
-#endif
-    memset(&gs_processing, 0, sizeof(gs_processing));
-}
-
 #if DEBUG_PROC_FLOWRATE
 static int8_t gc_fakeFlow = 1;
 #endif
@@ -270,8 +262,6 @@ void proc_init(void)
 {
     // Get system configuration pointer
     gps_sysConfig = configmng_getSysConfig();
-
-    proc_forceClearPersistent();
 
     // Clear reverse flow flag
     gb_isReverseFlow = false;

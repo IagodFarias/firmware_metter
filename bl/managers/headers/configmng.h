@@ -5,7 +5,7 @@
  * @date    28/02/2017
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 #ifndef CONFIGMNG_H_
@@ -152,7 +152,7 @@
     },                                                                          \
     .s_alarms =                                                                 \
     {                                                                           \
-        .ui_q3Meter                 = 4000,                                     \
+        .ui_q3Meter                 = 2500,                                     \
         .uc_brushPercent            = 25,                                       \
         .ul_brushTimeout            = 1800000UL,                                \
         .ui_revInstallParam         = 10,                                       \
