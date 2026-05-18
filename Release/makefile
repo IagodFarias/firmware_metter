@@ -4,7 +4,7 @@
 
 SHELL = cmd.exe
 
-CG_TOOL_ROOT := C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+CG_TOOL_ROOT := C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
 
 GEN_OPTS__FLAG := 
 GEN_CMDS__FLAG := 
@@ -126,7 +126,7 @@ ORDERED_OBJS += \
 "../ussSWLib/lib/USS_SW_CCS_large_code_large_data.lib" \
 $(GEN_CMDS__FLAG) \
 -llibmath.a \
--l"C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/lib/rts430x_lc_ld_eabi.lib" \
+-l"C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/lib/rts430x_lc_ld_eabi.lib" \
 
 -include ../makefile.init
 
@@ -263,16 +263,16 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-fcx_msp.out \
+fcx_msp.out 
 
 EXE_OUTPUTS__QUOTED += \
-"fcx_msp.out" \
+"fcx_msp.out" 
 
 BIN_OUTPUTS += \
-fcx_msp_20260209_1209.txt \
+fcx_msp_20260518_0902.txt 
 
 BIN_OUTPUTS__QUOTED += \
-"fcx_msp_20260209_1209.txt" \
+"fcx_msp_20260518_0902.txt" 
 
 
 # All Target
@@ -283,14 +283,14 @@ all: $(OBJS) $(CMD_SRCS) $(A_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 fcx_msp.out: $(OBJS) $(CMD_SRCS) $(A_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: MSP430 Linker'
-	"C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/bin/cl430" -vmspx --code_model=large --data_model=large --near_data=none -O3 --opt_for_speed=3 --align_for_power --use_hw_mpy=F5 --advice:power="all" --advice:hw_config=all --define=__MSP430FR6047__ --define=__USS_RUN_ALG_FROM_RAM__ --define=__TI_TIME_USES_64=1 --define=__WATCHDOG_ENABLE__ --define=__SVSH_ENABLE__=1 --define=xDEBUG_CLOCK_CORRECTION --define=__ENABLE_LPM__=0x01 --define=__EXTRA_VERSION__=0x00,0x01 -g --symdebug:dwarf_version=4 --c11 --relaxed_ansi --printf_support=full --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=unpacked --common=on --large_memory_model --ramfunc=off --silicon_errata=CPU22 --silicon_errata=CPU40 --disable_interrupts_around_hw_mpy=on --parallel=12 -z -m"fcx_msp.map" --heap_size=400 --stack_size=400 --cinit_hold_wdt=on -i"C:/ti/ccs1230/ccs/ccs_base/msp430/include" -i"C:/Users/talita.carvalho/Desktop/ws_fluxo_cont/fcx_msp/ussSWLib/lib" -i"C:/Users/talita.carvalho/Desktop/ws_fluxo_cont/fcx_msp/USS_Config" -i"C:/ti/ccs1230/ccs/ccs_base/msp430/lib/5xx_6xx_FRxx" -i"C:/ti/ccs1230/ccs/ccs_base/msp430/lib/FR59xx" -i"C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/lib" -i"C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include" -i"C:/Users/talita.carvalho/Desktop/ws_fluxo_cont/fcx_msp/hal/modules/IQMathLib" -i"C:/Users/talita.carvalho/Desktop/ws_fluxo_cont/fcx_msp/hal/modules/QMathLib" --priority --reread_libs --define=__USS_RUN_ALG_FROM_RAM__ --define=__LARGE_DATA_MODEL__ --diag_wrap=off --display_error_number --warn_sections --xml_link_info="fcx_msp_linkInfo.xml" --use_hw_mpy=F5 --fill_value=0xFFFFFFFF --rom_model -o "fcx_msp.out" $(ORDERED_OBJS) $(A_SRCS)
+	"C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/bin/cl430" -vmspx --code_model=large --data_model=large --near_data=none -O3 --opt_for_speed=3 --align_for_power --use_hw_mpy=F5 --advice:power="all" --advice:hw_config=all --define=__MSP430FR6047__ --define=__USS_RUN_ALG_FROM_RAM__ --define=__TI_TIME_USES_64=1 --define=__WATCHDOG_ENABLE__ --define=__SVSH_ENABLE__=1 --define=xDEBUG_CLOCK_CORRECTION --define=__ENABLE_LPM__=0x01 --define=__EXTRA_VERSION__=0x00,0x01 -g --symdebug:dwarf_version=4 --c11 --relaxed_ansi --printf_support=full --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=unpacked --common=on --large_memory_model --ramfunc=off --silicon_errata=CPU22 --silicon_errata=CPU40 --disable_interrupts_around_hw_mpy=on --parallel=12 -z -m"fcx_msp.map" --heap_size=400 --stack_size=400 --cinit_hold_wdt=on -i"C:/ti/ccs1260/ccs/ccs_base/msp430/include" -i"C:/Users/victor.maciel/Desktop/ws/fcx_msp/ussSWLib/lib" -i"C:/Users/victor.maciel/Desktop/ws/fcx_msp/USS_Config" -i"C:/ti/ccs1260/ccs/ccs_base/msp430/lib/5xx_6xx_FRxx" -i"C:/ti/ccs1260/ccs/ccs_base/msp430/lib/FR59xx" -i"C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/lib" -i"C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include" -i"C:/Users/victor.maciel/Desktop/ws/fcx_msp/hal/modules/IQMathLib" -i"C:/Users/victor.maciel/Desktop/ws/fcx_msp/hal/modules/QMathLib" --priority --reread_libs --define=__USS_RUN_ALG_FROM_RAM__ --define=__LARGE_DATA_MODEL__ --diag_wrap=off --display_error_number --warn_sections --xml_link_info="fcx_msp_linkInfo.xml" --use_hw_mpy=F5 --fill_value=0xFFFFFFFF --rom_model -o "fcx_msp.out" $(ORDERED_OBJS) $(A_SRCS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
-fcx_msp_20260209_1209.txt: $(EXE_OUTPUTS)
+fcx_msp_20260518_0902.txt: $(EXE_OUTPUTS)
 	@echo 'Building secondary target: "$@"'
 	@echo 'Invoking: MSP430 Hex Utility'
-	"C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/bin/hex430" --fill=0xFFFF --memwidth=8 --romwidth=8 --diag_wrap=off --ti_txt -o "fcx_msp_20260209_1209.txt" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/bin/hex430" --fill=0xFFFF --memwidth=8 --romwidth=8 --diag_wrap=off --ti_txt -o "fcx_msp_20260518_0902.txt" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building secondary target: "$@"'
 	@echo ' '
 
@@ -308,7 +308,7 @@ clean:
 	-@echo 'Finished clean'
 	-@echo ' '
 
-secondary-outputs: $(BIN_OUTPUTS) $(CUSTOM_TOOL_OUTPUTS_1950104922)
+secondary-outputs: $(BIN_OUTPUTS) $(CUSTOM_TOOL_OUTPUTS_1758403663)
 
 .PHONY: all clean dependents
 .SECONDARY:

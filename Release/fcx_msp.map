@@ -1,10 +1,10 @@
 ******************************************************************************
                   MSP430 Linker PC v21.6.1                     
 ******************************************************************************
->> Linked Mon Feb  9 12:10:42 2026
+>> Linked Mon May 18 09:02:18 2026
 
 OUTPUT FILE NAME:   <fcx_msp.out>
-ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 0000e5f2
+ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 0000e5f6
 
 
 MEMORY CONFIGURATION
@@ -16,11 +16,11 @@ MEMORY CONFIGURATION
   CAL_CONF              00001900   00000100  00000000  00000100  RWIX
   TLVMEM                00001a00   00000100  00000000  00000100  RWIX
   BOOTROM               00001b00   00000100  00000000  00000100  RWIX
-  RAM                   00001c00   00001000  00000cf8  00000308  RWIX
+  RAM                   00001c00   00001000  00000d00  00000300  RWIX
   LEARAM                00002c00   00000ec8  00000e34  00000094  RWIX
   LEASTACK              00003ac8   00000138  00000000  00000138  RWIX
   METROLOGY             00004000   00009800  00009800  00000000  RWIX  ffff 
-  FRAM                  0000d800   00002200  00001fba  00000246  RWIX
+  FRAM                  0000d800   00002200  00001fc8  00000238  RWIX
   SYS_CONFIG            0000fa00   000002ff  000002b2  0000004d  RWIX
   JTAGSIGNATURE         0000ff80   00000004  00000000  00000004  RWIX
   BSLSIGNATURE          0000ff84   00000004  00000000  00000004  RWIX
@@ -81,7 +81,7 @@ MEMORY CONFIGURATION
   INT53                 0000fffa   00000002  00000002  00000000  RWIX
   INT54                 0000fffc   00000002  00000002  00000000  RWIX
   RESET                 0000fffe   00000002  00000002  00000000  RWIX
-  FRAM2                 00010000   00033fe0  0001e830  000157b0  RWIX
+  FRAM2                 00010000   00033fe0  0001e87a  00015766  RWIX
   VERSION               00043ff0   00000008  00000000  00000008  RWIX
   LIB_VERSION           00043ff8   00000008  00000008  00000000  RWIX
 
@@ -355,43 +355,43 @@ EABI_Library
                   0000d23c    000001d8                            : strtoul.c.obj (.text:strtoul)
                   0000d414    0000029e                            : e_log10f.c.obj (.text:log10f)
 
-.data      0    00001d0e    00000484     UNINITIALIZED
+.data      0    00001d0e    0000048c     UNINITIALIZED
                   00001d0e    000002b2     configmng.obj (.data:gs_editableConfig)
                   00001fc0    00000050     processing.obj (.data:gs_iqVariables)
                   00002010    00000028     hal_lcd.obj (.data:LCDMemMap)
                   00002038    0000001c     rev_install.obj (.data)
-                  00002054    00000012     alarmmng.obj (.data:gs_revFlow)
-                  00002066    00000012     rts430x_lc_ld_eabi.lib : localtim64.c.obj (.data:local_tm)
-                  00002078    00000012     optint.obj (.data)
-                  0000208a    0000000f     configmng.obj (.data:gauc_firmwareVersion)
-                  00002099    00000001     batt.obj (.data)
-                  0000209a    0000000f     logger.obj (.data)
-                  000020a9    00000001     probe.obj (.data)
-                  000020aa    0000000e     rts430x_lc_ld_eabi.lib : tmzone.c.obj (.data:_tz)
-                  000020b8    0000000e     brush.obj (.data)
-                  000020c6    0000000e     alarmmng.obj (.data:gs_batteryDate)
-                  000020d4    0000000e     alarmmng.obj (.data:gs_brush)
-                  000020e2    0000000e     alarmmng.obj (.data:gs_noUsage)
-                  000020f0    0000000e     alarmmng.obj (.data:gs_revInstall)
-                  000020fe    0000000e     alarmmng.obj (.data:gs_temperature)
-                  0000210c    0000000c     configmng.obj (.data:gauc_replacementDate)
-                  00002118    0000000c     no_usage.obj (.data)
-                  00002124    0000000c     normal.obj (.data)
-                  00002130    0000000b     normal.obj (.data:auc_msg$1)
-                  0000213b    00000001     processing.obj (.data)
-                  0000213c    0000000b     optcomm.obj (.data)
-                  00002147    00000001     screenmng.obj (.data)
-                  00002148    0000000a     aes_cmac.obj (.data)
-                  00002152    0000000a     configmng.obj (.data:gauc_serialNumber)
-                  0000215c    0000000a     optint.obj (.data:initContParam)
-                  00002166    0000000a     serial.obj (.data)
-                  00002170    00000008     cs.obj (.data)
-                  00002178    00000008     optint.obj (.data:initCompParam)
-                  00002180    00000008     pulsemng.obj (.data)
-                  00002188    00000005     temp.obj (.data)
-                  0000218d    00000001     --HOLE--
-                  0000218e    00000002     rts430x_lc_ld_eabi.lib : errno.c.obj (.data)
-                  00002190    00000002     systick.obj (.data)
+                  00002054    00000014     optint.obj (.data)
+                  00002068    00000012     alarmmng.obj (.data:gs_revFlow)
+                  0000207a    00000012     rts430x_lc_ld_eabi.lib : localtim64.c.obj (.data:local_tm)
+                  0000208c    00000011     optcomm.obj (.data)
+                  0000209d    00000001     batt.obj (.data)
+                  0000209e    0000000f     configmng.obj (.data:gauc_firmwareVersion)
+                  000020ad    00000001     probe.obj (.data)
+                  000020ae    0000000f     logger.obj (.data)
+                  000020bd    00000001     processing.obj (.data)
+                  000020be    0000000e     rts430x_lc_ld_eabi.lib : tmzone.c.obj (.data:_tz)
+                  000020cc    0000000e     brush.obj (.data)
+                  000020da    0000000e     alarmmng.obj (.data:gs_batteryDate)
+                  000020e8    0000000e     alarmmng.obj (.data:gs_brush)
+                  000020f6    0000000e     alarmmng.obj (.data:gs_noUsage)
+                  00002104    0000000e     alarmmng.obj (.data:gs_revInstall)
+                  00002112    0000000e     alarmmng.obj (.data:gs_temperature)
+                  00002120    0000000c     configmng.obj (.data:gauc_replacementDate)
+                  0000212c    0000000c     no_usage.obj (.data)
+                  00002138    0000000c     normal.obj (.data)
+                  00002144    0000000b     normal.obj (.data:auc_msg$1)
+                  0000214f    00000001     screenmng.obj (.data)
+                  00002150    0000000a     aes_cmac.obj (.data)
+                  0000215a    0000000a     configmng.obj (.data:gauc_serialNumber)
+                  00002164    0000000a     optint.obj (.data:initContParam)
+                  0000216e    0000000a     serial.obj (.data)
+                  00002178    00000008     cs.obj (.data)
+                  00002180    00000008     optint.obj (.data:initCompParam)
+                  00002188    00000008     pulsemng.obj (.data)
+                  00002190    00000005     temp.obj (.data)
+                  00002195    00000001     --HOLE--
+                  00002196    00000002     rts430x_lc_ld_eabi.lib : errno.c.obj (.data)
+                  00002198    00000002     systick.obj (.data)
 
 .TI.persistent 
 *          0    0000d800    00000c42     
@@ -411,19 +411,19 @@ EABI_Library
                   0000e43e    00000002     us.obj (.TI.persistent:ussInterruptConfig)
                   0000e440    00000002     us.obj (.TI.persistent:ussTriggerConfig)
 
-.cinit     0    0000f4d8    000002d4     
-                  0000f4d8    00000276     (.cinit..data.load) [load image, compression = lzss]
-                  0000f74e    00000011     (.cinit..log_section.load) [load image, compression = lzss]
-                  0000f75f    00000001     --HOLE-- [fill = ffffffff]
-                  0000f760    0000000c     (__TI_handler_table)
-                  0000f76c    0000000b     (.cinit.start_bss.load) [load image, compression = lzss]
-                  0000f777    00000001     --HOLE-- [fill = ffffffff]
-                  0000f778    00000006     (.cinit..bss.load) [load image, compression = zero_init]
-                  0000f77e    00000006     (.cinit..leaRAM.load) [load image, compression = zero_init]
-                  0000f784    00000028     (__TI_cinit_table)
+.cinit     0    0000f4dc    000002de     
+                  0000f4dc    00000280     (.cinit..data.load) [load image, compression = lzss]
+                  0000f75c    00000011     (.cinit..log_section.load) [load image, compression = lzss]
+                  0000f76d    00000001     --HOLE-- [fill = ffffffff]
+                  0000f76e    0000000c     (__TI_handler_table)
+                  0000f77a    0000000b     (.cinit.start_bss.load) [load image, compression = lzss]
+                  0000f785    00000001     --HOLE-- [fill = ffffffff]
+                  0000f786    00000006     (.cinit..bss.load) [load image, compression = zero_init]
+                  0000f78c    00000006     (.cinit..leaRAM.load) [load image, compression = zero_init]
+                  0000f792    00000028     (__TI_cinit_table)
 
-.binit     0    0000f7ac    00000010     
-                  0000f7ac    00000010     (.binit)
+.binit     0    0000f7ba    00000010     
+                  0000f7ba    00000010     (.binit)
 
 .libVersion 
 *          0    00043ff8    00000008     
@@ -433,14 +433,14 @@ EABI_Library
 *          0    0000d800    00000000     UNINITIALIZED
 
 .text:_isr 
-*          0    0000e444    000001d2     
-                  0000e444    00000124     optint.obj (.text:_isr:Timer4_A0)
-                  0000e568    00000044     optint.obj (.text:_isr:Port_2)
-                  0000e5ac    00000022     timeout.obj (.text:_isr:FunctionTimer_A_ISR)
-                  0000e5ce    00000002     --HOLE-- [fill = ffffffff]
-                  0000e5d0    00000022     timeout.obj (.text:_isr:FunctionTimer_B_ISR)
-                  0000e5f2    0000001c     rts430x_lc_ld_eabi.lib : boot.c.obj (.text:_isr:_c_int00_noargs)
-                  0000e60e    00000008                            : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
+*          0    0000e444    000001d6     
+                  0000e444    00000128     optint.obj (.text:_isr:Timer4_A0)
+                  0000e56c    00000044     optint.obj (.text:_isr:Port_2)
+                  0000e5b0    00000022     timeout.obj (.text:_isr:FunctionTimer_A_ISR)
+                  0000e5d2    00000002     --HOLE-- [fill = ffffffff]
+                  0000e5d4    00000022     timeout.obj (.text:_isr:FunctionTimer_B_ISR)
+                  0000e5f6    0000001c     rts430x_lc_ld_eabi.lib : boot.c.obj (.text:_isr:_c_int00_noargs)
+                  0000e612    00000008                            : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
 
 .log_section 
 *          0    0002e050    00015f90     UNINITIALIZED
@@ -456,63 +456,63 @@ start_bss
                   00001d0a    00000002     (.common:state)
                   00001d0c    00000002     us.obj (.data)
 
-.bss       0    00002192    00000366     UNINITIALIZED
-                  00002192    00000056     screenmng.obj (.bss:gs_screenManager)
-                  000021e8    0000002c     optcomm.obj (.bss:gs_logger)
-                  00002214    0000002c     logger.obj (.bss:gs_reg)
-                  00002240    0000002c     processing.obj (.bss:gs_sosMovAvgFilter)
-                  0000226c    0000002c     processing.obj (.bss:gs_uncalibVelMovAvgFilter)
-                  00002298    0000002a     optcomm.obj (.bss:gs_msg)
-                  000022c2    00000029     display.obj (.bss:gs_lcdDriver)
-                  000022eb    00000001     normal.obj (.bss)
-                  000022ec    00000028     display.obj (.bss:auc_lastBuffer$1)
-                  00002314    00000028     optcomm.obj (.bss:gauc_buffer)
-                  0000233c    0000001a     logger.obj (.bss)
-                  00002356    00000018     leak.obj (.bss:gauc_detectionBuffer)
-                  0000236e    00000018     optcomm.obj (.bss:gs_readMemParam)
-                  00002386    00000014     alarmmng.obj (.bss)
-                  0000239a    00000014     logger.obj (.bss:gauc_logReg)
-                  000023ae    00000014     optint.obj (.bss:gaul_queue)
-                  000023c2    00000012     leak.obj (.bss)
-                  000023d4    00000012     userint.obj (.bss)
-                  000023e6    00000012     verif.obj (.bss)
-                  000023f8    00000011     optcomm.obj (.bss)
-                  00002409    00000001     screenmng.obj (.bss)
-                  0000240a    0000000e     battdate.obj (.bss)
-                  00002418    0000000c     optint.obj (.bss:g_timeoutOptInt)
-                  00002424    0000000c     pulsemng.obj (.bss:g_timeoutPulseOut)
-                  00002430    0000000c     serial.obj (.bss:g_timeoutSerial)
-                  0000243c    0000000c     normal.obj (.bss:gs_changeModeSelectionState)
-                  00002448    0000000c     leak.obj (.bss:gs_ringBuffer)
-                  00002454    0000000c     normal.obj (.bss:gs_unlockScreenSelectionState)
-                  00002460    0000000b     dfsm.obj (.bss)
-                  0000246b    00000001     (.common:gauc_optint_RXByte)
-                  0000246c    0000000a     batt.obj (.bss)
-                  00002476    0000000a     dfsm.obj (.bss:gs_highFreqScheme)
-                  00002480    0000000a     dfsm.obj (.bss:gs_lowFreqScheme)
-                  0000248a    0000000a     dfsm.obj (.bss:gs_userFreqScheme)
-                  00002494    0000000a     no_usage.obj (.bss)
-                  0000249e    00000008     anasens.obj (.bss)
-                  000024a6    00000008     brush.obj (.bss)
-                  000024ae    00000008     comm.obj (.bss)
-                  000024b6    00000008     optint.obj (.bss:gs_queue)
-                  000024be    00000008     postcalib.obj (.bss)
-                  000024c6    00000007     processing.obj (.bss)
-                  000024cd    00000001     (.common:gauc_optint_TXByte)
-                  000024ce    00000006     cmdmng.obj (.bss)
-                  000024d4    00000006     cmdmng.obj (.bss:gs_packet)
-                  000024da    00000004     opmodemng.obj (.bss)
-                  000024de    00000004     (.common:g_pFunctionTimer)
-                  000024e2    00000004     (.common:gl_pulsesPerCubibMeter)
-                  000024e6    00000003     logger.obj (.bss:gs_logTimestamp)
-                  000024e9    00000001     (.common:gb_optint_isReceiving)
-                  000024ea    00000002     crc.obj (.bss)
-                  000024ec    00000002     optcomm.obj (.bss:gs_logerConfig)
-                  000024ee    00000002     optint.obj (.bss)
-                  000024f0    00000002     power.obj (.bss)
-                  000024f2    00000002     pulsemng.obj (.bss)
-                  000024f4    00000002     rev_install.obj (.bss)
-                  000024f6    00000002     (.common:guc_optint_bit_count)
+.bss       0    0000219a    00000366     UNINITIALIZED
+                  0000219a    00000056     screenmng.obj (.bss:gs_screenManager)
+                  000021f0    0000002c     optcomm.obj (.bss:gs_logger)
+                  0000221c    0000002c     logger.obj (.bss:gs_reg)
+                  00002248    0000002c     processing.obj (.bss:gs_sosMovAvgFilter)
+                  00002274    0000002c     processing.obj (.bss:gs_uncalibVelMovAvgFilter)
+                  000022a0    0000002a     optcomm.obj (.bss:gs_msg)
+                  000022ca    00000029     display.obj (.bss:gs_lcdDriver)
+                  000022f3    00000001     normal.obj (.bss)
+                  000022f4    00000028     display.obj (.bss:auc_lastBuffer$1)
+                  0000231c    00000028     optcomm.obj (.bss:gauc_buffer)
+                  00002344    0000001a     logger.obj (.bss)
+                  0000235e    00000018     leak.obj (.bss:gauc_detectionBuffer)
+                  00002376    00000018     optcomm.obj (.bss:gs_readMemParam)
+                  0000238e    00000014     alarmmng.obj (.bss)
+                  000023a2    00000014     logger.obj (.bss:gauc_logReg)
+                  000023b6    00000014     optint.obj (.bss:gaul_queue)
+                  000023ca    00000012     leak.obj (.bss)
+                  000023dc    00000012     userint.obj (.bss)
+                  000023ee    00000012     verif.obj (.bss)
+                  00002400    00000011     optcomm.obj (.bss)
+                  00002411    00000001     screenmng.obj (.bss)
+                  00002412    0000000e     battdate.obj (.bss)
+                  00002420    0000000c     optint.obj (.bss:g_timeoutOptInt)
+                  0000242c    0000000c     pulsemng.obj (.bss:g_timeoutPulseOut)
+                  00002438    0000000c     serial.obj (.bss:g_timeoutSerial)
+                  00002444    0000000c     normal.obj (.bss:gs_changeModeSelectionState)
+                  00002450    0000000c     leak.obj (.bss:gs_ringBuffer)
+                  0000245c    0000000c     normal.obj (.bss:gs_unlockScreenSelectionState)
+                  00002468    0000000b     dfsm.obj (.bss)
+                  00002473    00000001     (.common:gauc_optint_RXByte)
+                  00002474    0000000a     batt.obj (.bss)
+                  0000247e    0000000a     dfsm.obj (.bss:gs_highFreqScheme)
+                  00002488    0000000a     dfsm.obj (.bss:gs_lowFreqScheme)
+                  00002492    0000000a     dfsm.obj (.bss:gs_userFreqScheme)
+                  0000249c    0000000a     no_usage.obj (.bss)
+                  000024a6    00000008     anasens.obj (.bss)
+                  000024ae    00000008     brush.obj (.bss)
+                  000024b6    00000008     comm.obj (.bss)
+                  000024be    00000008     optint.obj (.bss:gs_queue)
+                  000024c6    00000008     postcalib.obj (.bss)
+                  000024ce    00000007     processing.obj (.bss)
+                  000024d5    00000001     (.common:gauc_optint_TXByte)
+                  000024d6    00000006     cmdmng.obj (.bss)
+                  000024dc    00000006     cmdmng.obj (.bss:gs_packet)
+                  000024e2    00000004     opmodemng.obj (.bss)
+                  000024e6    00000004     (.common:g_pFunctionTimer)
+                  000024ea    00000004     (.common:gl_pulsesPerCubibMeter)
+                  000024ee    00000003     logger.obj (.bss:gs_logTimestamp)
+                  000024f1    00000001     (.common:gb_optint_isReceiving)
+                  000024f2    00000002     crc.obj (.bss)
+                  000024f4    00000002     optcomm.obj (.bss:gs_logerConfig)
+                  000024f6    00000002     optint.obj (.bss)
+                  000024f8    00000002     power.obj (.bss)
+                  000024fa    00000002     pulsemng.obj (.bss)
+                  000024fc    00000002     rev_install.obj (.bss)
+                  000024fe    00000002     (.common:guc_optint_bit_count)
 
 .stack     0    00002800    00000400     UNINITIALIZED
                   00002800    00000004     rts430x_lc_ld_eabi.lib : boot.c.obj (.stack)
@@ -669,686 +669,684 @@ SYSNMI     0    0000fffc    00000002
 .reset     0    0000fffe    00000002     
                   0000fffe    00000002     rts430x_lc_ld_eabi.lib : boot.c.obj (.reset)
 
-.const     0    0000e616    00000ec2     
-                  0000e616    00000400     us.obj (.const:gUSSAbsToFLUT)
-                  0000ea16    00000200     crc.obj (.const:gaui_crcDNPLookupTable)
-                  0000ec16    00000101     rts430x_lc_ld_eabi.lib : ctype.c.obj (.const:.string:_ctypes_)
-                  0000ed17    00000001     --HOLE-- [fill = ffffffff]
-                  0000ed18    00000100     QmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib : _QNtables.o (.const:_Q16div_coeffs)
-                  0000ee18    000000b0     processing.obj (.const:gas_lutSosToTemperature)
-                  0000eec8    000000b0     processing.obj (.const:gas_lutTemperatureToViscosity)
-                  0000ef78    000000a0     lcddriver.obj (.const:gauc_mapSegToMemoryBuffer)
-                  0000f018    0000009c     display.obj (.const:gs_display)
-                  0000f0b4    00000080     rts430x_lc_ld_eabi.lib : strtod.c.obj (.const:digits)
-                  0000f134    0000005b     display.obj (.const:.string:gauc_alphabet)
-                  0000f18f    00000001     --HOLE-- [fill = ffffffff]
-                  0000f190    00000050     display.obj (.const:$P$T0$2)
-                  0000f1e0    00000048     rts430x_lc_ld_eabi.lib : strtod.c.obj (.const:powerof10)
-                  0000f228    00000041     IQmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib : _IQNtables.o (.const:.string:_IQ6div_lookup)
-                  0000f269    00000001     --HOLE-- [fill = ffffffff]
-                  0000f26a    00000040     optint.obj (.const:gas_percThreshold)
-                  0000f2aa    00000040     normal.obj (.const:gs_screens)
-                  0000f2ea    00000040     verif.obj (.const:gs_screens)
-                  0000f32a    00000038     calib.obj (.const:gs_calibScreens)
-                  0000f362    00000028     standby.obj (.const:gs_standbyScreens)
-                  0000f38a    0000001c     gpio.obj (.const:GPIO_PORT_TO_BASE)
-                  0000f3a6    00000018     optcomm.obj (.const:$P$T0$3)
-                  0000f3be    00000018     screenmng.obj (.const:.string)
-                  0000f3d6    00000018     precalib.obj (.const:gs_precalibScreens)
-                  0000f3ee    00000018     rts430x_lc_ld_eabi.lib : mktime64.c.obj (.const:mon_day)
-                  0000f406    00000018                            : mktime64.c.obj (.const:mon_len)
-                  0000f41e    00000010     serial.obj (.const:$P$T0$1)
-                  0000f42e    00000010     postcalib.obj (.const:gs_postScreens)
-                  0000f43e    0000000e     rts430x_lc_ld_eabi.lib : _scanfi.c.obj (.const:.string)
-                  0000f44c    0000000c     postcalib.obj (.const:.string)
-                  0000f458    0000000b     display.obj (.const:.string:gauc_numbers)
-                  0000f463    00000001     --HOLE-- [fill = ffffffff]
-                  0000f464    0000000a     anasens.obj (.const:$P$T0$1)
-                  0000f46e    0000000a     anasens.obj (.const:$P$T1$2)
-                  0000f478    0000000a     calib.obj (.const:.string)
-                  0000f482    0000000a     comm.obj (.const:.string)
-                  0000f48c    0000000a     comm.obj (.const:gs_highFreqScheme)
-                  0000f496    0000000a     normal.obj (.const:gs_highFreqScheme)
-                  0000f4a0    0000000a     comm.obj (.const:gs_lowFreqScheme)
-                  0000f4aa    0000000a     normal.obj (.const:gs_lowFreqScheme)
-                  0000f4b4    0000000a     normal.obj (.const:gs_userIntFreqScheme)
-                  0000f4be    00000008     comm.obj (.const:gs_commScreens)
-                  0000f4c6    00000007     rts430x_lc_ld_eabi.lib : _scanfi.c.obj (.const:.string:flit$1)
-                  0000f4cd    00000001     --HOLE-- [fill = ffffffff]
-                  0000f4ce    00000006                            : _scanfi.c.obj (.const:.string:barr$2)
-                  0000f4d4    00000004     battdate.obj (.const:.string)
-
-.text.1    0    00010000    000031a2     
-                  00010000    0000074c     optcomm.obj (.text:optcomm_update)
-                  0001074c    000005fc     cmdmng.obj (.text:cmdmng_dispatch)
-                  00010d48    000004ba     alarmmng.obj (.text:alarmmng_update)
-                  00011202    00000474     rts430x_lc_ld_eabi.lib : _scanfi.c.obj (.text:__TI_scanfi)
-                  00011676    00000468                            : frcdivd.c.obj (.text:__TI_frcdivd)
-                  00011ade    000003b4                            : mktime64.c.obj (.text:__mktime64)
-                  00011e92    00000002                            : startup.c.obj (.text:_system_post_cinit)
-                  00011e94    00000360     logger.obj (.text:logger_update)
-                  000121f4    000002fc     optcomm.obj (.text:processRxMessage)
-                  000124f0    0000026c     rts430x_lc_ld_eabi.lib : _scanfi.c.obj (.text:_sproc_float)
-                  0001275c    00000264                            : localtim64.c.obj (.text:__localtime64)
-                  000129c0    00000254     logger.obj (.text:unpack)
-                  00012c14    000001f2     rts430x_lc_ld_eabi.lib : _scanfi.c.obj (.text:_sproc_int)
-                  00012e06    000001ce                            : _scanfi.c.obj (.text:_sset_arg)
-                  00012fd4    000001ce     mov_avg.obj (.text:mov_avg_update)
-
-.text.2    0    000131a4    000001ba     
-                  000131a4    000001ba     opmodemng.obj (.text:opmodemng_update)
-
-.text.3    0    00013360    000001ae     
-                  00013360    000001ae     dfsm.obj (.text:dfsm_update)
-
-.text.4    0    00013510    000004ce     
-                  00013510    000001a8     utils_fcx.obj (.text:utils_linearInterp)
-                  000136b8    0000019a     brush.obj (.text:brush_update)
-                  00013852    0000018c     rts430x_lc_ld_eabi.lib : _scanfi.c.obj (.text:_sget_conv)
-
-.text.5    0    000139e0    000005c2     
-                  000139e0    00000184     logger.obj (.text:calculateTickOfNextLog)
-                  00013b64    00000180     screenmng.obj (.text:screenmng_update)
-                  00013ce4    00000164     rts430x_lc_ld_eabi.lib : frcmpyd.c.obj (.text:__TI_frcmpyd)
-                  00013e48    0000015a                            : s_scalbn.c.obj (.text:scalbn)
-
-.text.6    0    00013fa4    00000506     
-                  00013fa4    00000158     optint.obj (.text:optint_detect)
-                  000140fc    00000140     hal.obj (.text:hal_init)
-                  0001423c    0000013c     rts430x_lc_ld_eabi.lib : fltllid.c.obj (.text:__mspabi_fltllid)
-                  00014378    00000132     optcomm.obj (.text:receiveMessage)
-
-.text.7    0    000144ac    00000126     
-                  000144ac    00000126     normal.obj (.text:normal_init)
-
-.text.8    0    000145d4    00000222     
-                  000145d4    00000118     cmdmng.obj (.text:receiveCalibrationParameters)
-                  000146ec    0000010a     cs.obj (.text:CS_setDCOFreq)
-
-.text.9    0    000147f8    00000206     
-                  000147f8    00000104     no_usage.obj (.text:no_usage_update)
-                  000148fc    00000102     normal.obj (.text:selectionSequenceCompleted)
-
-.text.10   0    00014a00    000004ce     
-                  00014a00    00000100     screenmng.obj (.text:setEventIndicators)
-                  00014b00    000000f8     battdate.obj (.text:calculateOldBattDate)
-                  00014bf8    000000f8     verif.obj (.text:verif_testChangeToNormalOpmode)
-                  00014cf0    000000f4     anasens.obj (.text:anasens_init)
-                  00014de4    000000ea     normal.obj (.text:normal_run)
-
-.text.11   0    00014ed0    000000ea     
-                  00014ed0    000000ea     verif.obj (.text:verif_init)
-
-.text.12   0    00014fbc    000002aa     
-                  00014fbc    000000e8     hal_lcd.obj (.text:hal_lcd_Init)
-                  000150a4    000000e6     rts430x_lc_ld_eabi.lib : difftime64.c.obj (.text:__difftime64)
-                  0001518a    000000dc                            : gmtime64.c.obj (.text:__gmtime64)
-
-.text.13   0    00015268    000000da     
-                  00015268    000000da     rev_install.obj (.text:rev_install_update)
-
-.text.14   0    00015344    0000019e     
-                  00015344    000000d0     normal.obj (.text:getAlarmTextAndSetIndicators01)
-                  00015414    000000ce     userint.obj (.text:userint_update)
-
-.text.15   0    000154e4    00000312     
-                  000154e4    000000cc     dfsm.obj (.text:dfsm_checkFrequency)
-                  000155b0    000000c8     leak.obj (.text:leak_update)
-                  00015678    000000c4     probe.obj (.text:probe_update)
-                  0001573c    000000ba     temp.obj (.text:temp_update)
-
-.text.16   0    000157f8    000000ae     
-                  000157f8    000000ae     standby.obj (.text:standby_init)
-
-.text.17   0    000158a8    000000a6     
-                  000158a8    000000a6     logger.obj (.text:logger_init)
-
-.text.18   0    00015950    000000a6     
-                  00015950    000000a6     postcalib.obj (.text:postcalib_init)
-
-.text.19   0    000159f8    00000276     
-                  000159f8    0000009e     eusci_a_uart.obj (.text:EUSCI_A_UART_init)
-                  00015a96    0000009e     rts430x_lc_ld_eabi.lib : fltlid.c.obj (.text:__mspabi_fltlid)
-                  00015b34    0000009e                            : _scanfi.c.obj (.text:_sproc_str)
-                  00015bd2    0000009c                            : _scanfi.c.obj (.text:_sproc_wstr)
-
-.text.20   0    00015c70    0000026e     
-                  00015c70    0000009c     calib.obj (.text:calib_init)
-                  00015d0c    0000009c     main.obj (.text:main)
-                  00015da8    0000009c     pulsemng.obj (.text:pulsemng_update)
-                  00015e44    0000009a     adc12_b.obj (.text:ADC12_B_init)
-
-.text.21   0    00015ee0    000002de     
-                  00015ee0    00000098     hw_version.obj (.text:saveEnergy)
-                  00015f78    00000094     rts430x_lc_ld_eabi.lib : _scanfi.c.obj (.text:_sproc_lb)
-                  0001600c    00000094     standby.obj (.text:standby_testChangeToVerifOpMode)
-                  000160a0    00000090     optint.obj (.text:optint_receive)
-                  00016130    0000008e     queue.obj (.text:queue_insertRear)
-
-.text.22   0    000161c0    00000116     
-                  000161c0    0000008c     lcd_c.obj (.text:LCD_C_setPinAsLCDFunctionEx)
-                  0001624c    0000008a     rts430x_lc_ld_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nopinit_hold_wdt:__TI_auto_init_nopinit_hold_wdt)
-
-.text.23   0    000162d8    0000008a     
-                  000162d8    0000008a     brush.obj (.text:brush_init)
-
-.text.24   0    00016364    0000038a     
-                  00016364    00000088     brush.obj (.text:brush_updateConfig)
-                  000163ec    00000088     configmng.obj (.text:setSerialNumber)
-                  00016474    00000084     battdate.obj (.text:battdate_update)
-                  000164f8    00000080     rts430x_lc_ld_eabi.lib : fltuld.c.obj (.text:__mspabi_fltuld)
-                  00016578    00000080     hw_version.obj (.text:hw_version_get)
-                  000165f8    0000007c     screenmng.obj (.text:screenmng_init)
-                  00016674    0000007a     rts430x_lc_ld_eabi.lib : sscanf.c.obj (.text:_chkmbc)
-
-.text.25   0    000166f0    000003aa     
-                  000166f0    00000078     optint.obj (.text:setTimeoutOptInt)
-                  00016768    00000078     serial.obj (.text:setTimeoutSerial)
-                  000167e0    00000076     aes256.obj (.text:AES256_setCipherKey)
-                  00016856    00000076     rts430x_lc_ld_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
-                  000168cc    00000074     gpio.obj (.text:GPIO_setAsPeripheralModuleFunctionInputPin)
-                  00016940    00000074     gpio.obj (.text:GPIO_setAsPeripheralModuleFunctionOutputPin)
-                  000169b4    00000074     serial.obj (.text:serial_init)
-                  00016a28    00000072     serial.obj (.text:serial_receiveBytes)
-
-.text.26   0    00016a9c    0000014e     
-                  00016a9c    00000070     anasens.obj (.text:anasens_update)
-                  00016b0c    00000070     utils_fcx.obj (.text:utils_lutSearch)
-                  00016b7c    0000006e     cs.obj (.text:CS_initClockSignal)
-
-.text.27   0    00016bec    00000136     
-                  00016bec    00000068     cmdmng.obj (.text:cmdmng_init)
-                  00016c54    00000068     optint.obj (.text:optint_send)
-                  00016cbc    00000066     rts430x_lc_ld_eabi.lib : cpy_tbl.c.obj (.text:copy_in)
-
-.text.28   0    00016d24    00000066     
-                  00016d24    00000066     systick.obj (.text:systick_setActualDateTime)
-
-.text.29   0    00016d8c    000000c6     
-                  00016d8c    00000064     optint.obj (.text:optint_init)
-                  00016df0    00000062     rts430x_lc_ld_eabi.lib : atoi.c.obj (.text:atoi)
-
-.text.30   0    00016e54    000000b6     
-                  00016e54    0000005c     aes256.obj (.text:AES256_encryptData)
-                  00016eb0    0000005a     configmng.obj (.text:configmng_init)
-
-.text.31   0    00016f0c    0000005a     
-                  00016f0c    0000005a     rev_install.obj (.text:rev_install_init)
-
-.text.32   0    00016f68    0000005a     
-                  00016f68    0000005a     pulsemng.obj (.text:timeoutPulseHighCallback)
-
-.text.33   0    00016fc4    00000056     
-                  00016fc4    00000056     lcd_c.obj (.text:LCD_C_setMemory)
-
-.text.34   0    0001701c    00000056     
-                  0001701c    00000056     optint.obj (.text:enableRxCircuit)
-
-.text.35   0    00017074    000000a6     
-                  00017074    00000054     comm.obj (.text:comm_init)
-                  000170c8    00000052     configmng.obj (.text:setMeterReplacementDate)
-
-.text.36   0    0001711c    0000009e     
-                  0001711c    00000050     clk.obj (.text:clk_init)
-                  0001716c    0000004e     screenmng.obj (.text:screenmng_registerEventIndicators)
-
-.text.37   0    000171bc    00000096     
-                  000171bc    0000004c     tlv.obj (.text:TLV_getInfo)
-                  00017208    0000004a     gpio.obj (.text:GPIO_setAsInputPinWithPullDownResistor)
-
-.text.38   0    00017254    0000004a     
-                  00017254    0000004a     gpio.obj (.text:GPIO_setAsInputPinWithPullUpResistor)
-
-.text.39   0    000172a0    0000004a     
-                  000172a0    0000004a     lcddriver.obj (.text:lcddriver_clearSegment)
-
-.text.40   0    000172ec    0000004a     
-                  000172ec    0000004a     lcddriver.obj (.text:lcddriver_setSegment)
-
-.text.41   0    00017338    0000004a     
-                  00017338    0000004a     screenmng.obj (.text:screenmng_nextScreen)
-
-.text.42   0    00017384    000000d6     
-                  00017384    00000048     timer_a.obj (.text:Timer_A_initContinuousMode)
-                  000173cc    00000048     pulsemng.obj (.text:pulsemng_init)
-                  00017414    00000046     leak.obj (.text:leak_init)
-
-.text.43   0    0001745c    00000046     
-                  0001745c    00000046     optcomm.obj (.text:startMessage)
-
-.text.44   0    000174a4    00000046     
-                  000174a4    00000046     systick.obj (.text:systick_updateSysTickMs)
-
-.text.45   0    000174ec    00000152     
-                  000174ec    00000044     timeout.obj (.text:Timer_scheduleDelayedFunction)
-                  00017530    00000044     opmodemng.obj (.text:opmodemng_init)
-                  00017574    00000044     lcd_c.obj (.text:setLCDFunction)
-                  000175b8    00000044     systick.obj (.text:systick_getActualDateTime)
-                  000175fc    00000042     crc.obj (.text:calculateCRC)
-
-.text.46   0    00017640    00000042     
-                  00017640    00000042     ring_buffer.obj (.text:rbuf_init)
-
-.text.47   0    00017684    000000fe     
-                  00017684    00000040     gpio.obj (.text:GPIO_setAsInputPin)
-                  000176c4    00000040     configmng.obj (.text:configmng_updateSysConfig)
-                  00017704    00000040     precalib.obj (.text:precalib_init)
-                  00017744    0000003e     cs.obj (.text:CS_turnOnLFXT)
-
-.text.48   0    00017784    0000003e     
-                  00017784    0000003e     power.obj (.text:power_getWakeUpReason)
-
-.text.49   0    000177c4    0000003e     
-                  000177c4    0000003e     ring_buffer.obj (.text:rbuf_put)
-
-.text.50   0    00017804    0000003e     
-                  00017804    0000003e     optint.obj (.text:timeoutOptIntCallback)
-
-.text.51   0    00017844    0000007a     
-                  00017844    0000003e     serial.obj (.text:timeoutSerialCallback)
-                  00017882    0000003c     rts430x_lc_ld_eabi.lib : memcpy.c.obj (.text:memcpy)
-
-.text.52   0    000178c0    00000076     
-                  000178c0    0000003c     utils_fcx.obj (.text:utils_doubleToFixed)
-                  000178fc    0000003a     adc12_b.obj (.text:ADC12_B_configureMemory)
-
-.text.53   0    00017938    0000003a     
-                  00017938    0000003a     alarmmng.obj (.text:alarmmng_init)
-
-.text.54   0    00017974    0000003a     
-                  00017974    0000003a     userint.obj (.text:userint_init)
-
-.text.55   0    000179b0    000000de     
-                  000179b0    00000038     timer_a.obj (.text:Timer_A_initCompareMode)
-                  000179e8    00000038     pulsemng.obj (.text:pulsemng_configWritePulseConstant)
-                  00017a20    00000038     utils_fcx.obj (.text:utils_lutSearchIQ)
-                  00017a58    00000036     anasens.obj (.text:anasens_startConversion)
-
-.text.56   0    00017a90    00000036     
-                  00017a90    00000036     hw_version.obj (.text:hw_version_init)
-
-.text.57   0    00017ac8    00000036     
-                  00017ac8    00000036     serial.obj (.text:serial_receiveByte)
-
-.text.58   0    00017b00    000000ce     
-                  00017b00    00000034     gpio.obj (.text:GPIO_setAsOutputPin)
-                  00017b34    00000034     screenmng.obj (.text:screenmng_addScreen)
-                  00017b68    00000034     screenmng.obj (.text:setNetVolumeScreen)
-                  00017b9c    00000032     rts430x_lc_ld_eabi.lib : subd.c.obj (.text:__mspabi_subd)
-
-.text.59   0    00017bd0    00000032     
-                  00017bd0    00000032     postcalib.obj (.text:postcalib_testChangeToStandbyOpMode)
-
-.text.60   0    00017c04    00000032     
-                  00017c04    00000032     utils_fcx.obj (.text:utils_fixedToDouble)
-
-.text.61   0    00017c38    000001aa     
-                  00017c38    00000030     adc12_b.obj (.text:ADC12_B_startConversion)
-                  00017c68    00000030     gpio.obj (.text:GPIO_selectInterruptEdge)
-                  00017c98    00000030     lcd_c.obj (.text:LCD_C_init)
-                  00017cc8    00000030     comm.obj (.text:comm_run)
-                  00017cf8    00000030     screenmng.obj (.text:screenmng_setScreen)
-                  00017d28    00000030     rts430x_lc_ld_eabi.lib : sscanf.c.obj (.text:sscanf)
-                  00017d58    0000002e     lcd_c.obj (.text:LCD_C_setVLCDSource)
-                  00017d86    0000002e     rts430x_lc_ld_eabi.lib : negd.c.obj (.text:__mspabi_negd)
-                  00017db4    0000002e                            : s_copysign.c.obj (.text:copysign)
-
-.text.62   0    00017de4    0000002e     
-                  00017de4    0000002e     optcomm.obj (.text:optcomm_disconnect)
-
-.text.63   0    00017e14    0000002e     
-                  00017e14    0000002e     precalib.obj (.text:precalib_run)
-
-.text.64   0    00017e44    0000002a     
-                  00017e44    0000002a     configmng.obj (.text:configmng_setSysConfig)
-
-.text.65   0    00017e70    0000002a     
-                  00017e70    0000002a     mov_avg.obj (.text:mov_avg_init)
-
-.text.66   0    00017e9c    0000009e     
-                  00017e9c    00000028     timeout.obj (.text:Timer_cancelDelayedFunction)
-                  00017ec4    00000028     dfsm.obj (.text:dfsm_loadFrequencyScheme)
-                  00017eec    00000028     serial.obj (.text:serial_transmitBytes)
-                  00017f14    00000026     hal_lcd.obj (.text:hal_lcd_updatememory)
-
-.text.67   0    00017f3c    00000026     
-                  00017f3c    00000026     pulsemng.obj (.text:timeoutPulseLowCallback)
-
-.text.68   0    00017f64    00000026     
-                  00017f64    00000026     verif.obj (.text:verif_run)
-
-.text.69   0    00017f8c    0000011e     
-                  00017f8c    00000024     eusci_a_uart.obj (.text:EUSCI_A_UART_transmitData)
-                  00017fb0    00000024     rts430x_lc_ld_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
-                  00017fd4    00000024     dfsm.obj (.text:dfsm_setHighFreqScheme)
-                  00017ff8    00000024     dfsm.obj (.text:dfsm_setLowFreqScheme)
-                  0001801c    00000024     dfsm.obj (.text:dfsm_setUserInteractFreqScheme)
-                  00018040    00000024     comm.obj (.text:onActivityInOptcomm)
-                  00018064    00000024     power.obj (.text:power_enterSleep)
-                  00018088    00000022     eusci_a_uart.obj (.text:EUSCI_A_UART_receiveData)
-
-.text.70   0    000180ac    00000022     
-                  000180ac    00000022     dfsm.obj (.text:dfsm_init)
-
-.text.71   0    000180d0    00000022     
-                  000180d0    00000022     opmodemng.obj (.text:opmodemng_setActivationFlag)
-
-.text.72   0    000180f4    00000022     
-                  000180f4    00000022     optcomm.obj (.text:optcomm_init)
-
-.text.73   0    00018118    0000009e     
-                  00018118    00000020     adc12_b.obj (.text:ADC12_B_setupSamplingTimer)
-                  00018138    00000020     rts430x_lc_ld_eabi.lib : memset.c.obj (.text:memset)
-                  00018158    00000020     normal.obj (.text:normal_testChangeToVerifOpmode)
-                  00018178    00000020     opmodemng.obj (.text:opmodemng_setCalibrationFlag)
-                  00018198    0000001e     gpio.obj (.text:GPIO_clearInterrupt)
-
-.text.74   0    000181b8    0000001e     
-                  000181b8    0000001e     gpio.obj (.text:GPIO_disableInterrupt)
-
-.text.75   0    000181d8    0000001e     
-                  000181d8    0000001e     gpio.obj (.text:GPIO_enableInterrupt)
-
-.text.76   0    000181f8    0000001e     
-                  000181f8    0000001e     timeout.obj (.text:Timer_startDelayedFunctionTimer)
-
-.text.77   0    00018218    0000001e     
-                  00018218    0000001e     hal_lcd.obj (.text:hal_lcd_print)
-
-.text.78   0    00018238    000000c2     
-                  00018238    0000001c     gpio.obj (.text:GPIO_getInputPinValue)
-                  00018254    0000001c     gpio.obj (.text:GPIO_setOutputHighOnPin)
-                  00018270    0000001c     gpio.obj (.text:GPIO_setOutputLowOnPin)
-                  0001828c    0000001c     lcd_c.obj (.text:LCD_C_configChargePump)
-                  000182a8    0000001c     rts430x_lc_ld_eabi.lib : strchr.c.obj (.text:strchr)
-                  000182c4    0000001c                            : strrchr.c.obj (.text:strrchr)
-                  000182e0    0000001a     cs.obj (.text:CS_setExternalClockSource)
-
-.text.79   0    000182fc    0000001a     
-                  000182fc    0000001a     lcddriver.obj (.text:lcddriver_init)
-
-.text.80   0    00018318    0000001a     
-                  00018318    0000001a     lcddriver.obj (.text:lcddriver_setAllSegments)
-
-.text.81   0    00018334    0000001a     
-                  00018334    0000001a     serial.obj (.text:serial_stillTransmitting)
-
-.text.82   0    00018350    0000005a     
-                  00018350    00000018     adc12_b.obj (.text:ADC12_B_disable)
-                  00018368    00000016     framctl_a.obj (.text:FRAMCtl_A_write32)
-                  0001837e    00000016     rts430x_lc_ld_eabi.lib : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
-                  00018394    00000016                            : llabs.c.obj (.text:llabs)
-
-.text.83   0    000183ac    00000016     
-                  000183ac    00000016     optint.obj (.text:optint_reset)
-
-.text.84   0    000183c4    00000016     
-                  000183c4    00000016     power.obj (.text:power_init)
-
-.text.85   0    000183dc    00000016     
-                  000183dc    00000016     queue.obj (.text:queue_getIndex)
-
-.text.86   0    000183f4    00000016     
-                  000183f4    00000016     queue.obj (.text:queue_init)
-
-.text.87   0    0001840c    00000016     
-                  0001840c    00000016     queue.obj (.text:queue_isFull)
-
-.text.88   0    00018424    00000016     
-                  00018424    00000016     screenmng.obj (.text:screenmng_deleteScreen)
-
-.text.89   0    0001843c    0000002a     
-                  0001843c    00000016     wdog.obj (.text:wdog_init)
-                  00018452    00000014     rts430x_lc_ld_eabi.lib : sscanf.c.obj (.text:_inpchar)
-
-.text.90   0    00018468    0000009e     
-                  00018468    00000014     cmdmng.obj (.text:cmdmng_fetch)
-                  0001847c    00000014     comm.obj (.text:comm_testChangeToPreviousOpmode)
-                  00018490    00000014     configmng.obj (.text:configmng_setAppConfig)
-                  000184a4    00000014     logger.obj (.text:logger_read)
-                  000184b8    00000014     pulsemng.obj (.text:pulsemng_enable)
-                  000184cc    00000014     configmng.obj (.text:pulsemng_evt_getPulsePerMeter)
-                  000184e0    00000014     systick.obj (.text:systick_getSysTickMs)
-                  000184f4    00000012     pmm.obj (.text:PMM_enableSVSH)
-
-.text.91   0    00018508    00000012     
-                  00018508    00000012     wdt_a.obj (.text:WDT_A_resetTimer)
-
-.text.92   0    0001851c    00000012     
-                  0001851c    00000012     wdt_a.obj (.text:WDT_A_start)
-
-.text.93   0    00018530    00000012     
-                  00018530    00000012     lcddriver.obj (.text:lcddriver_clearAllSegments)
-
-.text.94   0    00018544    00000012     
-                  00018544    00000012     optint.obj (.text:optint_update)
-
-.text.95   0    00018558    0000005a     
-                  00018558    00000012     serial.obj (.text:serial_disable)
-                  0001856a    00000012     rts430x_lc_ld_eabi.lib : strcpy.c.obj (.text:strcpy)
-                  0001857c    00000012                            : strlen.c.obj (.text:strlen)
-                  0001858e    00000012                            : toupper.c.obj (.text:toupper)
-                  000185a0    00000012     utils_fcx.obj (.text:utils_assert)
-
-.text.96   0    000185b4    0000006e     
-                  000185b4    00000010     lcd_c.obj (.text:LCD_C_setVLCDVoltage)
-                  000185c4    00000010     ref_a.obj (.text:Ref_A_isVariableReferenceVoltageOutputReady)
-                  000185d4    00000010     wdt_a.obj (.text:WDT_A_initWatchdogTimer)
-                  000185e4    00000010     calib.obj (.text:calib_run)
-                  000185f4    00000010     opmodemng.obj (.text:opmodemng_setCurrentOpMode)
-                  00018604    00000010     standby.obj (.text:standby_run)
-                  00018614    0000000e     adc12_b.obj (.text:ADC12_B_enable)
-
-.text.97   0    00018624    0000000e     
-                  00018624    0000000e     ref_a.obj (.text:Ref_A_setReferenceVoltage)
-
-.text.98   0    00018634    0000000e     
-                  00018634    0000000e     timer_a.obj (.text:Timer_A_startCounter)
-
-.text.99   0    00018644    0000000e     
-                  00018644    0000000e     anasens.obj (.text:anasens_getBatteryInputVoltage)
+.const     0    0000e61a    00000ec2     
+                  0000e61a    00000400     us.obj (.const:gUSSAbsToFLUT)
+                  0000ea1a    00000200     crc.obj (.const:gaui_crcDNPLookupTable)
+                  0000ec1a    00000101     rts430x_lc_ld_eabi.lib : ctype.c.obj (.const:.string:_ctypes_)
+                  0000ed1b    00000001     --HOLE-- [fill = ffffffff]
+                  0000ed1c    00000100     QmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib : _QNtables.o (.const:_Q16div_coeffs)
+                  0000ee1c    000000b0     processing.obj (.const:gas_lutSosToTemperature)
+                  0000eecc    000000b0     processing.obj (.const:gas_lutTemperatureToViscosity)
+                  0000ef7c    000000a0     lcddriver.obj (.const:gauc_mapSegToMemoryBuffer)
+                  0000f01c    0000009c     display.obj (.const:gs_display)
+                  0000f0b8    00000080     rts430x_lc_ld_eabi.lib : strtod.c.obj (.const:digits)
+                  0000f138    0000005b     display.obj (.const:.string:gauc_alphabet)
+                  0000f193    00000001     --HOLE-- [fill = ffffffff]
+                  0000f194    00000050     display.obj (.const:$P$T0$2)
+                  0000f1e4    00000048     rts430x_lc_ld_eabi.lib : strtod.c.obj (.const:powerof10)
+                  0000f22c    00000041     IQmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib : _IQNtables.o (.const:.string:_IQ6div_lookup)
+                  0000f26d    00000001     --HOLE-- [fill = ffffffff]
+                  0000f26e    00000040     optint.obj (.const:gas_percThreshold)
+                  0000f2ae    00000040     normal.obj (.const:gs_screens)
+                  0000f2ee    00000040     verif.obj (.const:gs_screens)
+                  0000f32e    00000038     calib.obj (.const:gs_calibScreens)
+                  0000f366    00000028     standby.obj (.const:gs_standbyScreens)
+                  0000f38e    0000001c     gpio.obj (.const:GPIO_PORT_TO_BASE)
+                  0000f3aa    00000018     optcomm.obj (.const:$P$T0$3)
+                  0000f3c2    00000018     screenmng.obj (.const:.string)
+                  0000f3da    00000018     precalib.obj (.const:gs_precalibScreens)
+                  0000f3f2    00000018     rts430x_lc_ld_eabi.lib : mktime64.c.obj (.const:mon_day)
+                  0000f40a    00000018                            : mktime64.c.obj (.const:mon_len)
+                  0000f422    00000010     serial.obj (.const:$P$T0$1)
+                  0000f432    00000010     postcalib.obj (.const:gs_postScreens)
+                  0000f442    0000000e     rts430x_lc_ld_eabi.lib : _scanfi.c.obj (.const:.string)
+                  0000f450    0000000c     postcalib.obj (.const:.string)
+                  0000f45c    0000000b     display.obj (.const:.string:gauc_numbers)
+                  0000f467    00000001     --HOLE-- [fill = ffffffff]
+                  0000f468    0000000a     anasens.obj (.const:$P$T0$1)
+                  0000f472    0000000a     anasens.obj (.const:$P$T1$2)
+                  0000f47c    0000000a     calib.obj (.const:.string)
+                  0000f486    0000000a     comm.obj (.const:.string)
+                  0000f490    0000000a     comm.obj (.const:gs_highFreqScheme)
+                  0000f49a    0000000a     normal.obj (.const:gs_highFreqScheme)
+                  0000f4a4    0000000a     comm.obj (.const:gs_lowFreqScheme)
+                  0000f4ae    0000000a     normal.obj (.const:gs_lowFreqScheme)
+                  0000f4b8    0000000a     normal.obj (.const:gs_userIntFreqScheme)
+                  0000f4c2    00000008     comm.obj (.const:gs_commScreens)
+                  0000f4ca    00000007     rts430x_lc_ld_eabi.lib : _scanfi.c.obj (.const:.string:flit$1)
+                  0000f4d1    00000001     --HOLE-- [fill = ffffffff]
+                  0000f4d2    00000006                            : _scanfi.c.obj (.const:.string:barr$2)
+                  0000f4d8    00000004     battdate.obj (.const:.string)
+
+.text.1    0    00010000    000031ce     
+                  00010000    00000778     optcomm.obj (.text:optcomm_update)
+                  00010778    000005fc     cmdmng.obj (.text:cmdmng_dispatch)
+                  00010d74    000004ba     alarmmng.obj (.text:alarmmng_update)
+                  0001122e    00000474     rts430x_lc_ld_eabi.lib : _scanfi.c.obj (.text:__TI_scanfi)
+                  000116a2    00000468                            : frcdivd.c.obj (.text:__TI_frcdivd)
+                  00011b0a    000003b4                            : mktime64.c.obj (.text:__mktime64)
+                  00011ebe    00000002                            : startup.c.obj (.text:_system_post_cinit)
+                  00011ec0    00000360     logger.obj (.text:logger_update)
+                  00012220    000002fc     optcomm.obj (.text:processRxMessage)
+                  0001251c    0000026c     rts430x_lc_ld_eabi.lib : _scanfi.c.obj (.text:_sproc_float)
+                  00012788    00000264                            : localtim64.c.obj (.text:__localtime64)
+                  000129ec    00000254     logger.obj (.text:unpack)
+                  00012c40    000001f2     rts430x_lc_ld_eabi.lib : _scanfi.c.obj (.text:_sproc_int)
+                  00012e32    000001ce                            : _scanfi.c.obj (.text:_sset_arg)
+                  00013000    000001ce     mov_avg.obj (.text:mov_avg_update)
+
+.text.2    0    000131d0    000001ba     
+                  000131d0    000001ba     opmodemng.obj (.text:opmodemng_update)
+
+.text.3    0    0001338c    000001ae     
+                  0001338c    000001ae     dfsm.obj (.text:dfsm_update)
+
+.text.4    0    0001353c    000004ce     
+                  0001353c    000001a8     utils_fcx.obj (.text:utils_linearInterp)
+                  000136e4    0000019a     brush.obj (.text:brush_update)
+                  0001387e    0000018c     rts430x_lc_ld_eabi.lib : _scanfi.c.obj (.text:_sget_conv)
+
+.text.5    0    00013a0c    000005c2     
+                  00013a0c    00000184     logger.obj (.text:calculateTickOfNextLog)
+                  00013b90    00000180     screenmng.obj (.text:screenmng_update)
+                  00013d10    00000164     rts430x_lc_ld_eabi.lib : frcmpyd.c.obj (.text:__TI_frcmpyd)
+                  00013e74    0000015a                            : s_scalbn.c.obj (.text:scalbn)
+
+.text.6    0    00013fd0    00000502     
+                  00013fd0    00000154     optint.obj (.text:optint_detect)
+                  00014124    00000140     hal.obj (.text:hal_init)
+                  00014264    0000013c     rts430x_lc_ld_eabi.lib : fltllid.c.obj (.text:__mspabi_fltllid)
+                  000143a0    00000132     optcomm.obj (.text:receiveMessage)
+
+.text.7    0    000144d4    00000126     
+                  000144d4    00000126     normal.obj (.text:normal_init)
+
+.text.8    0    000145fc    00000222     
+                  000145fc    00000118     cmdmng.obj (.text:receiveCalibrationParameters)
+                  00014714    0000010a     cs.obj (.text:CS_setDCOFreq)
+
+.text.9    0    00014820    00000206     
+                  00014820    00000104     no_usage.obj (.text:no_usage_update)
+                  00014924    00000102     normal.obj (.text:selectionSequenceCompleted)
+
+.text.10   0    00014a28    000004ce     
+                  00014a28    00000100     screenmng.obj (.text:setEventIndicators)
+                  00014b28    000000f8     battdate.obj (.text:calculateOldBattDate)
+                  00014c20    000000f8     verif.obj (.text:verif_testChangeToNormalOpmode)
+                  00014d18    000000f4     anasens.obj (.text:anasens_init)
+                  00014e0c    000000ea     normal.obj (.text:normal_run)
+
+.text.11   0    00014ef8    000000ea     
+                  00014ef8    000000ea     verif.obj (.text:verif_init)
+
+.text.12   0    00014fe4    000002aa     
+                  00014fe4    000000e8     hal_lcd.obj (.text:hal_lcd_Init)
+                  000150cc    000000e6     rts430x_lc_ld_eabi.lib : difftime64.c.obj (.text:__difftime64)
+                  000151b2    000000dc                            : gmtime64.c.obj (.text:__gmtime64)
+
+.text.13   0    00015290    000000da     
+                  00015290    000000da     rev_install.obj (.text:rev_install_update)
+
+.text.14   0    0001536c    0000019e     
+                  0001536c    000000d0     normal.obj (.text:getAlarmTextAndSetIndicators01)
+                  0001543c    000000ce     userint.obj (.text:userint_update)
+
+.text.15   0    0001550c    00000312     
+                  0001550c    000000cc     dfsm.obj (.text:dfsm_checkFrequency)
+                  000155d8    000000c8     leak.obj (.text:leak_update)
+                  000156a0    000000c4     probe.obj (.text:probe_update)
+                  00015764    000000ba     temp.obj (.text:temp_update)
+
+.text.16   0    00015820    000000ae     
+                  00015820    000000ae     standby.obj (.text:standby_init)
+
+.text.17   0    000158d0    000000a6     
+                  000158d0    000000a6     logger.obj (.text:logger_init)
+
+.text.18   0    00015978    000000a6     
+                  00015978    000000a6     postcalib.obj (.text:postcalib_init)
+
+.text.19   0    00015a20    00000276     
+                  00015a20    0000009e     eusci_a_uart.obj (.text:EUSCI_A_UART_init)
+                  00015abe    0000009e     rts430x_lc_ld_eabi.lib : fltlid.c.obj (.text:__mspabi_fltlid)
+                  00015b5c    0000009e                            : _scanfi.c.obj (.text:_sproc_str)
+                  00015bfa    0000009c                            : _scanfi.c.obj (.text:_sproc_wstr)
+
+.text.20   0    00015c98    0000026e     
+                  00015c98    0000009c     calib.obj (.text:calib_init)
+                  00015d34    0000009c     main.obj (.text:main)
+                  00015dd0    0000009c     pulsemng.obj (.text:pulsemng_update)
+                  00015e6c    0000009a     adc12_b.obj (.text:ADC12_B_init)
+
+.text.21   0    00015f08    000002de     
+                  00015f08    00000098     hw_version.obj (.text:saveEnergy)
+                  00015fa0    00000094     rts430x_lc_ld_eabi.lib : _scanfi.c.obj (.text:_sproc_lb)
+                  00016034    00000094     standby.obj (.text:standby_testChangeToVerifOpMode)
+                  000160c8    00000090     optint.obj (.text:optint_receive)
+                  00016158    0000008e     queue.obj (.text:queue_insertRear)
+
+.text.22   0    000161e8    00000116     
+                  000161e8    0000008c     lcd_c.obj (.text:LCD_C_setPinAsLCDFunctionEx)
+                  00016274    0000008a     rts430x_lc_ld_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nopinit_hold_wdt:__TI_auto_init_nopinit_hold_wdt)
+
+.text.23   0    00016300    0000008a     
+                  00016300    0000008a     brush.obj (.text:brush_init)
+
+.text.24   0    0001638c    0000038a     
+                  0001638c    00000088     brush.obj (.text:brush_updateConfig)
+                  00016414    00000088     configmng.obj (.text:setSerialNumber)
+                  0001649c    00000084     battdate.obj (.text:battdate_update)
+                  00016520    00000080     rts430x_lc_ld_eabi.lib : fltuld.c.obj (.text:__mspabi_fltuld)
+                  000165a0    00000080     hw_version.obj (.text:hw_version_get)
+                  00016620    0000007c     screenmng.obj (.text:screenmng_init)
+                  0001669c    0000007a     rts430x_lc_ld_eabi.lib : sscanf.c.obj (.text:_chkmbc)
+
+.text.25   0    00016718    000003aa     
+                  00016718    00000078     optint.obj (.text:setTimeoutOptInt)
+                  00016790    00000078     serial.obj (.text:setTimeoutSerial)
+                  00016808    00000076     aes256.obj (.text:AES256_setCipherKey)
+                  0001687e    00000076     rts430x_lc_ld_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
+                  000168f4    00000074     gpio.obj (.text:GPIO_setAsPeripheralModuleFunctionInputPin)
+                  00016968    00000074     gpio.obj (.text:GPIO_setAsPeripheralModuleFunctionOutputPin)
+                  000169dc    00000074     serial.obj (.text:serial_init)
+                  00016a50    00000072     serial.obj (.text:serial_receiveBytes)
+
+.text.26   0    00016ac4    0000014e     
+                  00016ac4    00000070     anasens.obj (.text:anasens_update)
+                  00016b34    00000070     utils_fcx.obj (.text:utils_lutSearch)
+                  00016ba4    0000006e     cs.obj (.text:CS_initClockSignal)
+
+.text.27   0    00016c14    00000136     
+                  00016c14    00000068     cmdmng.obj (.text:cmdmng_init)
+                  00016c7c    00000068     optint.obj (.text:optint_send)
+                  00016ce4    00000066     rts430x_lc_ld_eabi.lib : cpy_tbl.c.obj (.text:copy_in)
+
+.text.28   0    00016d4c    00000066     
+                  00016d4c    00000066     systick.obj (.text:systick_setActualDateTime)
+
+.text.29   0    00016db4    000000c6     
+                  00016db4    00000064     optint.obj (.text:optint_init)
+                  00016e18    00000062     rts430x_lc_ld_eabi.lib : atoi.c.obj (.text:atoi)
+
+.text.30   0    00016e7c    000000b6     
+                  00016e7c    0000005c     aes256.obj (.text:AES256_encryptData)
+                  00016ed8    0000005a     configmng.obj (.text:configmng_init)
+
+.text.31   0    00016f34    0000005a     
+                  00016f34    0000005a     rev_install.obj (.text:rev_install_init)
+
+.text.32   0    00016f90    0000005a     
+                  00016f90    0000005a     pulsemng.obj (.text:timeoutPulseHighCallback)
+
+.text.33   0    00016fec    00000056     
+                  00016fec    00000056     lcd_c.obj (.text:LCD_C_setMemory)
+
+.text.34   0    00017044    00000056     
+                  00017044    00000056     optint.obj (.text:enableRxCircuit)
+
+.text.35   0    0001709c    000000a6     
+                  0001709c    00000054     comm.obj (.text:comm_init)
+                  000170f0    00000052     configmng.obj (.text:setMeterReplacementDate)
+
+.text.36   0    00017144    0000009e     
+                  00017144    00000050     clk.obj (.text:clk_init)
+                  00017194    0000004e     screenmng.obj (.text:screenmng_registerEventIndicators)
+
+.text.37   0    000171e4    00000096     
+                  000171e4    0000004c     tlv.obj (.text:TLV_getInfo)
+                  00017230    0000004a     gpio.obj (.text:GPIO_setAsInputPinWithPullDownResistor)
+
+.text.38   0    0001727c    0000004a     
+                  0001727c    0000004a     gpio.obj (.text:GPIO_setAsInputPinWithPullUpResistor)
+
+.text.39   0    000172c8    0000004a     
+                  000172c8    0000004a     lcddriver.obj (.text:lcddriver_clearSegment)
+
+.text.40   0    00017314    0000004a     
+                  00017314    0000004a     lcddriver.obj (.text:lcddriver_setSegment)
+
+.text.41   0    00017360    0000004a     
+                  00017360    0000004a     screenmng.obj (.text:screenmng_nextScreen)
+
+.text.42   0    000173ac    000000d6     
+                  000173ac    00000048     timer_a.obj (.text:Timer_A_initContinuousMode)
+                  000173f4    00000048     pulsemng.obj (.text:pulsemng_init)
+                  0001743c    00000046     leak.obj (.text:leak_init)
+
+.text.43   0    00017484    00000046     
+                  00017484    00000046     optcomm.obj (.text:startMessage)
+
+.text.44   0    000174cc    00000046     
+                  000174cc    00000046     systick.obj (.text:systick_updateSysTickMs)
+
+.text.45   0    00017514    00000152     
+                  00017514    00000044     timeout.obj (.text:Timer_scheduleDelayedFunction)
+                  00017558    00000044     opmodemng.obj (.text:opmodemng_init)
+                  0001759c    00000044     lcd_c.obj (.text:setLCDFunction)
+                  000175e0    00000044     systick.obj (.text:systick_getActualDateTime)
+                  00017624    00000042     crc.obj (.text:calculateCRC)
+
+.text.46   0    00017668    00000042     
+                  00017668    00000042     ring_buffer.obj (.text:rbuf_init)
+
+.text.47   0    000176ac    000000fe     
+                  000176ac    00000040     gpio.obj (.text:GPIO_setAsInputPin)
+                  000176ec    00000040     configmng.obj (.text:configmng_updateSysConfig)
+                  0001772c    00000040     precalib.obj (.text:precalib_init)
+                  0001776c    0000003e     cs.obj (.text:CS_turnOnLFXT)
+
+.text.48   0    000177ac    0000003e     
+                  000177ac    0000003e     power.obj (.text:power_getWakeUpReason)
+
+.text.49   0    000177ec    0000003e     
+                  000177ec    0000003e     ring_buffer.obj (.text:rbuf_put)
+
+.text.50   0    0001782c    0000003e     
+                  0001782c    0000003e     optint.obj (.text:timeoutOptIntCallback)
+
+.text.51   0    0001786c    0000007a     
+                  0001786c    0000003e     serial.obj (.text:timeoutSerialCallback)
+                  000178aa    0000003c     rts430x_lc_ld_eabi.lib : memcpy.c.obj (.text:memcpy)
+
+.text.52   0    000178e8    00000076     
+                  000178e8    0000003c     utils_fcx.obj (.text:utils_doubleToFixed)
+                  00017924    0000003a     adc12_b.obj (.text:ADC12_B_configureMemory)
+
+.text.53   0    00017960    0000003a     
+                  00017960    0000003a     alarmmng.obj (.text:alarmmng_init)
+
+.text.54   0    0001799c    0000003a     
+                  0001799c    0000003a     userint.obj (.text:userint_init)
+
+.text.55   0    000179d8    000000de     
+                  000179d8    00000038     timer_a.obj (.text:Timer_A_initCompareMode)
+                  00017a10    00000038     pulsemng.obj (.text:pulsemng_configWritePulseConstant)
+                  00017a48    00000038     utils_fcx.obj (.text:utils_lutSearchIQ)
+                  00017a80    00000036     anasens.obj (.text:anasens_startConversion)
+
+.text.56   0    00017ab8    00000036     
+                  00017ab8    00000036     hw_version.obj (.text:hw_version_init)
+
+.text.57   0    00017af0    00000036     
+                  00017af0    00000036     optcomm.obj (.text:optcomm_init)
+
+.text.58   0    00017b28    00000036     
+                  00017b28    00000036     serial.obj (.text:serial_receiveByte)
+
+.text.59   0    00017b60    00000102     
+                  00017b60    00000034     gpio.obj (.text:GPIO_setAsOutputPin)
+                  00017b94    00000034     optcomm.obj (.text:optcomm_disconnect)
+                  00017bc8    00000034     screenmng.obj (.text:screenmng_addScreen)
+                  00017bfc    00000034     screenmng.obj (.text:setNetVolumeScreen)
+                  00017c30    00000032     rts430x_lc_ld_eabi.lib : subd.c.obj (.text:__mspabi_subd)
+
+.text.60   0    00017c64    00000032     
+                  00017c64    00000032     postcalib.obj (.text:postcalib_testChangeToStandbyOpMode)
+
+.text.61   0    00017c98    00000032     
+                  00017c98    00000032     utils_fcx.obj (.text:utils_fixedToDouble)
+
+.text.62   0    00017ccc    000001aa     
+                  00017ccc    00000030     adc12_b.obj (.text:ADC12_B_startConversion)
+                  00017cfc    00000030     gpio.obj (.text:GPIO_selectInterruptEdge)
+                  00017d2c    00000030     lcd_c.obj (.text:LCD_C_init)
+                  00017d5c    00000030     comm.obj (.text:comm_run)
+                  00017d8c    00000030     screenmng.obj (.text:screenmng_setScreen)
+                  00017dbc    00000030     rts430x_lc_ld_eabi.lib : sscanf.c.obj (.text:sscanf)
+                  00017dec    0000002e     lcd_c.obj (.text:LCD_C_setVLCDSource)
+                  00017e1a    0000002e     rts430x_lc_ld_eabi.lib : negd.c.obj (.text:__mspabi_negd)
+                  00017e48    0000002e                            : s_copysign.c.obj (.text:copysign)
+
+.text.63   0    00017e78    0000002e     
+                  00017e78    0000002e     precalib.obj (.text:precalib_run)
+
+.text.64   0    00017ea8    0000002a     
+                  00017ea8    0000002a     configmng.obj (.text:configmng_setSysConfig)
+
+.text.65   0    00017ed4    0000002a     
+                  00017ed4    0000002a     mov_avg.obj (.text:mov_avg_init)
+
+.text.66   0    00017f00    0000009e     
+                  00017f00    00000028     timeout.obj (.text:Timer_cancelDelayedFunction)
+                  00017f28    00000028     dfsm.obj (.text:dfsm_loadFrequencyScheme)
+                  00017f50    00000028     serial.obj (.text:serial_transmitBytes)
+                  00017f78    00000026     hal_lcd.obj (.text:hal_lcd_updatememory)
+
+.text.67   0    00017fa0    00000026     
+                  00017fa0    00000026     pulsemng.obj (.text:timeoutPulseLowCallback)
+
+.text.68   0    00017fc8    00000026     
+                  00017fc8    00000026     verif.obj (.text:verif_run)
+
+.text.69   0    00017ff0    0000011e     
+                  00017ff0    00000024     eusci_a_uart.obj (.text:EUSCI_A_UART_transmitData)
+                  00018014    00000024     rts430x_lc_ld_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
+                  00018038    00000024     dfsm.obj (.text:dfsm_setHighFreqScheme)
+                  0001805c    00000024     dfsm.obj (.text:dfsm_setLowFreqScheme)
+                  00018080    00000024     dfsm.obj (.text:dfsm_setUserInteractFreqScheme)
+                  000180a4    00000024     comm.obj (.text:onActivityInOptcomm)
+                  000180c8    00000024     power.obj (.text:power_enterSleep)
+                  000180ec    00000022     eusci_a_uart.obj (.text:EUSCI_A_UART_receiveData)
+
+.text.70   0    00018110    00000022     
+                  00018110    00000022     dfsm.obj (.text:dfsm_init)
+
+.text.71   0    00018134    00000022     
+                  00018134    00000022     opmodemng.obj (.text:opmodemng_setActivationFlag)
+
+.text.72   0    00018158    0000009e     
+                  00018158    00000020     adc12_b.obj (.text:ADC12_B_setupSamplingTimer)
+                  00018178    00000020     rts430x_lc_ld_eabi.lib : memset.c.obj (.text:memset)
+                  00018198    00000020     normal.obj (.text:normal_testChangeToVerifOpmode)
+                  000181b8    00000020     opmodemng.obj (.text:opmodemng_setCalibrationFlag)
+                  000181d8    0000001e     gpio.obj (.text:GPIO_clearInterrupt)
+
+.text.73   0    000181f8    0000001e     
+                  000181f8    0000001e     gpio.obj (.text:GPIO_disableInterrupt)
+
+.text.74   0    00018218    0000001e     
+                  00018218    0000001e     gpio.obj (.text:GPIO_enableInterrupt)
+
+.text.75   0    00018238    0000001e     
+                  00018238    0000001e     timeout.obj (.text:Timer_startDelayedFunctionTimer)
+
+.text.76   0    00018258    0000001e     
+                  00018258    0000001e     hal_lcd.obj (.text:hal_lcd_print)
+
+.text.77   0    00018278    000000c2     
+                  00018278    0000001c     gpio.obj (.text:GPIO_getInputPinValue)
+                  00018294    0000001c     gpio.obj (.text:GPIO_setOutputHighOnPin)
+                  000182b0    0000001c     gpio.obj (.text:GPIO_setOutputLowOnPin)
+                  000182cc    0000001c     lcd_c.obj (.text:LCD_C_configChargePump)
+                  000182e8    0000001c     rts430x_lc_ld_eabi.lib : strchr.c.obj (.text:strchr)
+                  00018304    0000001c                            : strrchr.c.obj (.text:strrchr)
+                  00018320    0000001a     cs.obj (.text:CS_setExternalClockSource)
+
+.text.78   0    0001833c    0000001a     
+                  0001833c    0000001a     lcddriver.obj (.text:lcddriver_init)
+
+.text.79   0    00018358    0000001a     
+                  00018358    0000001a     lcddriver.obj (.text:lcddriver_setAllSegments)
+
+.text.80   0    00018374    0000001a     
+                  00018374    0000001a     serial.obj (.text:serial_stillTransmitting)
+
+.text.81   0    00018390    0000005a     
+                  00018390    00000018     adc12_b.obj (.text:ADC12_B_disable)
+                  000183a8    00000016     framctl_a.obj (.text:FRAMCtl_A_write32)
+                  000183be    00000016     rts430x_lc_ld_eabi.lib : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
+                  000183d4    00000016                            : llabs.c.obj (.text:llabs)
+
+.text.82   0    000183ec    00000016     
+                  000183ec    00000016     optint.obj (.text:optint_reset)
+
+.text.83   0    00018404    00000016     
+                  00018404    00000016     power.obj (.text:power_init)
+
+.text.84   0    0001841c    00000016     
+                  0001841c    00000016     queue.obj (.text:queue_getIndex)
+
+.text.85   0    00018434    00000016     
+                  00018434    00000016     queue.obj (.text:queue_init)
+
+.text.86   0    0001844c    00000016     
+                  0001844c    00000016     queue.obj (.text:queue_isFull)
+
+.text.87   0    00018464    00000016     
+                  00018464    00000016     screenmng.obj (.text:screenmng_deleteScreen)
+
+.text.88   0    0001847c    0000002a     
+                  0001847c    00000016     wdog.obj (.text:wdog_init)
+                  00018492    00000014     rts430x_lc_ld_eabi.lib : sscanf.c.obj (.text:_inpchar)
+
+.text.89   0    000184a8    0000009e     
+                  000184a8    00000014     cmdmng.obj (.text:cmdmng_fetch)
+                  000184bc    00000014     comm.obj (.text:comm_testChangeToPreviousOpmode)
+                  000184d0    00000014     configmng.obj (.text:configmng_setAppConfig)
+                  000184e4    00000014     logger.obj (.text:logger_read)
+                  000184f8    00000014     pulsemng.obj (.text:pulsemng_enable)
+                  0001850c    00000014     configmng.obj (.text:pulsemng_evt_getPulsePerMeter)
+                  00018520    00000014     systick.obj (.text:systick_getSysTickMs)
+                  00018534    00000012     pmm.obj (.text:PMM_enableSVSH)
+
+.text.90   0    00018548    00000012     
+                  00018548    00000012     wdt_a.obj (.text:WDT_A_resetTimer)
+
+.text.91   0    0001855c    00000012     
+                  0001855c    00000012     wdt_a.obj (.text:WDT_A_start)
+
+.text.92   0    00018570    00000012     
+                  00018570    00000012     lcddriver.obj (.text:lcddriver_clearAllSegments)
+
+.text.93   0    00018584    00000012     
+                  00018584    00000012     optint.obj (.text:optint_update)
+
+.text.94   0    00018598    0000005a     
+                  00018598    00000012     serial.obj (.text:serial_disable)
+                  000185aa    00000012     rts430x_lc_ld_eabi.lib : strcpy.c.obj (.text:strcpy)
+                  000185bc    00000012                            : strlen.c.obj (.text:strlen)
+                  000185ce    00000012                            : toupper.c.obj (.text:toupper)
+                  000185e0    00000012     utils_fcx.obj (.text:utils_assert)
+
+.text.95   0    000185f4    0000006e     
+                  000185f4    00000010     lcd_c.obj (.text:LCD_C_setVLCDVoltage)
+                  00018604    00000010     ref_a.obj (.text:Ref_A_isVariableReferenceVoltageOutputReady)
+                  00018614    00000010     wdt_a.obj (.text:WDT_A_initWatchdogTimer)
+                  00018624    00000010     calib.obj (.text:calib_run)
+                  00018634    00000010     opmodemng.obj (.text:opmodemng_setCurrentOpMode)
+                  00018644    00000010     standby.obj (.text:standby_run)
+                  00018654    0000000e     adc12_b.obj (.text:ADC12_B_enable)
+
+.text.96   0    00018664    0000000e     
+                  00018664    0000000e     ref_a.obj (.text:Ref_A_setReferenceVoltage)
+
+.text.97   0    00018674    0000000e     
+                  00018674    0000000e     timer_a.obj (.text:Timer_A_startCounter)
+
+.text.98   0    00018684    0000000e     
+                  00018684    0000000e     anasens.obj (.text:anasens_getBatteryInputVoltage)
+
+.text.99   0    00018694    0000000e     
+                  00018694    0000000e     anasens.obj (.text:anasens_getOpticalInputVoltage)
 
 .text.100 
-*          0    00018654    0000000e     
-                  00018654    0000000e     anasens.obj (.text:anasens_getOpticalInputVoltage)
+*          0    000186a4    0000002a     
+                  000186a4    0000000e     brush.obj (.text:brush_isOverflowing)
+                  000186b2    0000000e     rts430x_lc_ld_eabi.lib : isxdigit.c.obj (.text:isxdigit)
+                  000186c0    0000000e     no_usage.obj (.text:no_usage_isDetected)
 
 .text.101 
-*          0    00018664    0000002a     
-                  00018664    0000000e     brush.obj (.text:brush_isOverflowing)
-                  00018672    0000000e     rts430x_lc_ld_eabi.lib : isxdigit.c.obj (.text:isxdigit)
-                  00018680    0000000e     no_usage.obj (.text:no_usage_isDetected)
+*          0    000186d0    0000000e     
+                  000186d0    0000000e     postcalib.obj (.text:postcalib_run)
 
 .text.102 
-*          0    00018690    0000000e     
-                  00018690    0000000e     postcalib.obj (.text:postcalib_run)
+*          0    000186e0    0000000e     
+                  000186e0    0000000e     queue.obj (.text:queue_reset)
 
 .text.103 
-*          0    000186a0    0000000e     
-                  000186a0    0000000e     queue.obj (.text:queue_reset)
+*          0    000186f0    0000000e     
+                  000186f0    0000000e     rev_install.obj (.text:rev_install_isDetected)
 
 .text.104 
-*          0    000186b0    0000000e     
-                  000186b0    0000000e     rev_install.obj (.text:rev_install_isDetected)
+*          0    00018700    0000000e     
+                  00018700    0000000e     userint.obj (.text:userint_resetState)
 
 .text.105 
-*          0    000186c0    0000000e     
-                  000186c0    0000000e     userint.obj (.text:userint_resetState)
+*          0    00018710    000000b2     
+                  00018710    0000000c     adc12_b.obj (.text:ADC12_B_getResults)
+                  0001871c    0000000c     eusci_a_uart.obj (.text:EUSCI_A_UART_clearInterrupt)
+                  00018728    0000000c     lcd_c.obj (.text:LCD_C_clearMemory)
+                  00018734    0000000c     timer_a.obj (.text:Timer_A_setCompareValue)
+                  00018740    0000000c     system_pre_init.obj (.text:_system_pre_init)
+                  0001874c    0000000c     battdate.obj (.text:battdate_init)
+                  00018758    0000000c     crc.obj (.text:crc_result)
+                  00018764    0000000c     rts430x_lc_ld_eabi.lib : isdigit.c.obj (.text:isdigit)
+                  00018770    0000000c                            : isspace.c.obj (.text:isspace)
+                  0001877c    0000000c     pulseout.obj (.text:pulseout_clearDirOutPin)
+                  00018788    0000000c     pulseout.obj (.text:pulseout_clearPulseOutPin)
+                  00018794    0000000c     pulseout.obj (.text:pulseout_setDirOutPin)
+                  000187a0    0000000c     pulseout.obj (.text:pulseout_setPulseOutPin)
+                  000187ac    0000000c     systick.obj (.text:systick_setWakeUpIntMs)
+                  000187b8    0000000a     eusci_a_uart.obj (.text:EUSCI_A_UART_getInterruptStatus)
 
 .text.106 
-*          0    000186d0    000000b2     
-                  000186d0    0000000c     adc12_b.obj (.text:ADC12_B_getResults)
-                  000186dc    0000000c     eusci_a_uart.obj (.text:EUSCI_A_UART_clearInterrupt)
-                  000186e8    0000000c     lcd_c.obj (.text:LCD_C_clearMemory)
-                  000186f4    0000000c     timer_a.obj (.text:Timer_A_setCompareValue)
-                  00018700    0000000c     system_pre_init.obj (.text:_system_pre_init)
-                  0001870c    0000000c     battdate.obj (.text:battdate_init)
-                  00018718    0000000c     crc.obj (.text:crc_result)
-                  00018724    0000000c     rts430x_lc_ld_eabi.lib : isdigit.c.obj (.text:isdigit)
-                  00018730    0000000c                            : isspace.c.obj (.text:isspace)
-                  0001873c    0000000c     pulseout.obj (.text:pulseout_clearDirOutPin)
-                  00018748    0000000c     pulseout.obj (.text:pulseout_clearPulseOutPin)
-                  00018754    0000000c     pulseout.obj (.text:pulseout_setDirOutPin)
-                  00018760    0000000c     pulseout.obj (.text:pulseout_setPulseOutPin)
-                  0001876c    0000000c     systick.obj (.text:systick_setWakeUpIntMs)
-                  00018778    0000000a     eusci_a_uart.obj (.text:EUSCI_A_UART_getInterruptStatus)
+*          0    000187c4    0000000a     
+                  000187c4    0000000a     lcd_c.obj (.text:LCD_C_disableChargePump)
 
 .text.107 
-*          0    00018784    0000000a     
-                  00018784    0000000a     lcd_c.obj (.text:LCD_C_disableChargePump)
+*          0    000187d0    0000000a     
+                  000187d0    0000000a     ref_a.obj (.text:Ref_A_isRefGenBusy)
 
 .text.108 
-*          0    00018790    0000000a     
-                  00018790    0000000a     ref_a.obj (.text:Ref_A_isRefGenBusy)
+*          0    000187dc    0000000a     
+                  000187dc    0000000a     timer_a.obj (.text:Timer_A_clearCaptureCompareInterrupt)
 
 .text.109 
-*          0    0001879c    0000000a     
-                  0001879c    0000000a     timer_a.obj (.text:Timer_A_clearCaptureCompareInterrupt)
+*          0    000187e8    0000000a     
+                  000187e8    0000000a     timer_a.obj (.text:Timer_A_getCaptureCompareCount)
 
 .text.110 
-*          0    000187a8    0000000a     
-                  000187a8    0000000a     timer_a.obj (.text:Timer_A_getCaptureCompareCount)
+*          0    000187f4    0000000a     
+                  000187f4    0000000a     no_usage.obj (.text:no_usage_init)
 
 .text.111 
-*          0    000187b4    0000000a     
-                  000187b4    0000000a     no_usage.obj (.text:no_usage_init)
+*          0    00018800    0000000a     
+                  00018800    0000000a     optint.obj (.text:optint_start)
 
 .text.112 
-*          0    000187c0    0000000a     
-                  000187c0    0000000a     optint.obj (.text:optint_start)
+*          0    0001880c    0000000a     
+                  0001880c    0000000a     systick.obj (.text:systick_init)
 
 .text.113 
-*          0    000187cc    0000000a     
-                  000187cc    0000000a     systick.obj (.text:systick_init)
+*          0    00018818    0000000a     
+                  00018818    0000000a     temp.obj (.text:temp_init)
 
 .text.114 
-*          0    000187d8    0000000a     
-                  000187d8    0000000a     temp.obj (.text:temp_init)
+*          0    00018824    0000012e     
+                  00018824    00000008     pmm.obj (.text:PMM_unlockLPM5)
+                  0001882c    00000008     timer_a.obj (.text:Timer_A_stop)
+                  00018834    00000008     rts430x_lc_ld_eabi.lib : sscanf.c.obj (.text:_uninpchar)
+                  0001883c    00000008     alarmmng.obj (.text:alarmmng_isAirInPipe)
+                  00018844    00000008     alarmmng.obj (.text:alarmmng_isBrush)
+                  0001884c    00000008     alarmmng.obj (.text:alarmmng_isLeakage)
+                  00018854    00000008     alarmmng.obj (.text:alarmmng_isNoUsage)
+                  0001885c    00000008     alarmmng.obj (.text:alarmmng_isOverTemp)
+                  00018864    00000008     alarmmng.obj (.text:alarmmng_isReverseFlow)
+                  0001886c    00000008     battdate.obj (.text:battdate_isOld)
+                  00018874    00000008     crc.obj (.text:crc_init)
+                  0001887c    00000008     crc.obj (.text:crc_initWithPrevious)
+                  00018884    00000008     hal_lcd.obj (.text:hal_lcd_turnonLCD)
+                  0001888c    00000008     lcddriver.obj (.text:lcddriver_print)
+                  00018894    00000008     leak.obj (.text:leak_isLeakage)
+                  0001889c    00000008     logger.obj (.text:logger_enable)
+                  000188a4    00000008     logger.obj (.text:logger_size)
+                  000188ac    00000008     logger.obj (.text:logger_updateConfig)
+                  000188b4    00000008     opmodemng.obj (.text:opmodemng_getCurrentOpMode)
+                  000188bc    00000008     opmodemng.obj (.text:opmodemng_setPreviousOpMode)
+                  000188c4    00000008     optcomm.obj (.text:optcomm_isConnected)
+                  000188cc    00000008     optint.obj (.text:optint_getState)
+                  000188d4    00000008     optint.obj (.text:optint_setBitTime)
+                  000188dc    00000008     power.obj (.text:power_enableCoreWakeupBySerial)
+                  000188e4    00000008     probe.obj (.text:probe_disableDataTransmission)
+                  000188ec    00000008     probe.obj (.text:probe_enableDataTransmission)
+                  000188f4    00000008     probe.obj (.text:probe_init)
+                  000188fc    00000008     pulsemng.obj (.text:pulsemng_isEndPulse)
+                  00018904    00000008     screenmng.obj (.text:screenmng_getActiveScreenId)
+                  0001890c    00000008     screenmng.obj (.text:screenmng_isScreenLocked)
+                  00018914    00000008     screenmng.obj (.text:screenmng_lockScreen)
+                  0001891c    00000008     serial.obj (.text:serial_enable)
+                  00018924    00000008     systick.obj (.text:systick_getWakeUpIntMs)
+                  0001892c    00000008     temp.obj (.text:temp_isOutsideLimit)
+                  00018934    00000008     userint.obj (.text:userint_getState)
+                  0001893c    00000008     userint.obj (.text:userint_setChangeModeTimeoutMs)
+                  00018944    00000008     wdog.obj (.text:wdog_feed)
+                  0001894c    00000006     eusci_a_uart.obj (.text:EUSCI_A_UART_disable)
 
 .text.115 
-*          0    000187e4    00000126     
-                  000187e4    00000008     pmm.obj (.text:PMM_unlockLPM5)
-                  000187ec    00000008     timer_a.obj (.text:Timer_A_stop)
-                  000187f4    00000008     rts430x_lc_ld_eabi.lib : sscanf.c.obj (.text:_uninpchar)
-                  000187fc    00000008     alarmmng.obj (.text:alarmmng_isAirInPipe)
-                  00018804    00000008     alarmmng.obj (.text:alarmmng_isBrush)
-                  0001880c    00000008     alarmmng.obj (.text:alarmmng_isLeakage)
-                  00018814    00000008     alarmmng.obj (.text:alarmmng_isNoUsage)
-                  0001881c    00000008     alarmmng.obj (.text:alarmmng_isOverTemp)
-                  00018824    00000008     alarmmng.obj (.text:alarmmng_isReverseFlow)
-                  0001882c    00000008     battdate.obj (.text:battdate_isOld)
-                  00018834    00000008     crc.obj (.text:crc_init)
-                  0001883c    00000008     crc.obj (.text:crc_initWithPrevious)
-                  00018844    00000008     hal_lcd.obj (.text:hal_lcd_turnonLCD)
-                  0001884c    00000008     lcddriver.obj (.text:lcddriver_print)
-                  00018854    00000008     leak.obj (.text:leak_isLeakage)
-                  0001885c    00000008     logger.obj (.text:logger_enable)
-                  00018864    00000008     logger.obj (.text:logger_size)
-                  0001886c    00000008     logger.obj (.text:logger_updateConfig)
-                  00018874    00000008     opmodemng.obj (.text:opmodemng_getCurrentOpMode)
-                  0001887c    00000008     opmodemng.obj (.text:opmodemng_setPreviousOpMode)
-                  00018884    00000008     optcomm.obj (.text:optcomm_isConnected)
-                  0001888c    00000008     optint.obj (.text:optint_getState)
-                  00018894    00000008     power.obj (.text:power_enableCoreWakeupBySerial)
-                  0001889c    00000008     probe.obj (.text:probe_disableDataTransmission)
-                  000188a4    00000008     probe.obj (.text:probe_enableDataTransmission)
-                  000188ac    00000008     probe.obj (.text:probe_init)
-                  000188b4    00000008     pulsemng.obj (.text:pulsemng_isEndPulse)
-                  000188bc    00000008     screenmng.obj (.text:screenmng_getActiveScreenId)
-                  000188c4    00000008     screenmng.obj (.text:screenmng_isScreenLocked)
-                  000188cc    00000008     screenmng.obj (.text:screenmng_lockScreen)
-                  000188d4    00000008     serial.obj (.text:serial_enable)
-                  000188dc    00000008     systick.obj (.text:systick_getWakeUpIntMs)
-                  000188e4    00000008     temp.obj (.text:temp_isOutsideLimit)
-                  000188ec    00000008     userint.obj (.text:userint_getState)
-                  000188f4    00000008     userint.obj (.text:userint_setChangeModeTimeoutMs)
-                  000188fc    00000008     wdog.obj (.text:wdog_feed)
-                  00018904    00000006     eusci_a_uart.obj (.text:EUSCI_A_UART_disable)
+*          0    00018954    00000006     
+                  00018954    00000006     eusci_a_uart.obj (.text:EUSCI_A_UART_enable)
 
 .text.116 
-*          0    0001890c    00000006     
-                  0001890c    00000006     eusci_a_uart.obj (.text:EUSCI_A_UART_enable)
+*          0    0001895c    00000006     
+                  0001895c    00000006     lcd_c.obj (.text:LCD_C_on)
 
 .text.117 
-*          0    00018914    00000006     
-                  00018914    00000006     lcd_c.obj (.text:LCD_C_on)
+*          0    00018964    00000006     
+                  00018964    00000006     ref_a.obj (.text:Ref_A_disableReferenceVoltage)
 
 .text.118 
-*          0    0001891c    00000006     
-                  0001891c    00000006     ref_a.obj (.text:Ref_A_disableReferenceVoltage)
+*          0    0001896c    00000006     
+                  0001896c    00000006     ref_a.obj (.text:Ref_A_enableReferenceVoltage)
 
 .text.119 
-*          0    00018924    00000006     
-                  00018924    00000006     ref_a.obj (.text:Ref_A_enableReferenceVoltage)
+*          0    00018974    00000012     
+                  00018974    00000006     timer_a.obj (.text:Timer_A_disableInterrupt)
+                  0001897a    00000006     rts430x_lc_ld_eabi.lib : fltud.c.obj (.text:__mspabi_fltud)
+                  00018980    00000006                            : exit.c.obj (.text:abort)
 
 .text.120 
-*          0    0001892c    00000012     
-                  0001892c    00000006     timer_a.obj (.text:Timer_A_disableInterrupt)
-                  00018932    00000006     rts430x_lc_ld_eabi.lib : fltud.c.obj (.text:__mspabi_fltud)
-                  00018938    00000006                            : exit.c.obj (.text:abort)
+*          0    00018988    00000006     
+                  00018988    00000006     configmng.obj (.text:configmng_getAlarmConfig)
 
 .text.121 
-*          0    00018940    00000006     
-                  00018940    00000006     configmng.obj (.text:configmng_getAlarmConfig)
+*          0    00018990    00000006     
+                  00018990    00000006     configmng.obj (.text:configmng_getAppConfig)
 
 .text.122 
-*          0    00018948    00000006     
-                  00018948    00000006     configmng.obj (.text:configmng_getAppConfig)
+*          0    00018998    00000006     
+                  00018998    00000006     configmng.obj (.text:configmng_getFirmwareVersion)
 
 .text.123 
-*          0    00018950    00000006     
-                  00018950    00000006     configmng.obj (.text:configmng_getFirmwareVersion)
+*          0    000189a0    00000006     
+                  000189a0    00000006     configmng.obj (.text:configmng_getReplacementDate)
 
 .text.124 
-*          0    00018958    00000006     
-                  00018958    00000006     configmng.obj (.text:configmng_getReplacementDate)
+*          0    000189a8    00000006     
+                  000189a8    00000006     configmng.obj (.text:configmng_getReplacementDateCharArray)
 
 .text.125 
-*          0    00018960    00000006     
-                  00018960    00000006     configmng.obj (.text:configmng_getReplacementDateCharArray)
+*          0    000189b0    00000006     
+                  000189b0    00000006     configmng.obj (.text:configmng_getSerialNumber)
 
 .text.126 
-*          0    00018968    00000006     
-                  00018968    00000006     configmng.obj (.text:configmng_getSerialNumber)
+*          0    000189b8    00000006     
+                  000189b8    00000006     configmng.obj (.text:configmng_getSysConfig)
 
 .text.127 
-*          0    00018970    00000006     
-                  00018970    00000006     configmng.obj (.text:configmng_getSysConfig)
+*          0    000189c0    00000006     
+                  000189c0    00000006     postcalib.obj (.text:getPostTextString)
 
 .text.128 
-*          0    00018978    00000006     
-                  00018978    00000006     postcalib.obj (.text:getPostTextString)
+*          0    000189c8    00000006     
+                  000189c8    00000006     calib.obj (.text:getTextString)
 
 .text.129 
-*          0    00018980    00000006     
-                  00018980    00000006     calib.obj (.text:getTextString)
+*          0    000189d0    00000006     
+                  000189d0    00000006     comm.obj (.text:getTextString)
 
 .text.130 
-*          0    00018988    00000006     
-                  00018988    00000006     comm.obj (.text:getTextString)
+*          0    000189d8    00000006     
+                  000189d8    00000006     optcomm.obj (.text:optcomm_setActivityCallback)
 
 .text.131 
-*          0    00018990    00000006     
-                  00018990    00000006     optcomm.obj (.text:optcomm_setActivityCallback)
+*          0    000189e0    00000006     
+                  000189e0    00000006     queue.obj (.text:queue_size)
 
 .text.132 
-*          0    00018998    00000006     
-                  00018998    00000006     queue.obj (.text:queue_size)
+*          0    000189e8    00000002     
+                  000189e8    00000002     lcddriver.obj (.text:lcddriver_packDataCmd)
 
 .text.133 
-*          0    000189a0    00000002     
-                  000189a0    00000002     lcddriver.obj (.text:lcddriver_packDataCmd)
+*          0    000189ec    00000002     
+                  000189ec    00000002     lcddriver.obj (.text:lcddriver_packSwResetCmd)
 
 .text.134 
-*          0    000189a4    00000002     
-                  000189a4    00000002     lcddriver.obj (.text:lcddriver_packSwResetCmd)
+*          0    000189f0    00000002     
+                  000189f0    00000002     power.obj (.text:power_enableCoreWakeupByMeasurementFinished)
 
 .text.135 
-*          0    000189a8    00000002     
-                  000189a8    00000002     power.obj (.text:power_enableCoreWakeupByMeasurementFinished)
-
-.text.136 
-*          0    000189ac    00000002     
-                  000189ac    00000002     power.obj (.text:power_enableUsWakeupByRTC)
+*          0    000189f4    00000002     
+                  000189f4    00000002     power.obj (.text:power_enableUsWakeupByRTC)
 
 MODULE SUMMARY
 
@@ -1394,7 +1392,7 @@ MODULE SUMMARY
                                                                       
     .\bl\utils\sources\
        logger.obj                            2058    0         90108  
-       optcomm.obj                           3102    24        180    
+       optcomm.obj                           3172    24        186    
        display.obj                           1106    338       81     
        dfsm.obj                              816     0         41     
        aes_cmac.obj                          786     0         10     
@@ -1404,7 +1402,7 @@ MODULE SUMMARY
        probe.obj                             220     0         1      
        ring_buffer.obj                       128     0         0      
     +--+-------------------------------------+-------+---------+---------+
-       Total:                                9324    874       90441  
+       Total:                                9394    874       90447  
                                                                       
     .\hal\
        hal.obj                               320     0         0      
@@ -1434,7 +1432,7 @@ MODULE SUMMARY
     .\hal\modules\sources\
        us.obj                                896     1024      4378   
        processing.obj                        2632    352       310    
-       optint.obj                            1378    68        80     
+       optint.obj                            1386    68        82     
        mov_avg.obj                           504     0         0      
        anasens.obj                           438     20        8      
        hw_version.obj                        334     0         0      
@@ -1445,7 +1443,7 @@ MODULE SUMMARY
        clk.obj                               80      0         0      
        pulseout.obj                          48      0         0      
     +--+-------------------------------------+-------+---------+---------+
-       Total:                                7166    1468      4792   
+       Total:                                7174    1468      4794   
                                                                       
     .\ussSWLib\USS_HAL\
        USS_Lib_HAL.obj                       576     16        58     
@@ -1470,7 +1468,7 @@ MODULE SUMMARY
     +--+-------------------------------------+-------+---------+---------+
        Total:                                2868    0         0      
                                                                       
-    C:/Users/talita.carvalho/Desktop/ws_fluxo_cont/fcx_msp/hal/modules/IQMathLib/IQmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib
+    C:/Users/victor.maciel/Desktop/ws/fcx_msp/hal/modules/IQMathLib/IQmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib
        _IQNdiv.o                             2328    0         0      
        _IQNtoF.o                             798     0         0      
        __IQNmpy.o                            490     0         0      
@@ -1480,14 +1478,14 @@ MODULE SUMMARY
     +--+-------------------------------------+-------+---------+---------+
        Total:                                4080    65        0      
                                                                       
-    C:/Users/talita.carvalho/Desktop/ws_fluxo_cont/fcx_msp/hal/modules/QMathLib/QmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib
+    C:/Users/victor.maciel/Desktop/ws/fcx_msp/hal/modules/QMathLib/QmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib
        _QNtables.o                           0       256       0      
        _QNdiv.o                              190     0         0      
        __QNrmpy.o                            78      0         0      
     +--+-------------------------------------+-------+---------+---------+
        Total:                                268     256       0      
                                                                       
-    C:/Users/talita.carvalho/Desktop/ws_fluxo_cont/fcx_msp/ussSWLib/lib/USS_SW_CCS_large_code_large_data.lib
+    C:/Users/victor.maciel/Desktop/ws/fcx_msp/ussSWLib/lib/USS_SW_CCS_large_code_large_data.lib
        ussSwLibAlgorithms.obj                1964    0         324    
        USS_computeDeltaTOF_estimate.obj      2184    0         0      
        USS_math.obj                          2152    0         8      
@@ -1504,7 +1502,7 @@ MODULE SUMMARY
     +--+-------------------------------------+-------+---------+---------+
        Total:                                12296   8         358    
                                                                       
-    C:/ti/ccs1230/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/lib/rts430x_lc_ld_eabi.lib
+    C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/lib/rts430x_lc_ld_eabi.lib
        _scanfi.c.obj                         3578    27        0      
        addd.c.obj                            1834    0         0      
        strtod.c.obj                          1248    200       0      
@@ -1632,26 +1630,26 @@ MODULE SUMMARY
        Total:                                21304   592       34     
                                                                       
        Stack:                                0       0         1024   
-       Linker Generated:                     0       738       0      
+       Linker Generated:                     0       748       0      
     +--+-------------------------------------+-------+---------+---------+
-       Grand Total:                          75678   4979      98679  
+       Grand Total:                          75756   4989      98687  
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 0000f784 records: 5, size/record: 8, table size: 40
-	.data: load addr=0000f4d8, load size=00000276 bytes, run addr=00001d0e, run size=00000484 bytes, compression=lzss
-	.log_section: load addr=0000f74e, load size=00000011 bytes, run addr=0002e050, run size=00015f90 bytes, compression=lzss
-	start_bss: load addr=0000f76c, load size=0000000b bytes, run addr=00001c00, run size=0000010e bytes, compression=lzss
-	.bss: load addr=0000f778, load size=00000006 bytes, run addr=00002192, run size=00000366 bytes, compression=zero_init
-	.leaRAM: load addr=0000f77e, load size=00000006 bytes, run addr=00003438, run size=000005fc bytes, compression=zero_init
-binit @ 0000f7ac records: 1, size/record: 12, table size: 16
+__TI_cinit_table @ 0000f792 records: 5, size/record: 8, table size: 40
+	.data: load addr=0000f4dc, load size=00000280 bytes, run addr=00001d0e, run size=0000048c bytes, compression=lzss
+	.log_section: load addr=0000f75c, load size=00000011 bytes, run addr=0002e050, run size=00015f90 bytes, compression=lzss
+	start_bss: load addr=0000f77a, load size=0000000b bytes, run addr=00001c00, run size=0000010e bytes, compression=lzss
+	.bss: load addr=0000f786, load size=00000006 bytes, run addr=0000219a, run size=00000366 bytes, compression=zero_init
+	.leaRAM: load addr=0000f78c, load size=00000006 bytes, run addr=00003438, run size=000005fc bytes, compression=zero_init
+binit @ 0000f7ba records: 1, size/record: 12, table size: 16
 	.USS_ramfunc: load addr=00008e28, load size=00000838, run addr=00002c00, run size=00000838, compression=none
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 0000f760 records: 3, size/record: 4, table size: 12
+__TI_handler_table @ 0000f76e records: 3, size/record: 4, table size: 12
 	index: 0, handler: __TI_decompress_lzss
 	index: 1, handler: __TI_decompress_none
 	index: 2, handler: __TI_zero_init
@@ -1892,15 +1890,15 @@ address   name
 00000872  ADC12MEM9                                  
 00000873  ADC12MEM9_H                                
 00000872  ADC12MEM9_L                                
-000178fc  ADC12_B_configureMemory                    
-00018350  ADC12_B_disable                            
-00018614  ADC12_B_enable                             
-000186d0  ADC12_B_getResults                         
-00015e44  ADC12_B_init                               
-00018118  ADC12_B_setupSamplingTimer                 
-00017c38  ADC12_B_startConversion                    
-00016e54  AES256_encryptData                         
-000167e0  AES256_setCipherKey                        
+00017924  ADC12_B_configureMemory                    
+00018390  ADC12_B_disable                            
+00018654  ADC12_B_enable                             
+00018710  ADC12_B_getResults                         
+00015e6c  ADC12_B_init                               
+00018158  ADC12_B_setupSamplingTimer                 
+00017ccc  ADC12_B_startConversion                    
+00016e7c  AES256_encryptData                         
+00016808  AES256_setCipherKey                        
 000009c0  AESACTL0                                   
 000009c1  AESACTL0_H                                 
 000009c0  AESACTL0_L                                 
@@ -1931,7 +1929,7 @@ address   name
 000004bc  BIN2BCD                                    
 000004bd  BIN2BCD_H                                  
 000004bc  BIN2BCD_L                                  
-00018938  C$$EXIT                                    
+00018980  C$$EXIT                                    
 0000043e  CAPTIO0CTL                                 
 0000043f  CAPTIO0CTL_H                               
 0000043e  CAPTIO0CTL_L                               
@@ -2025,10 +2023,10 @@ address   name
 0000016c  CSCTL6                                     
 0000016d  CSCTL6_H                                   
 0000016c  CSCTL6_L                                   
-00016b7c  CS_initClockSignal                         
-000146ec  CS_setDCOFreq                              
-000182e0  CS_setExternalClockSource                  
-00017744  CS_turnOnLFXT                              
+00016ba4  CS_initClockSignal                         
+00014714  CS_setDCOFreq                              
+00018320  CS_setExternalClockSource                  
+0001776c  CS_turnOnLFXT                              
 00000510  DMA0CTL                                    
 00000511  DMA0CTL_H                                  
 00000510  DMA0CTL_L                                  
@@ -2117,38 +2115,38 @@ address   name
 0000050f  DMAIV_H                                    
 0000050e  DMAIV_L                                    
 0000585c  DMA_HSPLL                                  
-000186dc  EUSCI_A_UART_clearInterrupt                
-00018904  EUSCI_A_UART_disable                       
-0001890c  EUSCI_A_UART_enable                        
-00018778  EUSCI_A_UART_getInterruptStatus            
-000159f8  EUSCI_A_UART_init                          
-00018088  EUSCI_A_UART_receiveData                   
-00017f8c  EUSCI_A_UART_transmitData                  
-00018368  FRAMCtl_A_write32                          
+0001871c  EUSCI_A_UART_clearInterrupt                
+0001894c  EUSCI_A_UART_disable                       
+00018954  EUSCI_A_UART_enable                        
+000187b8  EUSCI_A_UART_getInterruptStatus            
+00015a20  EUSCI_A_UART_init                          
+000180ec  EUSCI_A_UART_receiveData                   
+00017ff0  EUSCI_A_UART_transmitData                  
+000183a8  FRAMCtl_A_write32                          
 00000140  FRCTL0                                     
 00000141  FRCTL0_H                                   
 00000140  FRCTL0_L                                   
-0000e5ac  FunctionTimer_A_ISR                        
-0000e5d0  FunctionTimer_B_ISR                        
+0000e5b0  FunctionTimer_A_ISR                        
+0000e5d4  FunctionTimer_B_ISR                        
 00000144  GCCTL0                                     
 00000145  GCCTL0_H                                   
 00000144  GCCTL0_L                                   
 00000146  GCCTL1                                     
 00000147  GCCTL1_H                                   
 00000146  GCCTL1_L                                   
-00018198  GPIO_clearInterrupt                        
-000181b8  GPIO_disableInterrupt                      
-000181d8  GPIO_enableInterrupt                       
-00018238  GPIO_getInputPinValue                      
-00017c68  GPIO_selectInterruptEdge                   
-00017684  GPIO_setAsInputPin                         
-00017208  GPIO_setAsInputPinWithPullDownResistor     
-00017254  GPIO_setAsInputPinWithPullUpResistor       
-00017b00  GPIO_setAsOutputPin                        
-000168cc  GPIO_setAsPeripheralModuleFunctionInputPin 
-00016940  GPIO_setAsPeripheralModuleFunctionOutputPin
-00018254  GPIO_setOutputHighOnPin                    
-00018270  GPIO_setOutputLowOnPin                     
+000181d8  GPIO_clearInterrupt                        
+000181f8  GPIO_disableInterrupt                      
+00018218  GPIO_enableInterrupt                       
+00018278  GPIO_getInputPinValue                      
+00017cfc  GPIO_selectInterruptEdge                   
+000176ac  GPIO_setAsInputPin                         
+00017230  GPIO_setAsInputPinWithPullDownResistor     
+0001727c  GPIO_setAsInputPinWithPullUpResistor       
+00017b60  GPIO_setAsOutputPin                        
+000168f4  GPIO_setAsPeripheralModuleFunctionInputPin 
+00016968  GPIO_setAsPeripheralModuleFunctionOutputPin
+00018294  GPIO_setOutputHighOnPin                    
+000182b0  GPIO_setOutputLowOnPin                     
 00000ef0  HSPLLCTL                                   
 00000ef1  HSPLLCTL_H                                 
 00000ef0  HSPLLCTL_L                                 
@@ -2268,15 +2266,15 @@ address   name
 00000a26  LCDM7                                      
 00000a27  LCDM8                                      
 00000a28  LCDM9                                      
-000186e8  LCD_C_clearMemory                          
-0001828c  LCD_C_configChargePump                     
-00018784  LCD_C_disableChargePump                    
-00017c98  LCD_C_init                                 
-00018914  LCD_C_on                                   
-00016fc4  LCD_C_setMemory                            
-000161c0  LCD_C_setPinAsLCDFunctionEx                
-00017d58  LCD_C_setVLCDSource                        
-000185b4  LCD_C_setVLCDVoltage                       
+00018728  LCD_C_clearMemory                          
+000182cc  LCD_C_configChargePump                     
+000187c4  LCD_C_disableChargePump                    
+00017d2c  LCD_C_init                                 
+0001895c  LCD_C_on                                   
+00016fec  LCD_C_setMemory                            
+000161e8  LCD_C_setPinAsLCDFunctionEx                
+00017dec  LCD_C_setVLCDSource                        
+000185f4  LCD_C_setVLCDVoltage                       
 00000a80  LEACAP                                     
 00000a82  LEACAPH                                    
 00000a80  LEACAPL                                    
@@ -2736,9 +2734,9 @@ address   name
 0000012a  PMMIFG                                     
 0000012b  PMMIFG_H                                   
 0000012a  PMMIFG_L                                   
-000184f4  PMM_enableSVSH                             
-000187e4  PMM_unlockLPM5                             
-0000e568  Port_2                                     
+00018534  PMM_enableSVSH                             
+00018824  PMM_unlockLPM5                             
+0000e56c  Port_2                                     
 00000158  RCCTL0                                     
 00000159  RCCTL0_H                                   
 00000158  RCCTL0_L                                   
@@ -2820,11 +2818,11 @@ address   name
 000004b6  RTCYEAR                                    
 000004b7  RTCYEAR_H                                  
 000004b6  RTCYEAR_L                                  
-0001891c  Ref_A_disableReferenceVoltage              
-00018924  Ref_A_enableReferenceVoltage               
-00018790  Ref_A_isRefGenBusy                         
-000185c4  Ref_A_isVariableReferenceVoltageOutputReady
-00018624  Ref_A_setReferenceVoltage                  
+00018964  Ref_A_disableReferenceVoltage              
+0001896c  Ref_A_enableReferenceVoltage               
+000187d0  Ref_A_isRefGenBusy                         
+00018604  Ref_A_isVariableReferenceVoltageOutputReady
+00018664  Ref_A_setReferenceVoltage                  
 00000e6a  SAPHAPHIZ                                  
 00000e6b  SAPHAPHIZ_H                                
 00000e6a  SAPHAPHIZ_L                                
@@ -3234,19 +3232,19 @@ address   name
 000003d0  TB0R                                       
 000003d1  TB0R_H                                     
 000003d0  TB0R_L                                     
-000171bc  TLV_getInfo                                
+000171e4  TLV_getInfo                                
 0000e444  Timer4_A0                                  
-0001879c  Timer_A_clearCaptureCompareInterrupt       
-0001892c  Timer_A_disableInterrupt                   
-000187a8  Timer_A_getCaptureCompareCount             
-000179b0  Timer_A_initCompareMode                    
-00017384  Timer_A_initContinuousMode                 
-000186f4  Timer_A_setCompareValue                    
-00018634  Timer_A_startCounter                       
-000187ec  Timer_A_stop                               
-00017e9c  Timer_cancelDelayedFunction                
-000174ec  Timer_scheduleDelayedFunction              
-000181f8  Timer_startDelayedFunctionTimer            
+000187dc  Timer_A_clearCaptureCompareInterrupt       
+00018974  Timer_A_disableInterrupt                   
+000187e8  Timer_A_getCaptureCompareCount             
+000179d8  Timer_A_initCompareMode                    
+000173ac  Timer_A_initContinuousMode                 
+00018734  Timer_A_setCompareValue                    
+00018674  Timer_A_startCounter                       
+0001882c  Timer_A_stop                               
+00017f00  Timer_cancelDelayedFunction                
+00017514  Timer_scheduleDelayedFunction              
+00018238  Timer_startDelayedFunctionTimer            
 000005d0  UCA0ABCTL                                  
 000005d1  UCA0ABCTL_H                                
 000005d0  UCA0ABCTL_L                                
@@ -3587,9 +3585,9 @@ address   name
 0000015c  WDTCTL                                     
 0000015d  WDTCTL_H                                   
 0000015c  WDTCTL_L                                   
-000185d4  WDT_A_initWatchdogTimer                    
-00018508  WDT_A_resetTimer                           
-0001851c  WDT_A_start                                
+00018614  WDT_A_initWatchdogTimer                    
+00018548  WDT_A_resetTimer                           
+0001855c  WDT_A_start                                
 0000a46c  _IQ12rmpy                                  
 0000a0f2  _IQ12toF                                   
 00009f78  _IQ15rsmpy                                 
@@ -3612,25 +3610,25 @@ address   name
 0000a608  _IQ30mpy                                   
 0000a076  _IQ30rsmpy                                 
 0000a39e  _IQ30toF                                   
-0000f228  _IQ6div_lookup                             
+0000f22c  _IQ6div_lookup                             
 0000a70e  _Q12rmpy                                   
 0000a650  _Q15div                                    
-0000ed18  _Q16div_coeffs                             
+0000ed1c  _Q16div_coeffs                             
 00002c00  __STACK_END                                
 00000400  __STACK_SIZE                               
-0000f7ac  __TI_BINIT_Base                            
-0000f7bc  __TI_BINIT_Limit                           
-0000f784  __TI_CINIT_Base                            
-0000f7ac  __TI_CINIT_Limit                           
-0000f7ac  __TI_CINIT_Warm                            
-0000f760  __TI_Handler_Table_Base                    
-0000f76c  __TI_Handler_Table_Limit                   
-0000e60e  __TI_ISR_TRAP                              
-0001624c  __TI_auto_init_nopinit_hold_wdt            
-00016856  __TI_decompress_lzss                       
-0001837e  __TI_decompress_none                       
-00011676  __TI_frcdivd                               
-00013ce4  __TI_frcmpyd                               
+0000f7ba  __TI_BINIT_Base                            
+0000f7ca  __TI_BINIT_Limit                           
+0000f792  __TI_CINIT_Base                            
+0000f7ba  __TI_CINIT_Limit                           
+0000f7ba  __TI_CINIT_Warm                            
+0000f76e  __TI_Handler_Table_Base                    
+0000f77a  __TI_Handler_Table_Limit                   
+0000e612  __TI_ISR_TRAP                              
+00016274  __TI_auto_init_nopinit_hold_wdt            
+0001687e  __TI_decompress_lzss                       
+000183be  __TI_decompress_none                       
+000116a2  __TI_frcdivd                               
+00013d10  __TI_frcmpyd                               
 0000ffac  __TI_int14                                 
 0000ffae  __TI_int15                                 
 0000ffb0  __TI_int16                                 
@@ -3675,14 +3673,14 @@ address   name
 ffffffff  __TI_pprof_out_hndl                        
 ffffffff  __TI_prof_data_size                        
 ffffffff  __TI_prof_data_start                       
-00011202  __TI_scanfi                                
-0000f7ac  __TI_table_binit                           
-00017fb0  __TI_zero_init                             
+0001122e  __TI_scanfi                                
+0000f7ba  __TI_table_binit                           
+00018014  __TI_zero_init                             
 ffffffff  __c_args__                                 
-000150a4  __difftime64                               
-0001518a  __gmtime64                                 
-0001275c  __localtime64                              
-00011ade  __mktime64                                 
+000150cc  __difftime64                               
+000151b2  __gmtime64                                 
+00012788  __localtime64                              
+00011b0a  __mktime64                                 
 0000a75c  __mspabi_addd                              
 0000b5ce  __mspabi_addf                              
 0000ae9e  __mspabi_cmpd                              
@@ -3708,12 +3706,12 @@ ffffffff  __c_args__
 0000b928  __mspabi_fixful                            
 0000b282  __mspabi_fltid                             
 0000ba4e  __mspabi_fltif                             
-00015a96  __mspabi_fltlid                            
+00015abe  __mspabi_fltlid                            
 0000b9be  __mspabi_fltlif                            
-0001423c  __mspabi_fltllid                           
-00018932  __mspabi_fltud                             
+00014264  __mspabi_fltllid                           
+0001897a  __mspabi_fltud                             
 0000bab6  __mspabi_fltuf                             
-000164f8  __mspabi_fltuld                            
+00016520  __mspabi_fltuld                            
 0000ba84  __mspabi_fltulf                            
 0000b28e  __mspabi_mpyd                              
 0000b6fa  __mspabi_mpyf                              
@@ -3723,7 +3721,7 @@ ffffffff  __c_args__
 0000bbbc  __mspabi_mpysl_f5hw                        
 0000bb40  __mspabi_mpysll_f5hw                       
 0000bb6c  __mspabi_mpyull_f5hw                       
-00017d86  __mspabi_negd                              
+00017e1a  __mspabi_negd                              
 0000bada  __mspabi_negf                              
 0000c4c0  __mspabi_remi                              
 0000c480  __mspabi_remli                             
@@ -3782,54 +3780,54 @@ ffffffff  __c_args__
 0000bcc8  __mspabi_srll_8                            
 0000bcc4  __mspabi_srll_9                            
 0000bd24  __mspabi_srlll                             
-00017b9c  __mspabi_subd                              
+00017c30  __mspabi_subd                              
 0000b5c8  __mspabi_subf                              
-0000e5f2  _c_int00_noargs                            
-0000ec16  _ctypes_                                   
+0000e5f6  _c_int00_noargs                            
+0000ec1a  _ctypes_                                   
 0000fffe  _reset_vector                              
 00002800  _stack                                     
-00011e92  _system_post_cinit                         
-00018700  _system_pre_init                           
-000020aa  _tz                                        
-00018938  abort                                      
+00011ebe  _system_post_cinit                         
+00018740  _system_pre_init                           
+000020be  _tz                                        
+00018980  abort                                      
 0000ae86  abs                                        
-00017938  alarmmng_init                              
-000187fc  alarmmng_isAirInPipe                       
-00018804  alarmmng_isBrush                           
-0001880c  alarmmng_isLeakage                         
-00018814  alarmmng_isNoUsage                         
-0001881c  alarmmng_isOverTemp                        
-00018824  alarmmng_isReverseFlow                     
-00010d48  alarmmng_update                            
-00018644  anasens_getBatteryInputVoltage             
-00018654  anasens_getOpticalInputVoltage             
-00014cf0  anasens_init                               
-00017a58  anasens_startConversion                    
-00016a9c  anasens_update                             
-00016df0  atoi                                       
-00002151  b_isTimeToCmac                             
+00017960  alarmmng_init                              
+0001883c  alarmmng_isAirInPipe                       
+00018844  alarmmng_isBrush                           
+0001884c  alarmmng_isLeakage                         
+00018854  alarmmng_isNoUsage                         
+0001885c  alarmmng_isOverTemp                        
+00018864  alarmmng_isReverseFlow                     
+00010d74  alarmmng_update                            
+00018684  anasens_getBatteryInputVoltage             
+00018694  anasens_getOpticalInputVoltage             
+00014d18  anasens_init                               
+00017a80  anasens_startConversion                    
+00016ac4  anasens_update                             
+00016e18  atoi                                       
+00002159  b_isTimeToCmac                             
 00004e84  batt_init                                  
 00004eac  batt_isLow                                 
 00004de4  batt_update                                
-0001870c  battdate_init                              
-0001882c  battdate_isOld                             
-00016474  battdate_update                            
-00014b00  battdate_updateConfig                      
-000162d8  brush_init                                 
-00018664  brush_isOverflowing                        
-000136b8  brush_update                               
-00016364  brush_updateConfig                         
+0001874c  battdate_init                              
+0001886c  battdate_isOld                             
+0001649c  battdate_update                            
+00014b28  battdate_updateConfig                      
+00016300  brush_init                                 
+000186a4  brush_isOverflowing                        
+000136e4  brush_update                               
+0001638c  brush_updateConfig                         
 0000530c  calcCmacFromMem                            
-00015c70  calib_init                                 
-000185e4  calib_run                                  
-0001711c  clk_init                                   
+00015c98  calib_init                                 
+00018624  calib_run                                  
+00017144  clk_init                                   
 00005618  cmac_isNonVerified                         
-0001074c  cmdmng_dispatch                            
-00018468  cmdmng_fetch                               
-00016bec  cmdmng_init                                
-00017074  comm_init                                  
-00017cc8  comm_run                                   
-0001847c  comm_testChangeToPreviousOpmode            
+00010778  cmdmng_dispatch                            
+000184a8  cmdmng_fetch                               
+00016c14  cmdmng_init                                
+0001709c  comm_init                                  
+00017d5c  comm_run                                   
+000184bc  comm_testChangeToPreviousOpmode            
 00006470  commonConfigurePPGDutyCyle                 
 00006850  commonDetermineSiliconVersion              
 0000680c  commonDetermineVariant                     
@@ -3852,31 +3850,31 @@ ffffffff  __c_args__
 000061d4  commonValidateSAPHconfigruation            
 00006b90  commonValidateSDHSconfigruation            
 000067a4  commonWaitForconversion                    
-00018940  configmng_getAlarmConfig                   
-00018948  configmng_getAppConfig                     
-00018950  configmng_getFirmwareVersion               
-00018958  configmng_getReplacementDate               
-00018960  configmng_getReplacementDateCharArray      
-00018968  configmng_getSerialNumber                  
-00018970  configmng_getSysConfig                     
-00016eb0  configmng_init                             
-00018490  configmng_setAppConfig                     
-00017e44  configmng_setSysConfig                     
-000176c4  configmng_updateSysConfig                  
-00016cbc  copy_in                                    
-00017db4  copysign                                   
-00017db4  copysignl                                  
-000175fc  crc_calc                                   
-00018834  crc_init                                   
-0001883c  crc_initWithPrevious                       
-00018718  crc_result                                 
-000154e4  dfsm_checkFrequency                        
-000180ac  dfsm_init                                  
-00017ec4  dfsm_loadFrequencyScheme                   
-00017fd4  dfsm_setHighFreqScheme                     
-00017ff8  dfsm_setLowFreqScheme                      
-0001801c  dfsm_setUserInteractFreqScheme             
-00013360  dfsm_update                                
+00018988  configmng_getAlarmConfig                   
+00018990  configmng_getAppConfig                     
+00018998  configmng_getFirmwareVersion               
+000189a0  configmng_getReplacementDate               
+000189a8  configmng_getReplacementDateCharArray      
+000189b0  configmng_getSerialNumber                  
+000189b8  configmng_getSysConfig                     
+00016ed8  configmng_init                             
+000184d0  configmng_setAppConfig                     
+00017ea8  configmng_setSysConfig                     
+000176ec  configmng_updateSysConfig                  
+00016ce4  copy_in                                    
+00017e48  copysign                                   
+00017e48  copysignl                                  
+00017624  crc_calc                                   
+00018874  crc_init                                   
+0001887c  crc_initWithPrevious                       
+00018758  crc_result                                 
+0001550c  dfsm_checkFrequency                        
+00018110  dfsm_init                                  
+00017f28  dfsm_loadFrequencyScheme                   
+00018038  dfsm_setHighFreqScheme                     
+0001805c  dfsm_setLowFreqScheme                      
+00018080  dfsm_setUserInteractFreqScheme             
+0001338c  dfsm_update                                
 000052fc  display_clearAllSegments                   
 00005288  display_init                               
 00005140  display_print                              
@@ -3890,115 +3888,116 @@ ffffffff  __c_args__
 000050f4  display_setSegments                        
 000050a0  display_setString                          
 000051f8  display_setTemperature                     
-00018844  display_turnOn                             
-0001701c  enableRxCircuit                            
-0000218e  errno                                      
+00018884  display_turnOn                             
+00017044  enableRxCircuit                            
+00002196  errno                                      
 000039d4  gFilterConstant                            
 000039fc  gHilbertFilterConstant                     
-0000e616  gUSSAbsToFLUT                              
+0000e61a  gUSSAbsToFLUT                              
 00001c08  gUSSAlgObject                              
 00006d18  gUSSGainLookUp                             
 000039b0  gUSSLEARAMReservedBlock1                   
 00003438  gUSSLEATempMemBlock                        
 0000e398  gUssSWConfig                               
-000024de  g_pFunctionTimer                           
+000024e6  g_pFunctionTimer                           
 0002e050  gauc_logBuffer1                            
 00035580  gauc_logBuffer2                            
 0003cab0  gauc_logBuffer3                            
-0000246b  gauc_optint_RXByte                         
-000024cd  gauc_optint_TXByte                         
-0000207a  gb_OPTCOMM_has_received                    
-0000207b  gb_OPTCOMM_has_sent                        
+00002473  gauc_optint_RXByte                         
+000024d5  gauc_optint_TXByte                         
+00002058  gb_OPTCOMM_has_received                    
+00002059  gb_OPTCOMM_has_sent                        
 00001d0c  gb_enableMeasure                           
-00002150  gb_isNonVerified                           
-000024e9  gb_optint_isReceiving                      
+00002158  gb_isNonVerified                           
+000024f1  gb_optint_isReceiving                      
 00001d0d  gb_p8interruptFlag                         
-000024e2  gl_pulsesPerCubibMeter                     
-000024f6  guc_optint_bit_count                       
-0000207c  gui_bitIndex                               
-000140fc  hal_init                                   
-00014fbc  hal_lcd_Init                               
-00018218  hal_lcd_print                              
-00018844  hal_lcd_turnonLCD                          
-00016578  hw_version_get                             
-00017a90  hw_version_init                            
-00002178  initCompParam                              
-0000215c  initContParam                              
-00018724  isdigit                                    
-00018730  isspace                                    
-00018672  isxdigit                                   
+000024ea  gl_pulsesPerCubibMeter                     
+000024fe  guc_optint_bit_count                       
+0000205a  gui_bitIndex                               
+00014124  hal_init                                   
+00014fe4  hal_lcd_Init                               
+00018258  hal_lcd_print                              
+00018884  hal_lcd_turnonLCD                          
+000165a0  hw_version_get                             
+00017ab8  hw_version_init                            
+00002180  initCompParam                              
+00002164  initContParam                              
+00018764  isdigit                                    
+00018770  isspace                                    
+000186b2  isxdigit                                   
 0000ae90  labs                                       
-00018530  lcddriver_clearAllSegments                 
-000172a0  lcddriver_clearSegment                     
-000182fc  lcddriver_init                             
-000189a0  lcddriver_packDataCmd                      
-000189a4  lcddriver_packSwResetCmd                   
-0001884c  lcddriver_print                            
-00018318  lcddriver_setAllSegments                   
-000172ec  lcddriver_setSegment                       
-00018844  lcddriver_turnOnLcd                        
-00013e48  ldexp                                      
-00013e48  ldexpl                                     
-00017414  leak_init                                  
-00018854  leak_isLeakage                             
-000155b0  leak_update                                
+00018570  lcddriver_clearAllSegments                 
+000172c8  lcddriver_clearSegment                     
+0001833c  lcddriver_init                             
+000189e8  lcddriver_packDataCmd                      
+000189ec  lcddriver_packSwResetCmd                   
+0001888c  lcddriver_print                            
+00018358  lcddriver_setAllSegments                   
+00017314  lcddriver_setSegment                       
+00018884  lcddriver_turnOnLcd                        
+00013e74  ldexp                                      
+00013e74  ldexpl                                     
+0001743c  leak_init                                  
+00018894  leak_isLeakage                             
+000155d8  leak_update                                
 00043ff8  lib_version                                
-00018394  llabs                                      
+000183d4  llabs                                      
 0000d414  log10f                                     
-0001885c  logger_enable                              
-000158a8  logger_init                                
-000184a4  logger_read                                
-00018864  logger_size                                
-00011e94  logger_update                              
-0001886c  logger_updateConfig                        
-00015d0c  main                                       
-00017882  memcpy                                     
-00018138  memset                                     
-00017e70  mov_avg_init                               
-00012fd4  mov_avg_update                             
-000187b4  no_usage_init                              
-00018680  no_usage_isDetected                        
-000147f8  no_usage_update                            
-000144ac  normal_init                                
-00014de4  normal_run                                 
-00018884  normal_testChangeToCommOpmode              
-00018158  normal_testChangeToVerifOpmode             
-00018874  opmodemng_getCurrentOpMode                 
-00017530  opmodemng_init                             
-000180d0  opmodemng_setActivationFlag                
-00018178  opmodemng_setCalibrationFlag               
-000185f4  opmodemng_setCurrentOpMode                 
-0001887c  opmodemng_setPreviousOpMode                
-000131a4  opmodemng_update                           
-00017de4  optcomm_disconnect                         
-000180f4  optcomm_init                               
-00018884  optcomm_isConnected                        
-00018990  optcomm_setActivityCallback                
+0001889c  logger_enable                              
+000158d0  logger_init                                
+000184e4  logger_read                                
+000188a4  logger_size                                
+00011ec0  logger_update                              
+000188ac  logger_updateConfig                        
+00015d34  main                                       
+000178aa  memcpy                                     
+00018178  memset                                     
+00017ed4  mov_avg_init                               
+00013000  mov_avg_update                             
+000187f4  no_usage_init                              
+000186c0  no_usage_isDetected                        
+00014820  no_usage_update                            
+000144d4  normal_init                                
+00014e0c  normal_run                                 
+000188c4  normal_testChangeToCommOpmode              
+00018198  normal_testChangeToVerifOpmode             
+000188b4  opmodemng_getCurrentOpMode                 
+00017558  opmodemng_init                             
+00018134  opmodemng_setActivationFlag                
+000181b8  opmodemng_setCalibrationFlag               
+00018634  opmodemng_setCurrentOpMode                 
+000188bc  opmodemng_setPreviousOpMode                
+000131d0  opmodemng_update                           
+00017b94  optcomm_disconnect                         
+00017af0  optcomm_init                               
+000188c4  optcomm_isConnected                        
+000189d8  optcomm_setActivityCallback                
 00010000  optcomm_update                             
-0001701c  optint_enableRx                            
-0001888c  optint_getState                            
-00016d8c  optint_init                                
-000160a0  optint_receive                             
-000183ac  optint_reset                               
-00016c54  optint_send                                
-000187c0  optint_start                               
-00018544  optint_update                              
-00015950  postcalib_init                             
-00018690  postcalib_run                              
-00017bd0  postcalib_testChangeToStandbyOpMode        
-000189a8  power_enableCoreWakeupByMeasurementFinished
-00018894  power_enableCoreWakeupBySerial             
-000189ac  power_enableUsWakeupByRTC                  
-00018064  power_enterSleep                           
-00017784  power_getWakeUpReason                      
-000183c4  power_init                                 
-00017704  precalib_init                              
-00017e14  precalib_run                               
+00017044  optint_enableRx                            
+000188cc  optint_getState                            
+00016db4  optint_init                                
+000160c8  optint_receive                             
+000183ec  optint_reset                               
+00016c7c  optint_send                                
+000188d4  optint_setBitTime                          
+00018800  optint_start                               
+00018584  optint_update                              
+00015978  postcalib_init                             
+000186d0  postcalib_run                              
+00017c64  postcalib_testChangeToStandbyOpMode        
+000189f0  power_enableCoreWakeupByMeasurementFinished
+000188dc  power_enableCoreWakeupBySerial             
+000189f4  power_enableUsWakeupByRTC                  
+000180c8  power_enterSleep                           
+000177ac  power_getWakeUpReason                      
+00018404  power_init                                 
+0001772c  precalib_init                              
+00017e78  precalib_run                               
 000087bc  privatePadCaptures                         
-0001889c  probe_disableDataTransmission              
-000188a4  probe_enableDataTransmission               
-000188ac  probe_init                                 
-00015678  probe_update                               
+000188e4  probe_disableDataTransmission              
+000188ec  probe_enableDataTransmission               
+000188f4  probe_init                                 
+000156a0  probe_update                               
 00004da8  proc_configReadSamplingRate                
 00004b14  proc_configWriteSamplingRate               
 00004db4  proc_disableFilters                        
@@ -4021,75 +4020,75 @@ ffffffff  __c_args__
 00004ccc  proc_resetVolumeCounters                   
 00004384  proc_update                                
 000047ac  proc_updateConfig                          
-000179e8  pulsemng_configWritePulseConstant          
-000184b8  pulsemng_enable                            
-000184cc  pulsemng_evt_getPulsePerMeter              
-000173cc  pulsemng_init                              
-000188b4  pulsemng_isEndPulse                        
-00015da8  pulsemng_update                            
-0001873c  pulseout_clearDirOutPin                    
-00018748  pulseout_clearPulseOutPin                  
-00018754  pulseout_setDirOutPin                      
-00018760  pulseout_setPulseOutPin                    
-000183dc  queue_getIndex                             
-000183f4  queue_init                                 
-00016130  queue_insertRear                           
-0001840c  queue_isFull                               
-000186a0  queue_reset                                
-00018998  queue_size                                 
-00017640  rbuf_init                                  
-000177c4  rbuf_put                                   
-00016f0c  rev_install_init                           
-000186b0  rev_install_isDetected                     
-00015268  rev_install_update                         
-00013e48  scalbn                                     
-00013e48  scalbnl                                    
-00017b34  screenmng_addScreen                        
-00018424  screenmng_deleteScreen                     
-000188bc  screenmng_getActiveScreenId                
-000165f8  screenmng_init                             
-000188c4  screenmng_isScreenLocked                   
-000188cc  screenmng_lockScreen                       
-00017338  screenmng_nextScreen                       
-0001716c  screenmng_registerEventIndicators          
-00017cf8  screenmng_setScreen                        
-00013b64  screenmng_update                           
-00018558  serial_disable                             
-000188d4  serial_enable                              
-000169b4  serial_init                                
-00017ac8  serial_receiveByte                         
-00016a28  serial_receiveBytes                        
-00018334  serial_stillTransmitting                   
-00017eec  serial_transmitBytes                       
+00017a10  pulsemng_configWritePulseConstant          
+000184f8  pulsemng_enable                            
+0001850c  pulsemng_evt_getPulsePerMeter              
+000173f4  pulsemng_init                              
+000188fc  pulsemng_isEndPulse                        
+00015dd0  pulsemng_update                            
+0001877c  pulseout_clearDirOutPin                    
+00018788  pulseout_clearPulseOutPin                  
+00018794  pulseout_setDirOutPin                      
+000187a0  pulseout_setPulseOutPin                    
+0001841c  queue_getIndex                             
+00018434  queue_init                                 
+00016158  queue_insertRear                           
+0001844c  queue_isFull                               
+000186e0  queue_reset                                
+000189e0  queue_size                                 
+00017668  rbuf_init                                  
+000177ec  rbuf_put                                   
+00016f34  rev_install_init                           
+000186f0  rev_install_isDetected                     
+00015290  rev_install_update                         
+00013e74  scalbn                                     
+00013e74  scalbnl                                    
+00017bc8  screenmng_addScreen                        
+00018464  screenmng_deleteScreen                     
+00018904  screenmng_getActiveScreenId                
+00016620  screenmng_init                             
+0001890c  screenmng_isScreenLocked                   
+00018914  screenmng_lockScreen                       
+00017360  screenmng_nextScreen                       
+00017194  screenmng_registerEventIndicators          
+00017d8c  screenmng_setScreen                        
+00013b90  screenmng_update                           
+00018598  serial_disable                             
+0001891c  serial_enable                              
+000169dc  serial_init                                
+00017b28  serial_receiveByte                         
+00016a50  serial_receiveBytes                        
+00018374  serial_stillTransmitting                   
+00017f50  serial_transmitBytes                       
 0000e43a  singDualToneConfig                         
-00017d28  sscanf                                     
-000157f8  standby_init                               
-00018604  standby_run                                
-00018884  standby_testChangeToCommOpmode             
-0001600c  standby_testChangeToVerifOpMode            
-0001745c  startMessage                               
+00017dbc  sscanf                                     
+00015820  standby_init                               
+00018644  standby_run                                
+000188c4  standby_testChangeToCommOpmode             
+00016034  standby_testChangeToVerifOpMode            
+00017484  startMessage                               
 00001d0a  state                                      
-000182a8  strchr                                     
-0001856a  strcpy                                     
-0001857c  strlen                                     
-000182c4  strrchr                                    
+000182e8  strchr                                     
+000185aa  strcpy                                     
+000185bc  strlen                                     
+00018304  strrchr                                    
 0000c502  strtod                                     
 0000cff4  strtol                                     
 0000c502  strtold                                    
 0000c9e2  strtoll                                    
 0000d23c  strtoul                                    
 0000cd66  strtoull                                   
-000175b8  systick_getActualDateTime                  
-000184e0  systick_getSysTickMs                       
-000188dc  systick_getWakeUpIntMs                     
-000187cc  systick_init                               
-00016d24  systick_setActualDateTime                  
-0001876c  systick_setWakeUpIntMs                     
-000174a4  systick_updateSysTickMs                    
-000187d8  temp_init                                  
-000188e4  temp_isOutsideLimit                        
-0001573c  temp_update                                
-0001858e  toupper                                    
+000175e0  systick_getActualDateTime                  
+00018520  systick_getSysTickMs                       
+00018924  systick_getWakeUpIntMs                     
+0001880c  systick_init                               
+00016d4c  systick_setActualDateTime                  
+000187ac  systick_setWakeUpIntMs                     
+000174cc  systick_updateSysTickMs                    
+00018818  temp_init                                  
+0001892c  temp_isOutsideLimit                        
+00015764  temp_update                                
+000185ce  toupper                                    
 00004374  us_disableMeasurements                     
 0000437c  us_enableMeasurements                      
 00004294  us_getMeasurement                          
@@ -4098,24 +4097,24 @@ ffffffff  __c_args__
 00004338  us_startMeasurements                       
 00004000  us_trimFrequencySwap                       
 00004358  us_trimGainPGA                             
-000188ec  userint_getState                           
-00017974  userint_init                               
-000186c0  userint_resetState                         
-000188f4  userint_setChangeModeTimeoutMs             
-00015414  userint_update                             
-000185a0  utils_assert                               
+00018934  userint_getState                           
+0001799c  userint_init                               
+00018700  userint_resetState                         
+0001893c  userint_setChangeModeTimeoutMs             
+0001543c  userint_update                             
+000185e0  utils_assert                               
 00004238  utils_calcSumPositives                     
-000178c0  utils_doubleToFixed                        
-00017c04  utils_fixedToDouble                        
-00013510  utils_linearInterp                         
-00016b0c  utils_lutSearch                            
-00017a20  utils_lutSearchIQ                          
-00014ed0  verif_init                                 
-00017f64  verif_run                                  
-00018884  verif_testChangeToCommOpmode               
-00014bf8  verif_testChangeToNormalOpmode             
-000188fc  wdog_feed                                  
-0001843c  wdog_init                                  
+000178e8  utils_doubleToFixed                        
+00017c98  utils_fixedToDouble                        
+0001353c  utils_linearInterp                         
+00016b34  utils_lutSearch                            
+00017a48  utils_lutSearchIQ                          
+00014ef8  verif_init                                 
+00017fc8  verif_run                                  
+000188c4  verif_testChangeToCommOpmode               
+00014c20  verif_testChangeToNormalOpmode             
+00018944  wdog_feed                                  
+0001847c  wdog_init                                  
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -5920,21 +5919,21 @@ address   name
 00001d0a  state                                      
 00001d0c  gb_enableMeasure                           
 00001d0d  gb_p8interruptFlag                         
-0000207a  gb_OPTCOMM_has_received                    
-0000207b  gb_OPTCOMM_has_sent                        
-0000207c  gui_bitIndex                               
-000020aa  _tz                                        
-00002150  gb_isNonVerified                           
-00002151  b_isTimeToCmac                             
-0000215c  initContParam                              
-00002178  initCompParam                              
-0000218e  errno                                      
-0000246b  gauc_optint_RXByte                         
-000024cd  gauc_optint_TXByte                         
-000024de  g_pFunctionTimer                           
-000024e2  gl_pulsesPerCubibMeter                     
-000024e9  gb_optint_isReceiving                      
-000024f6  guc_optint_bit_count                       
+00002058  gb_OPTCOMM_has_received                    
+00002059  gb_OPTCOMM_has_sent                        
+0000205a  gui_bitIndex                               
+000020be  _tz                                        
+00002158  gb_isNonVerified                           
+00002159  b_isTimeToCmac                             
+00002164  initContParam                              
+00002180  initCompParam                              
+00002196  errno                                      
+00002473  gauc_optint_RXByte                         
+000024d5  gauc_optint_TXByte                         
+000024e6  g_pFunctionTimer                           
+000024ea  gl_pulsesPerCubibMeter                     
+000024f1  gb_optint_isReceiving                      
+000024fe  guc_optint_bit_count                       
 00002800  _stack                                     
 00002c00  USS_iq30Atan2                              
 00002c00  __STACK_END                                
@@ -6211,23 +6210,23 @@ address   name
 0000e398  gUssSWConfig                               
 0000e43a  singDualToneConfig                         
 0000e444  Timer4_A0                                  
-0000e568  Port_2                                     
-0000e5ac  FunctionTimer_A_ISR                        
-0000e5d0  FunctionTimer_B_ISR                        
-0000e5f2  _c_int00_noargs                            
-0000e60e  __TI_ISR_TRAP                              
-0000e616  gUSSAbsToFLUT                              
-0000ec16  _ctypes_                                   
-0000ed18  _Q16div_coeffs                             
-0000f228  _IQ6div_lookup                             
-0000f760  __TI_Handler_Table_Base                    
-0000f76c  __TI_Handler_Table_Limit                   
-0000f784  __TI_CINIT_Base                            
-0000f7ac  __TI_BINIT_Base                            
-0000f7ac  __TI_CINIT_Limit                           
-0000f7ac  __TI_CINIT_Warm                            
-0000f7ac  __TI_table_binit                           
-0000f7bc  __TI_BINIT_Limit                           
+0000e56c  Port_2                                     
+0000e5b0  FunctionTimer_A_ISR                        
+0000e5d4  FunctionTimer_B_ISR                        
+0000e5f6  _c_int00_noargs                            
+0000e612  __TI_ISR_TRAP                              
+0000e61a  gUSSAbsToFLUT                              
+0000ec1a  _ctypes_                                   
+0000ed1c  _Q16div_coeffs                             
+0000f22c  _IQ6div_lookup                             
+0000f76e  __TI_Handler_Table_Base                    
+0000f77a  __TI_Handler_Table_Limit                   
+0000f792  __TI_CINIT_Base                            
+0000f7ba  __TI_BINIT_Base                            
+0000f7ba  __TI_CINIT_Limit                           
+0000f7ba  __TI_CINIT_Warm                            
+0000f7ba  __TI_table_binit                           
+0000f7ca  __TI_BINIT_Limit                           
 0000ffac  __TI_int14                                 
 0000ffae  __TI_int15                                 
 0000ffb0  __TI_int16                                 
@@ -6271,304 +6270,305 @@ address   name
 0000fffc  __TI_int54                                 
 0000fffe  _reset_vector                              
 00010000  optcomm_update                             
-0001074c  cmdmng_dispatch                            
-00010d48  alarmmng_update                            
-00011202  __TI_scanfi                                
-00011676  __TI_frcdivd                               
-00011ade  __mktime64                                 
-00011e92  _system_post_cinit                         
-00011e94  logger_update                              
-0001275c  __localtime64                              
-00012fd4  mov_avg_update                             
-000131a4  opmodemng_update                           
-00013360  dfsm_update                                
-00013510  utils_linearInterp                         
-000136b8  brush_update                               
-00013b64  screenmng_update                           
-00013ce4  __TI_frcmpyd                               
-00013e48  ldexp                                      
-00013e48  ldexpl                                     
-00013e48  scalbn                                     
-00013e48  scalbnl                                    
-000140fc  hal_init                                   
-0001423c  __mspabi_fltllid                           
-000144ac  normal_init                                
-000146ec  CS_setDCOFreq                              
-000147f8  no_usage_update                            
-00014b00  battdate_updateConfig                      
-00014bf8  verif_testChangeToNormalOpmode             
-00014cf0  anasens_init                               
-00014de4  normal_run                                 
-00014ed0  verif_init                                 
-00014fbc  hal_lcd_Init                               
-000150a4  __difftime64                               
-0001518a  __gmtime64                                 
-00015268  rev_install_update                         
-00015414  userint_update                             
-000154e4  dfsm_checkFrequency                        
-000155b0  leak_update                                
-00015678  probe_update                               
-0001573c  temp_update                                
-000157f8  standby_init                               
-000158a8  logger_init                                
-00015950  postcalib_init                             
-000159f8  EUSCI_A_UART_init                          
-00015a96  __mspabi_fltlid                            
-00015c70  calib_init                                 
-00015d0c  main                                       
-00015da8  pulsemng_update                            
-00015e44  ADC12_B_init                               
-0001600c  standby_testChangeToVerifOpMode            
-000160a0  optint_receive                             
-00016130  queue_insertRear                           
-000161c0  LCD_C_setPinAsLCDFunctionEx                
-0001624c  __TI_auto_init_nopinit_hold_wdt            
-000162d8  brush_init                                 
-00016364  brush_updateConfig                         
-00016474  battdate_update                            
-000164f8  __mspabi_fltuld                            
-00016578  hw_version_get                             
-000165f8  screenmng_init                             
-000167e0  AES256_setCipherKey                        
-00016856  __TI_decompress_lzss                       
-000168cc  GPIO_setAsPeripheralModuleFunctionInputPin 
-00016940  GPIO_setAsPeripheralModuleFunctionOutputPin
-000169b4  serial_init                                
-00016a28  serial_receiveBytes                        
-00016a9c  anasens_update                             
-00016b0c  utils_lutSearch                            
-00016b7c  CS_initClockSignal                         
-00016bec  cmdmng_init                                
-00016c54  optint_send                                
-00016cbc  copy_in                                    
-00016d24  systick_setActualDateTime                  
-00016d8c  optint_init                                
-00016df0  atoi                                       
-00016e54  AES256_encryptData                         
-00016eb0  configmng_init                             
-00016f0c  rev_install_init                           
-00016fc4  LCD_C_setMemory                            
-0001701c  enableRxCircuit                            
-0001701c  optint_enableRx                            
-00017074  comm_init                                  
-0001711c  clk_init                                   
-0001716c  screenmng_registerEventIndicators          
-000171bc  TLV_getInfo                                
-00017208  GPIO_setAsInputPinWithPullDownResistor     
-00017254  GPIO_setAsInputPinWithPullUpResistor       
-000172a0  lcddriver_clearSegment                     
-000172ec  lcddriver_setSegment                       
-00017338  screenmng_nextScreen                       
-00017384  Timer_A_initContinuousMode                 
-000173cc  pulsemng_init                              
-00017414  leak_init                                  
-0001745c  startMessage                               
-000174a4  systick_updateSysTickMs                    
-000174ec  Timer_scheduleDelayedFunction              
-00017530  opmodemng_init                             
-000175b8  systick_getActualDateTime                  
-000175fc  crc_calc                                   
-00017640  rbuf_init                                  
-00017684  GPIO_setAsInputPin                         
-000176c4  configmng_updateSysConfig                  
-00017704  precalib_init                              
-00017744  CS_turnOnLFXT                              
-00017784  power_getWakeUpReason                      
-000177c4  rbuf_put                                   
-00017882  memcpy                                     
-000178c0  utils_doubleToFixed                        
-000178fc  ADC12_B_configureMemory                    
-00017938  alarmmng_init                              
-00017974  userint_init                               
-000179b0  Timer_A_initCompareMode                    
-000179e8  pulsemng_configWritePulseConstant          
-00017a20  utils_lutSearchIQ                          
-00017a58  anasens_startConversion                    
-00017a90  hw_version_init                            
-00017ac8  serial_receiveByte                         
-00017b00  GPIO_setAsOutputPin                        
-00017b34  screenmng_addScreen                        
-00017b9c  __mspabi_subd                              
-00017bd0  postcalib_testChangeToStandbyOpMode        
-00017c04  utils_fixedToDouble                        
-00017c38  ADC12_B_startConversion                    
-00017c68  GPIO_selectInterruptEdge                   
-00017c98  LCD_C_init                                 
-00017cc8  comm_run                                   
-00017cf8  screenmng_setScreen                        
-00017d28  sscanf                                     
-00017d58  LCD_C_setVLCDSource                        
-00017d86  __mspabi_negd                              
-00017db4  copysign                                   
-00017db4  copysignl                                  
-00017de4  optcomm_disconnect                         
-00017e14  precalib_run                               
-00017e44  configmng_setSysConfig                     
-00017e70  mov_avg_init                               
-00017e9c  Timer_cancelDelayedFunction                
-00017ec4  dfsm_loadFrequencyScheme                   
-00017eec  serial_transmitBytes                       
-00017f64  verif_run                                  
-00017f8c  EUSCI_A_UART_transmitData                  
-00017fb0  __TI_zero_init                             
-00017fd4  dfsm_setHighFreqScheme                     
-00017ff8  dfsm_setLowFreqScheme                      
-0001801c  dfsm_setUserInteractFreqScheme             
-00018064  power_enterSleep                           
-00018088  EUSCI_A_UART_receiveData                   
-000180ac  dfsm_init                                  
-000180d0  opmodemng_setActivationFlag                
-000180f4  optcomm_init                               
-00018118  ADC12_B_setupSamplingTimer                 
-00018138  memset                                     
-00018158  normal_testChangeToVerifOpmode             
-00018178  opmodemng_setCalibrationFlag               
-00018198  GPIO_clearInterrupt                        
-000181b8  GPIO_disableInterrupt                      
-000181d8  GPIO_enableInterrupt                       
-000181f8  Timer_startDelayedFunctionTimer            
-00018218  hal_lcd_print                              
-00018238  GPIO_getInputPinValue                      
-00018254  GPIO_setOutputHighOnPin                    
-00018270  GPIO_setOutputLowOnPin                     
-0001828c  LCD_C_configChargePump                     
-000182a8  strchr                                     
-000182c4  strrchr                                    
-000182e0  CS_setExternalClockSource                  
-000182fc  lcddriver_init                             
-00018318  lcddriver_setAllSegments                   
-00018334  serial_stillTransmitting                   
-00018350  ADC12_B_disable                            
-00018368  FRAMCtl_A_write32                          
-0001837e  __TI_decompress_none                       
-00018394  llabs                                      
-000183ac  optint_reset                               
-000183c4  power_init                                 
-000183dc  queue_getIndex                             
-000183f4  queue_init                                 
-0001840c  queue_isFull                               
-00018424  screenmng_deleteScreen                     
-0001843c  wdog_init                                  
-00018468  cmdmng_fetch                               
-0001847c  comm_testChangeToPreviousOpmode            
-00018490  configmng_setAppConfig                     
-000184a4  logger_read                                
-000184b8  pulsemng_enable                            
-000184cc  pulsemng_evt_getPulsePerMeter              
-000184e0  systick_getSysTickMs                       
-000184f4  PMM_enableSVSH                             
-00018508  WDT_A_resetTimer                           
-0001851c  WDT_A_start                                
-00018530  lcddriver_clearAllSegments                 
-00018544  optint_update                              
-00018558  serial_disable                             
-0001856a  strcpy                                     
-0001857c  strlen                                     
-0001858e  toupper                                    
-000185a0  utils_assert                               
-000185b4  LCD_C_setVLCDVoltage                       
-000185c4  Ref_A_isVariableReferenceVoltageOutputReady
-000185d4  WDT_A_initWatchdogTimer                    
-000185e4  calib_run                                  
-000185f4  opmodemng_setCurrentOpMode                 
-00018604  standby_run                                
-00018614  ADC12_B_enable                             
-00018624  Ref_A_setReferenceVoltage                  
-00018634  Timer_A_startCounter                       
-00018644  anasens_getBatteryInputVoltage             
-00018654  anasens_getOpticalInputVoltage             
-00018664  brush_isOverflowing                        
-00018672  isxdigit                                   
-00018680  no_usage_isDetected                        
-00018690  postcalib_run                              
-000186a0  queue_reset                                
-000186b0  rev_install_isDetected                     
-000186c0  userint_resetState                         
-000186d0  ADC12_B_getResults                         
-000186dc  EUSCI_A_UART_clearInterrupt                
-000186e8  LCD_C_clearMemory                          
-000186f4  Timer_A_setCompareValue                    
-00018700  _system_pre_init                           
-0001870c  battdate_init                              
-00018718  crc_result                                 
-00018724  isdigit                                    
-00018730  isspace                                    
-0001873c  pulseout_clearDirOutPin                    
-00018748  pulseout_clearPulseOutPin                  
-00018754  pulseout_setDirOutPin                      
-00018760  pulseout_setPulseOutPin                    
-0001876c  systick_setWakeUpIntMs                     
-00018778  EUSCI_A_UART_getInterruptStatus            
-00018784  LCD_C_disableChargePump                    
-00018790  Ref_A_isRefGenBusy                         
-0001879c  Timer_A_clearCaptureCompareInterrupt       
-000187a8  Timer_A_getCaptureCompareCount             
-000187b4  no_usage_init                              
-000187c0  optint_start                               
-000187cc  systick_init                               
-000187d8  temp_init                                  
-000187e4  PMM_unlockLPM5                             
-000187ec  Timer_A_stop                               
-000187fc  alarmmng_isAirInPipe                       
-00018804  alarmmng_isBrush                           
-0001880c  alarmmng_isLeakage                         
-00018814  alarmmng_isNoUsage                         
-0001881c  alarmmng_isOverTemp                        
-00018824  alarmmng_isReverseFlow                     
-0001882c  battdate_isOld                             
-00018834  crc_init                                   
-0001883c  crc_initWithPrevious                       
-00018844  display_turnOn                             
-00018844  hal_lcd_turnonLCD                          
-00018844  lcddriver_turnOnLcd                        
-0001884c  lcddriver_print                            
-00018854  leak_isLeakage                             
-0001885c  logger_enable                              
-00018864  logger_size                                
-0001886c  logger_updateConfig                        
-00018874  opmodemng_getCurrentOpMode                 
-0001887c  opmodemng_setPreviousOpMode                
-00018884  normal_testChangeToCommOpmode              
-00018884  optcomm_isConnected                        
-00018884  standby_testChangeToCommOpmode             
-00018884  verif_testChangeToCommOpmode               
-0001888c  optint_getState                            
-00018894  power_enableCoreWakeupBySerial             
-0001889c  probe_disableDataTransmission              
-000188a4  probe_enableDataTransmission               
-000188ac  probe_init                                 
-000188b4  pulsemng_isEndPulse                        
-000188bc  screenmng_getActiveScreenId                
-000188c4  screenmng_isScreenLocked                   
-000188cc  screenmng_lockScreen                       
-000188d4  serial_enable                              
-000188dc  systick_getWakeUpIntMs                     
-000188e4  temp_isOutsideLimit                        
-000188ec  userint_getState                           
-000188f4  userint_setChangeModeTimeoutMs             
-000188fc  wdog_feed                                  
-00018904  EUSCI_A_UART_disable                       
-0001890c  EUSCI_A_UART_enable                        
-00018914  LCD_C_on                                   
-0001891c  Ref_A_disableReferenceVoltage              
-00018924  Ref_A_enableReferenceVoltage               
-0001892c  Timer_A_disableInterrupt                   
-00018932  __mspabi_fltud                             
-00018938  C$$EXIT                                    
-00018938  abort                                      
-00018940  configmng_getAlarmConfig                   
-00018948  configmng_getAppConfig                     
-00018950  configmng_getFirmwareVersion               
-00018958  configmng_getReplacementDate               
-00018960  configmng_getReplacementDateCharArray      
-00018968  configmng_getSerialNumber                  
-00018970  configmng_getSysConfig                     
-00018990  optcomm_setActivityCallback                
-00018998  queue_size                                 
-000189a0  lcddriver_packDataCmd                      
-000189a4  lcddriver_packSwResetCmd                   
-000189a8  power_enableCoreWakeupByMeasurementFinished
-000189ac  power_enableUsWakeupByRTC                  
+00010778  cmdmng_dispatch                            
+00010d74  alarmmng_update                            
+0001122e  __TI_scanfi                                
+000116a2  __TI_frcdivd                               
+00011b0a  __mktime64                                 
+00011ebe  _system_post_cinit                         
+00011ec0  logger_update                              
+00012788  __localtime64                              
+00013000  mov_avg_update                             
+000131d0  opmodemng_update                           
+0001338c  dfsm_update                                
+0001353c  utils_linearInterp                         
+000136e4  brush_update                               
+00013b90  screenmng_update                           
+00013d10  __TI_frcmpyd                               
+00013e74  ldexp                                      
+00013e74  ldexpl                                     
+00013e74  scalbn                                     
+00013e74  scalbnl                                    
+00014124  hal_init                                   
+00014264  __mspabi_fltllid                           
+000144d4  normal_init                                
+00014714  CS_setDCOFreq                              
+00014820  no_usage_update                            
+00014b28  battdate_updateConfig                      
+00014c20  verif_testChangeToNormalOpmode             
+00014d18  anasens_init                               
+00014e0c  normal_run                                 
+00014ef8  verif_init                                 
+00014fe4  hal_lcd_Init                               
+000150cc  __difftime64                               
+000151b2  __gmtime64                                 
+00015290  rev_install_update                         
+0001543c  userint_update                             
+0001550c  dfsm_checkFrequency                        
+000155d8  leak_update                                
+000156a0  probe_update                               
+00015764  temp_update                                
+00015820  standby_init                               
+000158d0  logger_init                                
+00015978  postcalib_init                             
+00015a20  EUSCI_A_UART_init                          
+00015abe  __mspabi_fltlid                            
+00015c98  calib_init                                 
+00015d34  main                                       
+00015dd0  pulsemng_update                            
+00015e6c  ADC12_B_init                               
+00016034  standby_testChangeToVerifOpMode            
+000160c8  optint_receive                             
+00016158  queue_insertRear                           
+000161e8  LCD_C_setPinAsLCDFunctionEx                
+00016274  __TI_auto_init_nopinit_hold_wdt            
+00016300  brush_init                                 
+0001638c  brush_updateConfig                         
+0001649c  battdate_update                            
+00016520  __mspabi_fltuld                            
+000165a0  hw_version_get                             
+00016620  screenmng_init                             
+00016808  AES256_setCipherKey                        
+0001687e  __TI_decompress_lzss                       
+000168f4  GPIO_setAsPeripheralModuleFunctionInputPin 
+00016968  GPIO_setAsPeripheralModuleFunctionOutputPin
+000169dc  serial_init                                
+00016a50  serial_receiveBytes                        
+00016ac4  anasens_update                             
+00016b34  utils_lutSearch                            
+00016ba4  CS_initClockSignal                         
+00016c14  cmdmng_init                                
+00016c7c  optint_send                                
+00016ce4  copy_in                                    
+00016d4c  systick_setActualDateTime                  
+00016db4  optint_init                                
+00016e18  atoi                                       
+00016e7c  AES256_encryptData                         
+00016ed8  configmng_init                             
+00016f34  rev_install_init                           
+00016fec  LCD_C_setMemory                            
+00017044  enableRxCircuit                            
+00017044  optint_enableRx                            
+0001709c  comm_init                                  
+00017144  clk_init                                   
+00017194  screenmng_registerEventIndicators          
+000171e4  TLV_getInfo                                
+00017230  GPIO_setAsInputPinWithPullDownResistor     
+0001727c  GPIO_setAsInputPinWithPullUpResistor       
+000172c8  lcddriver_clearSegment                     
+00017314  lcddriver_setSegment                       
+00017360  screenmng_nextScreen                       
+000173ac  Timer_A_initContinuousMode                 
+000173f4  pulsemng_init                              
+0001743c  leak_init                                  
+00017484  startMessage                               
+000174cc  systick_updateSysTickMs                    
+00017514  Timer_scheduleDelayedFunction              
+00017558  opmodemng_init                             
+000175e0  systick_getActualDateTime                  
+00017624  crc_calc                                   
+00017668  rbuf_init                                  
+000176ac  GPIO_setAsInputPin                         
+000176ec  configmng_updateSysConfig                  
+0001772c  precalib_init                              
+0001776c  CS_turnOnLFXT                              
+000177ac  power_getWakeUpReason                      
+000177ec  rbuf_put                                   
+000178aa  memcpy                                     
+000178e8  utils_doubleToFixed                        
+00017924  ADC12_B_configureMemory                    
+00017960  alarmmng_init                              
+0001799c  userint_init                               
+000179d8  Timer_A_initCompareMode                    
+00017a10  pulsemng_configWritePulseConstant          
+00017a48  utils_lutSearchIQ                          
+00017a80  anasens_startConversion                    
+00017ab8  hw_version_init                            
+00017af0  optcomm_init                               
+00017b28  serial_receiveByte                         
+00017b60  GPIO_setAsOutputPin                        
+00017b94  optcomm_disconnect                         
+00017bc8  screenmng_addScreen                        
+00017c30  __mspabi_subd                              
+00017c64  postcalib_testChangeToStandbyOpMode        
+00017c98  utils_fixedToDouble                        
+00017ccc  ADC12_B_startConversion                    
+00017cfc  GPIO_selectInterruptEdge                   
+00017d2c  LCD_C_init                                 
+00017d5c  comm_run                                   
+00017d8c  screenmng_setScreen                        
+00017dbc  sscanf                                     
+00017dec  LCD_C_setVLCDSource                        
+00017e1a  __mspabi_negd                              
+00017e48  copysign                                   
+00017e48  copysignl                                  
+00017e78  precalib_run                               
+00017ea8  configmng_setSysConfig                     
+00017ed4  mov_avg_init                               
+00017f00  Timer_cancelDelayedFunction                
+00017f28  dfsm_loadFrequencyScheme                   
+00017f50  serial_transmitBytes                       
+00017fc8  verif_run                                  
+00017ff0  EUSCI_A_UART_transmitData                  
+00018014  __TI_zero_init                             
+00018038  dfsm_setHighFreqScheme                     
+0001805c  dfsm_setLowFreqScheme                      
+00018080  dfsm_setUserInteractFreqScheme             
+000180c8  power_enterSleep                           
+000180ec  EUSCI_A_UART_receiveData                   
+00018110  dfsm_init                                  
+00018134  opmodemng_setActivationFlag                
+00018158  ADC12_B_setupSamplingTimer                 
+00018178  memset                                     
+00018198  normal_testChangeToVerifOpmode             
+000181b8  opmodemng_setCalibrationFlag               
+000181d8  GPIO_clearInterrupt                        
+000181f8  GPIO_disableInterrupt                      
+00018218  GPIO_enableInterrupt                       
+00018238  Timer_startDelayedFunctionTimer            
+00018258  hal_lcd_print                              
+00018278  GPIO_getInputPinValue                      
+00018294  GPIO_setOutputHighOnPin                    
+000182b0  GPIO_setOutputLowOnPin                     
+000182cc  LCD_C_configChargePump                     
+000182e8  strchr                                     
+00018304  strrchr                                    
+00018320  CS_setExternalClockSource                  
+0001833c  lcddriver_init                             
+00018358  lcddriver_setAllSegments                   
+00018374  serial_stillTransmitting                   
+00018390  ADC12_B_disable                            
+000183a8  FRAMCtl_A_write32                          
+000183be  __TI_decompress_none                       
+000183d4  llabs                                      
+000183ec  optint_reset                               
+00018404  power_init                                 
+0001841c  queue_getIndex                             
+00018434  queue_init                                 
+0001844c  queue_isFull                               
+00018464  screenmng_deleteScreen                     
+0001847c  wdog_init                                  
+000184a8  cmdmng_fetch                               
+000184bc  comm_testChangeToPreviousOpmode            
+000184d0  configmng_setAppConfig                     
+000184e4  logger_read                                
+000184f8  pulsemng_enable                            
+0001850c  pulsemng_evt_getPulsePerMeter              
+00018520  systick_getSysTickMs                       
+00018534  PMM_enableSVSH                             
+00018548  WDT_A_resetTimer                           
+0001855c  WDT_A_start                                
+00018570  lcddriver_clearAllSegments                 
+00018584  optint_update                              
+00018598  serial_disable                             
+000185aa  strcpy                                     
+000185bc  strlen                                     
+000185ce  toupper                                    
+000185e0  utils_assert                               
+000185f4  LCD_C_setVLCDVoltage                       
+00018604  Ref_A_isVariableReferenceVoltageOutputReady
+00018614  WDT_A_initWatchdogTimer                    
+00018624  calib_run                                  
+00018634  opmodemng_setCurrentOpMode                 
+00018644  standby_run                                
+00018654  ADC12_B_enable                             
+00018664  Ref_A_setReferenceVoltage                  
+00018674  Timer_A_startCounter                       
+00018684  anasens_getBatteryInputVoltage             
+00018694  anasens_getOpticalInputVoltage             
+000186a4  brush_isOverflowing                        
+000186b2  isxdigit                                   
+000186c0  no_usage_isDetected                        
+000186d0  postcalib_run                              
+000186e0  queue_reset                                
+000186f0  rev_install_isDetected                     
+00018700  userint_resetState                         
+00018710  ADC12_B_getResults                         
+0001871c  EUSCI_A_UART_clearInterrupt                
+00018728  LCD_C_clearMemory                          
+00018734  Timer_A_setCompareValue                    
+00018740  _system_pre_init                           
+0001874c  battdate_init                              
+00018758  crc_result                                 
+00018764  isdigit                                    
+00018770  isspace                                    
+0001877c  pulseout_clearDirOutPin                    
+00018788  pulseout_clearPulseOutPin                  
+00018794  pulseout_setDirOutPin                      
+000187a0  pulseout_setPulseOutPin                    
+000187ac  systick_setWakeUpIntMs                     
+000187b8  EUSCI_A_UART_getInterruptStatus            
+000187c4  LCD_C_disableChargePump                    
+000187d0  Ref_A_isRefGenBusy                         
+000187dc  Timer_A_clearCaptureCompareInterrupt       
+000187e8  Timer_A_getCaptureCompareCount             
+000187f4  no_usage_init                              
+00018800  optint_start                               
+0001880c  systick_init                               
+00018818  temp_init                                  
+00018824  PMM_unlockLPM5                             
+0001882c  Timer_A_stop                               
+0001883c  alarmmng_isAirInPipe                       
+00018844  alarmmng_isBrush                           
+0001884c  alarmmng_isLeakage                         
+00018854  alarmmng_isNoUsage                         
+0001885c  alarmmng_isOverTemp                        
+00018864  alarmmng_isReverseFlow                     
+0001886c  battdate_isOld                             
+00018874  crc_init                                   
+0001887c  crc_initWithPrevious                       
+00018884  display_turnOn                             
+00018884  hal_lcd_turnonLCD                          
+00018884  lcddriver_turnOnLcd                        
+0001888c  lcddriver_print                            
+00018894  leak_isLeakage                             
+0001889c  logger_enable                              
+000188a4  logger_size                                
+000188ac  logger_updateConfig                        
+000188b4  opmodemng_getCurrentOpMode                 
+000188bc  opmodemng_setPreviousOpMode                
+000188c4  normal_testChangeToCommOpmode              
+000188c4  optcomm_isConnected                        
+000188c4  standby_testChangeToCommOpmode             
+000188c4  verif_testChangeToCommOpmode               
+000188cc  optint_getState                            
+000188d4  optint_setBitTime                          
+000188dc  power_enableCoreWakeupBySerial             
+000188e4  probe_disableDataTransmission              
+000188ec  probe_enableDataTransmission               
+000188f4  probe_init                                 
+000188fc  pulsemng_isEndPulse                        
+00018904  screenmng_getActiveScreenId                
+0001890c  screenmng_isScreenLocked                   
+00018914  screenmng_lockScreen                       
+0001891c  serial_enable                              
+00018924  systick_getWakeUpIntMs                     
+0001892c  temp_isOutsideLimit                        
+00018934  userint_getState                           
+0001893c  userint_setChangeModeTimeoutMs             
+00018944  wdog_feed                                  
+0001894c  EUSCI_A_UART_disable                       
+00018954  EUSCI_A_UART_enable                        
+0001895c  LCD_C_on                                   
+00018964  Ref_A_disableReferenceVoltage              
+0001896c  Ref_A_enableReferenceVoltage               
+00018974  Timer_A_disableInterrupt                   
+0001897a  __mspabi_fltud                             
+00018980  C$$EXIT                                    
+00018980  abort                                      
+00018988  configmng_getAlarmConfig                   
+00018990  configmng_getAppConfig                     
+00018998  configmng_getFirmwareVersion               
+000189a0  configmng_getReplacementDate               
+000189a8  configmng_getReplacementDateCharArray      
+000189b0  configmng_getSerialNumber                  
+000189b8  configmng_getSysConfig                     
+000189d8  optcomm_setActivityCallback                
+000189e0  queue_size                                 
+000189e8  lcddriver_packDataCmd                      
+000189ec  lcddriver_packSwResetCmd                   
+000189f0  power_enableCoreWakeupByMeasurementFinished
+000189f4  power_enableUsWakeupByRTC                  
 0002e050  gauc_logBuffer1                            
 00035580  gauc_logBuffer2                            
 0003cab0  gauc_logBuffer3                            
@@ -6578,4 +6578,4 @@ ffffffff  __TI_prof_data_size
 ffffffff  __TI_prof_data_start                       
 ffffffff  __c_args__                                 
 
-[2455 symbols]
+[2456 symbols]

@@ -83,7 +83,7 @@ static const s_screen_t gs_calibScreens[] =
     {
         .e_screenType = E_SCREEN_TYPE_FLOWRATE,
         .pf_getData = (void (*)(void)) proc_getCurrentFlowRate,
-        .uc_doubleResolution = 3
+        .uc_doubleResolution = 4
     },
     /** Reverse volume screen */
     {
