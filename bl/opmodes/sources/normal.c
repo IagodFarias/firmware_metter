@@ -375,6 +375,7 @@ void normal_init(void)
 #endif /* DEBUG_NORMAL ||  DEBUG_FLOWRATE || DEBUG_PROBE_NORMAL*/
     power_enableCoreWakeupByMeasurementFinished();
     power_enableUsWakeupByRTC();
+    power_enableLpm3();
 
 #if DEBUG
     proc_resetVolumeCounters();

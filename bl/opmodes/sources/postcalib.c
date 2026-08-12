@@ -1,11 +1,11 @@
 /***************************************************************************//**
  * @brief
  * @file    postcalib.c
- * @author  Gustavo Salomão
+ * @author  Gustavo Salomï¿½o
  * @date    07/03/2018
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -135,6 +135,7 @@ void postcalib_init()
     power_enableCoreWakeupBySerial();
     power_enableCoreWakeupByMeasurementFinished();
     power_enableUsWakeupByRTC();
+    power_disableLpm3();
 }
 
 /**

@@ -5,7 +5,7 @@
  * @date    14/02/2017
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -47,6 +47,10 @@ static void checkWakeUp(void);
 /** Core wake up configuration. */
 static e_power_wakeup_t ge_wakeupConfig;
 
+/** Selects which LPM level power_enterSleep() uses: false = LPM0 (UART1
+ * clock stays alive), true = LPM3 (deeper sleep, UART1 clock gated). */
+static bool gb_lpm3Enabled;
+
 /*******************************************************************************
  * Public functions
  ******************************************************************************/
@@ -69,6 +73,7 @@ void power_init(void)
 #endif
 
     ge_wakeupConfig = (e_power_wakeup_t) 0;
+    gb_lpm3Enabled = false;
 }
 
 /**
@@ -203,6 +208,21 @@ void power_disableUsWakeupByRTC(void)
 
 }
 
+void power_enableLpm3(void)
+{
+    gb_lpm3Enabled = true;
+}
+
+void power_disableLpm3(void)
+{
+    gb_lpm3Enabled = false;
+}
+
+bool power_isLpm3Enabled(void)
+{
+    return gb_lpm3Enabled;
+}
+
 /**
  * @brief
  *      Put core in sleep mode.
@@ -230,14 +250,18 @@ void power_enterSleep(void)
     printf("%llu (POWER): Entering sleep mode.\n", systick_getSysTickMs());
 #endif
 
-#ifdef __ENABLE_LPM__  /* If the MCU is operating in a LPM indicated by the a defined constant __ENABLE_LPM__   */
-    /* Wait until timer elapses in LPM3  */
-    USS_waitForAppTimerElapse(&gUssSWConfig,
-                                 USS_low_power_mode_option_low_power_mode_3);
-#else   /* Wait until timer elapses in LPM0  */
-    USS_waitForAppTimerElapse(
-            &gUssSWConfig, USS_low_power_mode_option_low_power_mode_0);
-#endif
+    if(gb_lpm3Enabled)
+    {
+        /* Wait until timer elapses in LPM3  */
+        USS_waitForAppTimerElapse(&gUssSWConfig,
+                                     USS_low_power_mode_option_low_power_mode_3);
+    }
+    else
+    {
+        /* Wait until timer elapses in LPM0  */
+        USS_waitForAppTimerElapse(
+                &gUssSWConfig, USS_low_power_mode_option_low_power_mode_0);
+    }
 }
 
 static void checkWakeUp(void)

@@ -178,6 +178,7 @@ void standby_init(void)
     power_init();
     power_enableCoreWakeupByMeasurementFinished();
     power_enableUsWakeupByRTC();
+    power_enableLpm3();
 }
 
 /**

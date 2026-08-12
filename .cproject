@@ -48,7 +48,6 @@
 									<listOptionValue builtIn="false" value="__WATCHDOG_ENABLE__"/>
 									<listOptionValue builtIn="false" value="__SVSH_ENABLE__=1"/>
 									<listOptionValue builtIn="false" value="xDEBUG_CLOCK_CORRECTION"/>
-									<listOptionValue builtIn="false" value="__ENABLE_LPM__=0x01"/>
 									<listOptionValue builtIn="false" value="__EXTRA_VERSION__=0x00,0x01"/>
 								</option>
 								<option id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.DATA_MODEL.15971527" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.DATA_MODEL" value="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.DATA_MODEL.large" valueType="enumerated"/>
@@ -228,7 +227,6 @@
 									<listOptionValue builtIn="false" value="__WATCHDOG_ENABLE__"/>
 									<listOptionValue builtIn="false" value="__SVSH_ENABLE__"/>
 									<listOptionValue builtIn="false" value="xDEBUG_CLOCK_CORRECTION"/>
-									<listOptionValue builtIn="false" value="__ENABLE_LPM__=0x01"/>
 									<listOptionValue builtIn="false" value="__EXTRA_VERSION__=0x00,0x01"/>
 								</option>
 								<option id="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.DATA_MODEL.44259201" name="Specify the data memory model (--data_model)" superClass="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.DATA_MODEL" value="com.ti.ccstudio.buildDefinitions.MSP430_21.6.compilerID.DATA_MODEL.large" valueType="enumerated"/>

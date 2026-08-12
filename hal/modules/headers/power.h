@@ -5,7 +5,7 @@
  * @date    14/02/2017
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 #ifndef POWER_H_
@@ -44,6 +44,15 @@ void power_enableCoreWakeupByMeasurementFinished(void);
 void power_disableCoreWakeupByMeasurementFinished(void);
 void power_enableUsWakeupByRTC(void);
 void power_disableUsWakeupByRTC(void);
+/** Selects LPM3 (deeper sleep, UART1 clock gated) for the main loop and
+ * ultrasonic capture. Use in opmodes where UART1 is expected to be disabled
+ * (STANDBY, NORMAL, VERIFICATION). */
+void power_enableLpm3(void);
+/** Selects LPM0 (UART1 clock stays alive) for the main loop and ultrasonic
+ * capture. Use in opmodes where UART1 communication must stay reliable
+ * (PRE_CALIBRATION, CALIBRATION, POST_CALIBRATION). */
+void power_disableLpm3(void);
+bool power_isLpm3Enabled(void);
 void power_enterSleep(void);
 void power_wakeUp();
 

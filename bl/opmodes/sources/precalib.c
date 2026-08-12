@@ -5,7 +5,7 @@
  * @date    03/04/2017
  * @details
  * @section license
- *          FAE Sistemas de Medição. All rights reserved.
+ *          FAE Sistemas de Mediï¿½ï¿½o. All rights reserved.
  ******************************************************************************/
 
 /*******************************************************************************
@@ -106,6 +106,7 @@ void precalib_init(void)
     power_enableCoreWakeupBySerial();
     power_enableCoreWakeupByMeasurementFinished();
     power_enableUsWakeupByRTC();
+    power_disableLpm3();
 }
 
 /**

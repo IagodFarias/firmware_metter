@@ -269,6 +269,7 @@ void verif_init(void)
 
     power_enableCoreWakeupByMeasurementFinished();
     power_enableUsWakeupByRTC();
+    power_enableLpm3();
 }
 
 /**

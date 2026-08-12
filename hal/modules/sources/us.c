@@ -17,6 +17,7 @@
 
 #include "general_settings.h"
 #include "us.h"
+#include "power.h"
 #include "USS_userConfig.h"
 #include "USS_intrplCorrLUT.h"
 #include "USS_meterVFRCalibFlow.h"
@@ -474,16 +475,19 @@ void us_startMeasurements(void)
 {
     if(gb_enableMeasure)
     {
+        USS_message_code code;
 
-
-#ifdef __ENABLE_LPM__
-        // Perform a low power measurement, going to LPM3 in between UPS and DNS
-        USS_message_code code = USS_startLowPowerUltrasonicCapture(&gUssSWConfig);
-#else
-        // Perform a regular measurement, staying in LPM0 during capture
-        USS_message_code code = USS_startUltrasonicMeasurement(&gUssSWConfig,
-                USS_capture_power_mode_active);
-#endif
+        if(power_isLpm3Enabled())
+        {
+            // Perform a low power measurement, going to LPM3 in between UPS and DNS
+            code = USS_startLowPowerUltrasonicCapture(&gUssSWConfig);
+        }
+        else
+        {
+            // Perform a regular measurement, staying in LPM0 during capture
+            code = USS_startUltrasonicMeasurement(&gUssSWConfig,
+                    USS_capture_power_mode_active);
+        }
 
 #if !DEBUG_PROC_FLOWRATE
         // Invalid capture must report error
