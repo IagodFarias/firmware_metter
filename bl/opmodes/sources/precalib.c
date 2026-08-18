@@ -27,7 +27,7 @@
  * Defines
  ******************************************************************************/
 /** Pre-calibration operating mode update interval in milliseconds. */
-#define PRECALIB_UPDATE_INT_MS                  1000
+#define PRECALIB_UPDATE_INT_MS                  350
 
 /** Number of screens. */
 #define PRECALIB_NUM_OF_SCREENS                 3
