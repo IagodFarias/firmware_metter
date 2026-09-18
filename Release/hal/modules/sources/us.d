@@ -35,6 +35,7 @@ hal/modules/sources/us.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.
 hal/modules/sources/us.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h
 hal/modules/sources/us.obj: C:/Users/victor.maciel/Desktop/ws/fcx_msp/hal/modules/IQMathLib/IQmathLib.h
 hal/modules/sources/us.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h
+hal/modules/sources/us.obj: C:/Users/victor.maciel/Desktop/ws/fcx_msp/hal/modules/headers/power.h
 hal/modules/sources/us.obj: C:/Users/victor.maciel/Desktop/ws/fcx_msp/USS_Config/USS_userConfig.h
 hal/modules/sources/us.obj: C:/Users/victor.maciel/Desktop/ws/fcx_msp/ussSWLib/USS_HAL/USS_Lib_HAL.h
 hal/modules/sources/us.obj: C:/Users/victor.maciel/Desktop/ws/fcx_msp/ussSWLib/source/ussSwLibCalibration.h
@@ -120,6 +121,8 @@ C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h:
 C:/Users/victor.maciel/Desktop/ws/fcx_msp/hal/modules/IQMathLib/IQmathLib.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdlib.h:
+
+C:/Users/victor.maciel/Desktop/ws/fcx_msp/hal/modules/headers/power.h:
 
 C:/Users/victor.maciel/Desktop/ws/fcx_msp/USS_Config/USS_userConfig.h:
 

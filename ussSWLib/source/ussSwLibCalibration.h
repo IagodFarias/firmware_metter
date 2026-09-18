@@ -64,7 +64,7 @@ extern "C" {
 #define RESONATOR_CALIB_MONITORING_ACLK             550
 
 
-#define AGC_LOOP_MAX_ITERATIONS					5
+#define AGC_LOOP_MAX_ITERATIONS					15
 #define AGC_LOOP_SETTLING						3
 #define ADC_MINIMUM_GAIN_SETTING 				USS_Capture_Gain_Range_minus_6_5
 #define AGC_GAIN_TABLE_SIZE						(47*2)

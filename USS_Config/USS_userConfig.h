@@ -446,8 +446,8 @@ extern "C"
  *
  ******************************************************************************/
 #define USS_AGC_CONSTANT                                                      56
-#define USS_ALG_CALIBRATED_UPS_DC_OFFSET                                       -50
-#define USS_ALG_CALIBRATED_DNS_DC_OFFSET                                       -50
+#define USS_ALG_CALIBRATED_UPS_DC_OFFSET                                       0
+#define USS_ALG_CALIBRATED_DNS_DC_OFFSET                                       0
 
 
 /*******************************************************************************
@@ -494,7 +494,7 @@ extern "C"
 #define USS_ALG_SEARCH_LOBE_SAMP                            1
 #define USS_ALG_MAX_RATIO_PEAK_2_PEAK_VAR                   0.2
 #define USS_ALG_CORR_VAL_THRSH_CHK_FACT                     0.05
-#define USS_ALG_SIGN_VAL_THRSH_CHK                          100
+#define USS_ALG_SIGN_VAL_THRSH_CHK                          180
 #elif (USS_ALG_ABS_TOF_COMPUTATION_MODE == USS_ALG_ABS_TOF_COMPUTATION_MODE_HILBERT)
 #define USS_ALG_ABS_TOF_SEARCH_RANGE                        3
 #define USS_ALG_ABS_TOF_POS_SEARCH_RANGE                    USS_ALG_ABS_TOF_SEARCH_RANGE

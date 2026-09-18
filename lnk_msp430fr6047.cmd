@@ -198,7 +198,7 @@ SECTIONS
 		rts430x_lc_ld_eabi.lib<strto*.obj> (.text:*)
 		rts430x_lc_ld_eabi.lib<e_log10f.c.obj> (.text:log10f)
 
-	} > METROLOGY
+	} > FRAM2
 
 
 

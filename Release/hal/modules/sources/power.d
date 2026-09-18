@@ -2,10 +2,11 @@
 
 hal/modules/sources/power.obj: ../hal/modules/sources/power.c
 hal/modules/sources/power.obj: C:/Users/victor.maciel/Desktop/ws/fcx_msp/hal/modules/headers/power.h
-hal/modules/sources/power.obj: C:/Users/victor.maciel/Desktop/ws/fcx_msp/hal/drivers/headers/types.h
-hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdint.h
+hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h
 hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_ti_config.h
 hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/linkage.h
+hal/modules/sources/power.obj: C:/Users/victor.maciel/Desktop/ws/fcx_msp/hal/drivers/headers/types.h
+hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdint.h
 hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_stdint40.h
 hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/stdint.h
 hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/cdefs.h
@@ -13,7 +14,6 @@ hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21
 hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_types.h
 hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_stdint.h
 hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_stdint.h
-hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h
 hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/math.h
 hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_defs.h
 hal/modules/sources/power.obj: C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_limits.h
@@ -54,13 +54,15 @@ hal/modules/sources/power.obj: C:/Users/victor.maciel/Desktop/ws/fcx_msp/hal/dri
 
 C:/Users/victor.maciel/Desktop/ws/fcx_msp/hal/modules/headers/power.h:
 
-C:/Users/victor.maciel/Desktop/ws/fcx_msp/hal/drivers/headers/types.h:
-
-C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdint.h:
+C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_ti_config.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/linkage.h:
+
+C:/Users/victor.maciel/Desktop/ws/fcx_msp/hal/drivers/headers/types.h:
+
+C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdint.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_stdint40.h:
 
@@ -75,8 +77,6 @@ C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_types
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/machine/_stdint.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/sys/_stdint.h:
-
-C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h:
 
 C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/math.h:
 

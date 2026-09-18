@@ -567,6 +567,16 @@ bool us_trimGainPGA(void)
     if(USS_message_code_Signal_Gain_Calibration_successful == e_code)
     {
         trimRatioLobe();
+
+        // Re-measure calibratedDCOffsetUPS/DNS device-side now that the
+        // gain just changed - same pairing (USS_calibrateSignalGain
+        // immediately followed by USS_estimateDCoffset) used elsewhere for
+        // trim (see d4cad4ea). Without this, calibratedDCOffsetUPS/DNS
+        // stay at their compile-time default (USS_ALG_CALIBRATED_UPS/DNS_
+        // DC_OFFSET) instead of tracking the actual gain in use.
+        USS_estimateDCoffset(&gUssSWConfig,
+                USS_dcOffEst_Calc_Mode_trigger_UPS_DNS_capture_controlled_by_ASQ);
+
         b_ret = true;
     }
 
