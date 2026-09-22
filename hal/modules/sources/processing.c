@@ -508,9 +508,9 @@ void proc_update()
                 {
 #if FIXED_POINT_CALC
                     gs_processing.d_forwardVolume += (double_t) _IQ30toF(
-                            gs_iqVariables.iq30Volume);
+                            calcAbs(gs_iqVariables.iq30Volume));
 #else
-                gs_processing.d_forwardVolume += gs_processing.d_volume;
+                gs_processing.d_forwardVolume += calcAbs(gs_processing.d_volume);
 #endif
                     gb_isReverseFlow = false;
                 }
